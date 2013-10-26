@@ -14,6 +14,7 @@
 
 <body>
 
+
 <?php $this->widget('bootstrap.widgets.TbNavbar',array(
     'items'=>array(
         array(
@@ -29,6 +30,66 @@
     ),
 )); ?>
 
+
+<?php $this->widget('bootstrap.widgets.TbNavbar', array(
+    'type'=>'inverse', // null or 'inverse'
+    'brand'=>CHtml::encode(Yii::app()->name),
+    'brandUrl'=>'/',
+    'collapse'=>true, // requires bootstrap-responsive.css
+    'items'=>array(
+        array(
+            'class'=>'bootstrap.widgets.TbMenu',
+            'items'=>array(
+                array('label'=>'Manage Users', 'url'=>array('/user/index')),
+
+                array('label'=>'Dropdown', 'url'=>'#', 'items'=>array(
+                    array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
+                	array('label'=>'Contact', 'url'=>array('/site/contact')),
+                    array('label'=>'Something else here', 'url'=>'#'),
+                    '---',
+                    array('label'=>'NAV HEADER'),
+                    array('label'=>'Separated link', 'url'=>'#'),
+                    array('label'=>'One more separated link', 'url'=>'#'),
+                )),
+            ),
+        ),
+
+    	array(
+            'class'=>'bootstrap.widgets.TbMenu',
+            'htmlOptions'=>array('class'=>'pull-right'),
+            'items'=>array(
+            	array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+                array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
+                	array('label'=>'Options', 'url'=>'#', 'items'=>array(
+                    array('label'=>'Action', 'url'=>'#'),
+                    array('label'=>'Another action', 'url'=>'#'),
+                    array('label'=>'Something else here', 'url'=>'#'),
+                    '---',
+                    array('label'=>'Separated link', 'url'=>'#'))),
+
+             	),
+            ),
+        /*array(
+            'class'=>'bootstrap.widgets.TbMenu',
+            'htmlOptions'=>array('class'=>'pull-right'),
+            'items'=>array(
+                array('label'=>'Link', 'url'=>'#'),
+                array('label'=>'Dropdown', 'url'=>'#', 'items'=>array(
+                    array('label'=>'Action', 'url'=>'#'),
+                    array('label'=>'Another action', 'url'=>'#'),
+                    array('label'=>'Something else here', 'url'=>'#'),
+                    '---',
+                    array('label'=>'Separated link', 'url'=>'#'),
+                )),
+            ),
+        ),*/
+    ),
+)); ?>
+
+
+
+
+
 <div class="container" id="page">
 
 	<?php if(isset($this->breadcrumbs)):?>
@@ -40,12 +101,12 @@
 	<?php echo $content; ?>
 
 	<div class="clear"></div>
-
+<!-- 
 	<div id="footer">
 		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
 		All Rights Reserved.<br/>
 		<?php echo Yii::powered(); ?>
-	</div><!-- footer -->
+	</div> --><!-- footer -->
 
 </div><!-- page -->
 
