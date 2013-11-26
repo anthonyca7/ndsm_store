@@ -17,10 +17,10 @@ return array(
 		// uncomment the following to use a MySQL database
 		
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=storedb',
+			'connectionString' => 'mysql:host=64.62.211.131;dbname=acc7_store2',
 			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => 'root',
+			'username' => 'acc7_admin',
+			'password' => 'admin',
 			'charset' => 'utf8',
 		),
 		

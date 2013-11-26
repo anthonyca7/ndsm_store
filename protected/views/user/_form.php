@@ -13,11 +13,13 @@
 
 	<?php echo $form->textFieldRow($model,'status',array('class'=>'span5')); ?>
 
+	/*
 	<?php echo $form->textFieldRow($model,'create_time',array('class'=>'span5')); ?>
 
 	<?php echo $form->textFieldRow($model,'update_time',array('class'=>'span5')); ?>
 
 	<?php echo $form->textFieldRow($model,'last_login',array('class'=>'span5')); ?>
+	*/
 
 	<div class="form-actions">
 		<?php $this->widget('bootstrap.widgets.TbButton', array(
