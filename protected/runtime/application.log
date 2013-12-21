@@ -1303,3 +1303,297 @@ REQUEST_URI=/ndsm_store/
 in /var/www/ndsm_store/themes/bootstrap/views/layouts/main.php (98)
 in /var/www/ndsm_store/protected/views/layouts/column1.php (8)
 in /var/www/ndsm_store/protected/controllers/SiteController.php (32)
+2013/12/20 23:27:36 [error] [exception.CException] exception 'CException' with message 'Property "Item.textField" is not defined.' in /var/www/yii/framework/base/CComponent.php:130
+Stack trace:
+#0 /var/www/yii/framework/db/ar/CActiveRecord.php(145): CComponent->__get('textField')
+#1 /var/www/yii/framework/web/helpers/CHtml.php(2529): CActiveRecord->__get('textField')
+#2 /var/www/yii/framework/web/helpers/CHtml.php(2252): CHtml::resolveValue(Object(Item), 'textField')
+#3 /var/www/yii/framework/web/helpers/CHtml.php(1434): CHtml::activeInputField('text', Object(Item), 'textField', Array)
+#4 /var/www/yii/framework/web/widgets/CActiveForm.php(725): CHtml::activeTextField(Object(Item), 'textField', Array)
+#5 /var/www/ndsm_store/protected/extensions/bootstrap/widgets/input/TbInputInline.php(58): CActiveForm->textField(Object(Item), 'textField', Array)
+#6 /var/www/ndsm_store/protected/extensions/bootstrap/widgets/input/TbInput.php(230): TbInputInline->textField()
+#7 /var/www/yii/framework/web/CBaseController.php(173): TbInput->run()
+#8 /var/www/ndsm_store/protected/extensions/bootstrap/widgets/TbActiveForm.php(497): CBaseController->widget('bootstrap.widge...', Array)
+#9 /var/www/ndsm_store/protected/extensions/bootstrap/widgets/TbActiveForm.php(186): TbActiveForm->inputRow('text', Object(Item), 'textField', NULL, Array)
+#10 /var/www/ndsm_store/themes/bootstrap/views/layouts/main.php(94): TbActiveForm->textFieldRow(Object(Item), 'textField', Array)
+#11 /var/www/yii/framework/web/CBaseController.php(126): require('/var/www/ndsm_s...')
+#12 /var/www/yii/framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/ndsm_s...', Array, true)
+#13 /var/www/yii/framework/web/widgets/CContentDecorator.php(76): CBaseController->renderFile('/var/www/ndsm_s...', Array, true)
+#14 /var/www/yii/framework/web/widgets/CContentDecorator.php(54): CContentDecorator->decorate('<div id="conten...')
+#15 /var/www/yii/framework/web/widgets/COutputProcessor.php(44): CContentDecorator->processOutput('<div id="conten...')
+#16 /var/www/yii/framework/web/CBaseController.php(206): COutputProcessor->run()
+#17 /var/www/yii/framework/web/CBaseController.php(300): CBaseController->endWidget('CContentDecorat...')
+#18 /var/www/ndsm_store/protected/views/layouts/column1.php(8): CBaseController->endContent()
+#19 /var/www/yii/framework/web/CBaseController.php(126): require('/var/www/ndsm_s...')
+#20 /var/www/yii/framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/ndsm_s...', Array, true)
+#21 /var/www/yii/framework/web/CController.php(784): CBaseController->renderFile('/var/www/ndsm_s...', Array, true)
+#22 /var/www/ndsm_store/protected/controllers/SiteController.php(32): CController->render('index')
+#23 /var/www/yii/framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#24 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#25 /var/www/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#26 /var/www/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#27 /var/www/yii/framework/web/CWebApplication.php(282): CController->run('index')
+#28 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('site/index')
+#29 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#30 /var/www/ndsm_store/index.php(13): CApplication->run()
+#31 {main}
+REQUEST_URI=/ndsm_store/
+---
+2013/12/20 23:30:57 [error] [exception.CException] exception 'CException' with message 'Property "Item.Search" is not defined.' in /var/www/yii/framework/base/CComponent.php:130
+Stack trace:
+#0 /var/www/yii/framework/db/ar/CActiveRecord.php(145): CComponent->__get('Search')
+#1 /var/www/yii/framework/web/helpers/CHtml.php(2529): CActiveRecord->__get('Search')
+#2 /var/www/yii/framework/web/helpers/CHtml.php(2252): CHtml::resolveValue(Object(Item), 'Search')
+#3 /var/www/yii/framework/web/helpers/CHtml.php(1434): CHtml::activeInputField('text', Object(Item), 'Search', Array)
+#4 /var/www/yii/framework/web/widgets/CActiveForm.php(725): CHtml::activeTextField(Object(Item), 'Search', Array)
+#5 /var/www/ndsm_store/protected/extensions/bootstrap/widgets/input/TbInputInline.php(58): CActiveForm->textField(Object(Item), 'Search', Array)
+#6 /var/www/ndsm_store/protected/extensions/bootstrap/widgets/input/TbInput.php(230): TbInputInline->textField()
+#7 /var/www/yii/framework/web/CBaseController.php(173): TbInput->run()
+#8 /var/www/ndsm_store/protected/extensions/bootstrap/widgets/TbActiveForm.php(497): CBaseController->widget('bootstrap.widge...', Array)
+#9 /var/www/ndsm_store/protected/extensions/bootstrap/widgets/TbActiveForm.php(186): TbActiveForm->inputRow('text', Object(Item), 'Search', NULL, Array)
+#10 /var/www/ndsm_store/themes/bootstrap/views/layouts/main.php(94): TbActiveForm->textFieldRow(Object(Item), 'Search', Array)
+#11 /var/www/yii/framework/web/CBaseController.php(126): require('/var/www/ndsm_s...')
+#12 /var/www/yii/framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/ndsm_s...', Array, true)
+#13 /var/www/yii/framework/web/widgets/CContentDecorator.php(76): CBaseController->renderFile('/var/www/ndsm_s...', Array, true)
+#14 /var/www/yii/framework/web/widgets/CContentDecorator.php(54): CContentDecorator->decorate('<div id="conten...')
+#15 /var/www/yii/framework/web/widgets/COutputProcessor.php(44): CContentDecorator->processOutput('<div id="conten...')
+#16 /var/www/yii/framework/web/CBaseController.php(206): COutputProcessor->run()
+#17 /var/www/yii/framework/web/CBaseController.php(300): CBaseController->endWidget('CContentDecorat...')
+#18 /var/www/ndsm_store/protected/views/layouts/column1.php(8): CBaseController->endContent()
+#19 /var/www/yii/framework/web/CBaseController.php(126): require('/var/www/ndsm_s...')
+#20 /var/www/yii/framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/ndsm_s...', Array, true)
+#21 /var/www/yii/framework/web/CController.php(784): CBaseController->renderFile('/var/www/ndsm_s...', Array, true)
+#22 /var/www/ndsm_store/protected/controllers/SiteController.php(32): CController->render('index')
+#23 /var/www/yii/framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#24 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#25 /var/www/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#26 /var/www/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#27 /var/www/yii/framework/web/CWebApplication.php(282): CController->run('index')
+#28 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('site/index')
+#29 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#30 /var/www/ndsm_store/index.php(13): CApplication->run()
+#31 {main}
+REQUEST_URI=/ndsm_store/
+---
+2013/12/21 00:01:53 [error] [php] Use of undefined constant php - assumed 'php' (/var/www/ndsm_store/themes/bootstrap/views/layouts/main.php:97)
+Stack trace:
+#0 /var/www/yii/framework/web/widgets/CContentDecorator.php(76): SiteController->renderFile()
+#1 /var/www/yii/framework/web/widgets/CContentDecorator.php(54): CContentDecorator->decorate()
+#2 /var/www/yii/framework/web/widgets/COutputProcessor.php(44): CContentDecorator->processOutput()
+#3 /var/www/yii/framework/web/CBaseController.php(206): CContentDecorator->run()
+#4 /var/www/yii/framework/web/CBaseController.php(300): SiteController->endWidget()
+#5 /var/www/ndsm_store/protected/views/layouts/column1.php(8): SiteController->endContent()
+#6 /var/www/yii/framework/web/CBaseController.php(126): require()
+#7 /var/www/yii/framework/web/CBaseController.php(95): SiteController->renderInternal()
+#8 /var/www/yii/framework/web/CController.php(784): SiteController->renderFile()
+#9 /var/www/ndsm_store/protected/controllers/SiteController.php(32): SiteController->render()
+#10 /var/www/yii/framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#11 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#12 /var/www/yii/framework/web/CController.php(286): SiteController->runAction()
+#13 /var/www/yii/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#14 /var/www/yii/framework/web/CWebApplication.php(282): SiteController->run()
+#15 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#16 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#17 /var/www/ndsm_store/index.php(13): CWebApplication->run()
+REQUEST_URI=/ndsm_store/
+in /var/www/ndsm_store/themes/bootstrap/views/layouts/main.php (97)
+in /var/www/ndsm_store/protected/views/layouts/column1.php (8)
+in /var/www/ndsm_store/protected/controllers/SiteController.php (32)
+2013/12/21 00:55:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/picture2.jpeg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/picture2...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/picture2.jpeg
+HTTP_REFERER=http://localhost/ndsm_store/
+---
+2013/12/21 00:55:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/picture3.jpeg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/picture3...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/picture3.jpeg
+HTTP_REFERER=http://localhost/ndsm_store/
+---
+2013/12/21 00:55:57 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/picture2.jpeg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/picture2...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/picture2.jpeg
+HTTP_REFERER=http://localhost/ndsm_store/
+---
+2013/12/21 00:55:57 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/picture3.jpeg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/picture3...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/picture3.jpeg
+HTTP_REFERER=http://localhost/ndsm_store/
+---
+2013/12/21 01:02:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/picture2.jpeg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/picture2...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/picture2.jpeg
+HTTP_REFERER=http://localhost/ndsm_store/
+---
+2013/12/21 01:02:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/picture3.jpeg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/picture3...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/picture3.jpeg
+HTTP_REFERER=http://localhost/ndsm_store/
+---
+2013/12/21 01:04:02 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/picture2.jpeg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/picture2...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/picture2.jpeg
+HTTP_REFERER=http://localhost/ndsm_store/
+---
+2013/12/21 01:04:02 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/picture3.jpeg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/picture3...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/picture3.jpeg
+HTTP_REFERER=http://localhost/ndsm_store/
+---
+2013/12/21 01:04:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/picture2.jpeg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/picture2...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/picture2.jpeg
+HTTP_REFERER=http://localhost/ndsm_store/
+---
+2013/12/21 01:04:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/picture3.jpeg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/picture3...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/picture3.jpeg
+HTTP_REFERER=http://localhost/ndsm_store/
+---
+2013/12/21 01:04:48 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/picture2.jpeg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/picture2...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/picture2.jpeg
+HTTP_REFERER=http://localhost/ndsm_store/
+---
+2013/12/21 01:04:48 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/picture3.jpeg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/picture3...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/picture3.jpeg
+HTTP_REFERER=http://localhost/ndsm_store/
+---
+2013/12/21 01:05:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/picture3.jpeg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/picture3...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/picture3.jpeg
+HTTP_REFERER=http://localhost/ndsm_store/
+---
+2013/12/21 01:05:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/picture2.jpeg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/picture2...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/picture2.jpeg
+HTTP_REFERER=http://localhost/ndsm_store/
+---
+2013/12/21 01:07:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/picture2.jpeg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/picture2...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/picture2.jpeg
+HTTP_REFERER=http://localhost/ndsm_store/
+---
+2013/12/21 01:07:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/picture3.jpeg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/picture3...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/picture3.jpeg
+HTTP_REFERER=http://localhost/ndsm_store/
+---
+2013/12/21 01:11:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/picture2.jpeg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/picture2...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/picture2.jpeg
+HTTP_REFERER=http://localhost/ndsm_store/
+---
+2013/12/21 01:11:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/picture3.jpeg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/picture3...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/picture3.jpeg
+HTTP_REFERER=http://localhost/ndsm_store/
+---
+2013/12/21 01:11:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/picture2.jpeg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/picture2...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/picture2.jpeg
+HTTP_REFERER=http://localhost/ndsm_store/
+---
+2013/12/21 01:11:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/picture3.jpeg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/picture3...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/picture3.jpeg
+HTTP_REFERER=http://localhost/ndsm_store/
+---
+2013/12/21 01:12:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/picture2.jpeg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/picture2...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/picture2.jpeg
+HTTP_REFERER=http://localhost/ndsm_store/
+---
+2013/12/21 01:12:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/picture3.jpeg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/picture3...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/picture3.jpeg
+HTTP_REFERER=http://localhost/ndsm_store/
+---

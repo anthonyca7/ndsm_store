@@ -84,9 +84,33 @@
         ),
     )); ?>
 
-    <form class="navbar-search pull-right" action="#" >
-        <input type="text" class="search-query span8" placeholder="Search" id="search-bar">
-    </form>    
+    <?php
+    /*$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+        'id'=>'searchForm',
+        'type'=>'search',
+        'htmlOptions'=>array('class'=>'well pull-right'),
+    )); 
+     
+    echo $form->textFieldRow(Item::model(), 'name', array('class'=>'input-xxlarge', 'placeholder' => 'search', 'prepend'=>'<i class="icon-search"></i>')); 
+    $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Search')); 
+    $this->endWidget(); */
+    ?>  
+
+    <form class="well pull-right form-search" id="searchForm" action="/ndsm_store/" method="post">
+        <div class="input-prepend">
+            <span class="add-on"><i class="icon-search"></i></span>
+            <input class="input-xxlarge" placeholder="Search" name="Item[name]" id="Item_name" maxlength="255" type="text">
+        </div>
+        <button class="btn btn-primary" type="submit" name="yt0">Search</button>
+    </form>
+    <br><br><br><br><br>
+
+
+
+
+
+
+
 
 
 
