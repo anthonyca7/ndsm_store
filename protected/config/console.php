@@ -16,13 +16,22 @@ return array(
 		),*/
 		// uncomment the following to use a MySQL database
 		
-		'db'=>array(
+		/*'db'=>array(
 			'connectionString' => 'mysql:host=64.62.211.131;dbname=acc7_store2',
 			'emulatePrepare' => true,
 			'username' => 'acc7_admin',
 			'password' => 'admin',
 			'charset' => 'utf8',
+		),*/
+
+		'db'=>array(
+			'connectionString' => 'mysql:host=localhost;dbname=storedb',
+			'emulatePrepare' => true,
+			'username' => 'root',
+			'password' => 'root',
+			'charset' => 'utf8',
 		),
+		
 		
 		'log'=>array(
 			'class'=>'CLogRouter',

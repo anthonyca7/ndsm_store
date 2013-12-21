@@ -64,13 +64,8 @@ class UserController extends Controller
 		$model=new User;
 
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$this->performAjaxValidation($model);
 
-
-		/*$bcrypt = new Bcrypt(15);
-
-		$hash = 'password');
-		$isGood = $bcrypt->verify('password', $hash);*/
 		if(isset($_POST['User']))
 		{
 			$model->attributes=$_POST['User'];
@@ -132,7 +127,7 @@ class UserController extends Controller
 	 * Lists all models.
 	 */
 	public function actionIndex()
-	{
+	{	
 		$dataProvider=new CActiveDataProvider('User');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
