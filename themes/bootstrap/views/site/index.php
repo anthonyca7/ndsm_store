@@ -1,7 +1,7 @@
 <?php 
-	$banner_path = Yii::app()->basePath.'/images/lndms.png'; 
-	$banner = Yii::app()->assetManager->publish($banner_path); 
-	echo '<img src=' . $banner . ' >'
+	//$banner_path = Yii::app()->basePath.'/images/lndms.png'; 
+	//$banner = Yii::app()->assetManager->publish($banner_path); 
+	echo '<img src=images/lndms.png >'
 
 ?>
 

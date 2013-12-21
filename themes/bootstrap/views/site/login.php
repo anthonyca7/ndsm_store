@@ -20,7 +20,7 @@ $this->breadcrumbs=array(
     'type'=>'horizontal',
 	'enableClientValidation'=>true,
 	'clientOptions'=>array(
-		'validateOnSubmit'=>true,
+	'validateOnSubmit'=>true,
 	),
 )); ?>
 
