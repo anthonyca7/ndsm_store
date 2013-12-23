@@ -6,17 +6,38 @@
 	<meta name="language" content="en" />
 
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/styles.css" />
-    <link rel="stylesheet" type="text/css" href="css/changes.css">
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 
-	<?php Yii::app()->bootstrap->register(); ?>
+	<?php Yii::app()->bootstrap->register(); 
+
+      $baseUrl = Yii::app()->baseUrl;
+      $cs = Yii::app()->getClientScript();
+      //$cs->registerScriptFile($baseUrl . '/js/jsfile');
+      $cs->registerCssFile($baseUrl.'/css/changes.css');
+    ?>
+    <style type="text/css">
+
+    </style>
 </head>
 
 <body>
 
 <?php 
     $login_link = 'site/login';
+
+    $login_form = (Yii::app()->user->isGuest) ? '<form class="navbar-form pull-right form-inline" id="inlineForm" action="' . $login_link . '"method="post">
+
+
+        <input class="input-medium" name="LoginForm[username]" id="LoginForm_username" maxlength="100" type="text" placeholder="Username" >
+        <input class="input-medium" name="LoginForm[password]" id="LoginForm_password" maxlength="100" type="password" placeholder="Password" >   
+   
+        <button class="btn btn-primary" type="submit" name="yt0">Login</button>     
+
+        </form>' : '';
+
+
+
     $this->widget('bootstrap.widgets.TbNavbar', array(
     'type'=>'inverse', // null or 'inverse'
     'brand'=>CHtml::encode(Yii::app()->name),
@@ -25,10 +46,12 @@
     'items'=>array(
         array(
             'class'=>'bootstrap.widgets.TbMenu',
+            'htmlOptions' => array('class' => 'pull-right'),
             'items'=>array(
-                array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
+                array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 
+                    'visible'=>!Yii::app()->user->isGuest),
                 
-                array('label'=>'Settings', 'url'=>'#', 'items'=>array(
+                array('label'=>'Settings', 'url'=>'#', 'class'=>'pull-right', 'items'=>array(
                     array('label'=>'Manage Users', 'url'=>array('/user/index')),
                     array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
                 	array('label'=>'Contact', 'url'=>array('/site/contact')),
@@ -40,20 +63,7 @@
             ),
         ),
 
-
-
-        '<form class="navbar-form pull-right form-inline" id="inlineForm" action="' . $login_link . '"method="post">
-
-
-        <input class="input-medium" name="LoginForm[username]" id="LoginForm_username" maxlength="100" type="text" placeholder="Username" >
-        <input class="input-medium" name="LoginForm[password]" id="LoginForm_password" maxlength="100" type="password" placeholder="Password" >   
-   
-        <button class="btn btn-primary" type="submit" name="yt0">Login</button>     
-
-        </form>',
-
-
-
+        $login_form,
 
     	
     ),
@@ -96,7 +106,7 @@
     $this->endWidget(); */
     ?>  
 
-    <form class="well pull-right form-search" id="searchForm" action="/ndsm_store/" method="post">
+    <form class="well pull-right form-search" id="searchForm" action="/ndsm_store/" method="post"  >
         <div class="input-prepend">
             <span class="add-on"><i class="icon-search"></i></span>
             <input class="input-xxlarge" placeholder="Search" name="Item[name]" id="Item_name" maxlength="255" type="text">
