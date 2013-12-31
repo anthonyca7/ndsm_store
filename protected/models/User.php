@@ -25,7 +25,6 @@ class User extends CustomActiveRecord
 		return 'user';
 	}
 
-	
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -35,10 +34,9 @@ class User extends CustomActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('email, password, status', 'required'),
-			array('status', 'numerical', 'integerOnly'=>true),
+			array('email, password, first, last', 'required'),
+			array('email', 'unique'),
 			array('email, password', 'length', 'max'=>255),
-			array('create_time, update_time, last_login', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, email, password, status, create_time, update_time, last_login', 'safe', 'on'=>'search'),
@@ -64,6 +62,8 @@ class User extends CustomActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'first' => 'First',
+			'last' => 'Last',
 			'email' => 'Email',
 			'password' => 'Password',
 			'status' => 'Status',
@@ -92,6 +92,8 @@ class User extends CustomActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
+		$criteria->compare('first',$this->first);
+		$criteria->compare('last',$this->last);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('password',$this->password,true);
 		$criteria->compare('status',$this->status);
@@ -102,6 +104,11 @@ class User extends CustomActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	public function validatePassword($password)
+	{
+		return $this->password === crypt($password, '$2a$10$anthony.cabshahdasswor$');
 	}
 
 	 /**	

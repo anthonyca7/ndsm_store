@@ -7,6 +7,8 @@
  -->
 	<?php echo $form->errorSummary($model); ?>
 
+	<?php echo $form->textFieldRow($model,'first',array('class'=>'span4','maxlength'=>255)); ?>
+	<?php echo $form->textFieldRow($model,'last',array('class'=>'span4','maxlength'=>255)); ?>
 	<?php echo $form->textFieldRow($model,'email',array('class'=>'span4','maxlength'=>255)); ?>
 
 	<?php echo $form->passwordFieldRow($model,'password',array('class'=>'span4','maxlength'=>255)); ?>

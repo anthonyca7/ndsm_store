@@ -36,7 +36,7 @@ class UserController extends Controller
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete','index'),
-				'users'=>array('admin'),
+				'users'=>array('anthonyka7@gmail.com', 'anthonyca7@gmail.com'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -69,16 +69,24 @@ class UserController extends Controller
 		if(isset($_POST['User']))
 		{
 			$model->attributes = $_POST['User'];
-			$model->password = crypt($model->password, 0110011);
+			$password = $model->password;
+			$model->password = crypt($model->password, '$2a$10$anthony.cabshahdasswor$');
 			$model->status = 0;
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			if($model->save()){
+				$useri = new UserIdentity($model->email, $password);
+				if ($useri->authenticate()) {
+					Yii::app()->user->login($useri,2592000);
+					$this->redirect(array('site/index'));
+				}
+			}
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
 		));
 	}
+
+
 
 	/**
 	 * Updates a particular model.

@@ -22,6 +22,7 @@
 <body>
 
 <?php 
+    //mail("anthonyka7@gmail.com", "this is a message", "testing this app");
     $current_controller =  Yii::app()->controller->id;
     $current_action =  Yii::app()->controller->action->id;
     $actions_without_search = array("login", "create");

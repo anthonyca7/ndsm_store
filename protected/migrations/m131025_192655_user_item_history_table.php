@@ -2,18 +2,6 @@
 
 class m131025_192655_user_item_history_table extends CDbMigration
 {
-	/*
-	public function up()
-	{
-	}
-
-	public function down()
-	{
-		echo "m131025_192655_user_item_history_table does not support migration down.\n";
-		return false;
-	}
-	*/
-
 	
 	// Use safeUp/safeDown to do migration with transaction
 	public function safeUp()
