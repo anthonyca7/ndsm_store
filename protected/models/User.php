@@ -15,7 +15,7 @@
  * The followings are the available model relations:
  * @property Item[] $items
  */
-class User extends CActiveRecord
+class User extends CustomActiveRecord
 {
 	/**
 	 * @return string the associated database table name
@@ -24,6 +24,8 @@ class User extends CActiveRecord
 	{
 		return 'user';
 	}
+
+	
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -102,8 +104,8 @@ class User extends CActiveRecord
 		));
 	}
 
-	
-		 * Returns the static model of the specified AR class.
+	 /**	
+	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
 	 * @return User the static model class

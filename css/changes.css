@@ -1,17 +1,15 @@
 .cor-text{
-	font-size: 10px;
 	display: inline;
-
 }
 
 .cor-text h1{
-	font-size: 50px;
+	font-size: 20px;
 	color: #0033bb;
 	line-height: 10%;
 }
 
 .cor-text h3{
-	font-size: 40px;
+	font-size: 15px;
 	line-height: 150%
 }
 .pt{

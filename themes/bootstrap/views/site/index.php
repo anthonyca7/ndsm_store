@@ -6,11 +6,11 @@
     $this->widget('bootstrap.widgets.TbCarousel', array(
 	'slide'=>true,
     'items'=>array(
-        array('image'=>'images/lndms.png', 'imageOptions'=>array('width'=>'600', 'height'=>'400' ) ),
-        array('image'=>'images/picture1.jpeg',  'imageOptions'=>array('width'=>'600', 'height'=>'200' )  ),
-        array('image'=>'images/picture2.jpg',  'imageOptions'=>array('width'=>'600', 'height'=>'200' )  ),
+        array('image'=>'images/lndms.png' ),
+        array('image'=>'images/picture1.jpeg'  ),
+        array('image'=>'images/picture2.jpg' ),
     ),
-    'htmlOptions' => array('style'=>"width: 500px; height: 200px; display:inline", 'class'=>'span8'),
+    'htmlOptions' => array('style'=>"width: 450px; height: 300px; display:inline", 'class'=>'span8'),
 )); ?>
 
 <?php

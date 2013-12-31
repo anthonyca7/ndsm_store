@@ -27,15 +27,15 @@ class UserController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('view','create'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('update'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete','index'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -68,8 +68,9 @@ class UserController extends Controller
 
 		if(isset($_POST['User']))
 		{
-			$model->attributes=$_POST['User'];
-			$model->password = md5($model->password);
+			$model->attributes = $_POST['User'];
+			$model->password = crypt($model->password, 0110011);
+			$model->status = 0;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}

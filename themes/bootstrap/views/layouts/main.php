@@ -16,17 +16,17 @@
       //$cs->registerScriptFile($baseUrl . '/js/jsfile');
       $cs->registerCssFile($baseUrl.'/css/changes.css');
     ?>
-    <style type="text/css">
 
-    </style>
 </head>
 
 <body>
 
 <?php 
-    $login_link = 'site/login';
-
-    $login_form = (Yii::app()->user->isGuest) ? '<form class="navbar-form pull-right form-inline" id="inlineForm" action="' . $login_link . '"method="post">
+    $current_controller =  Yii::app()->controller->id;
+    $current_action =  Yii::app()->controller->action->id;
+    $actions_without_search = array("login", "create");
+    $login_form = (Yii::app()->user->isGuest and !in_array($current_action, $actions_without_search) ) ?
+     '<form class="navbar-form pull-right form-inline" id="inlineForm" action="site/login" method="post">
 
 
         <input class="input-medium" name="LoginForm[username]" id="LoginForm_username" maxlength="100" type="text" placeholder="Username" >
@@ -36,8 +36,7 @@
 
         </form>' : '';
 
-
-
+    //Yii::app()->urlManager->parseUrl(Yii::app()->request) ;
     $this->widget('bootstrap.widgets.TbNavbar', array(
     'type'=>'inverse', // null or 'inverse'
     'brand'=>CHtml::encode(Yii::app()->name),
@@ -50,8 +49,9 @@
             'items'=>array(
                 array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 
                     'visible'=>!Yii::app()->user->isGuest),
-                
-                array('label'=>'Settings', 'url'=>'#', 'class'=>'pull-right', 'items'=>array(
+                    array('label'=>'Register', 'url'=>array('/user/create'), 
+                        'visible'=>Yii::app()->user->isGuest and !in_array($current_action, $actions_without_search)),
+                    array('label'=>'Settings', 'url'=>'#', 'class'=>'pull-right', 'items'=>array(
                     array('label'=>'Manage Users', 'url'=>array('/user/index')),
                     array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
                 	array('label'=>'Contact', 'url'=>array('/site/contact')),
@@ -64,7 +64,6 @@
         ),
 
         $login_form,
-
     	
     ),
 )); ?>
@@ -104,16 +103,19 @@
     echo $form->textFieldRow(Item::model(), 'name', array('class'=>'input-xxlarge', 'placeholder' => 'search', 'prepend'=>'<i class="icon-search"></i>')); 
     $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Search')); 
     $this->endWidget(); */
-    ?>  
+    
+    if ( !in_array($current_action, $actions_without_search) ) {
+        echo '<form class="well pull-right form-search" id="searchForm" action="/ndsm_store/" method="post"  >
+            <div class="input-prepend">
+                <span class="add-on"><i class="icon-search"></i></span>
+                <input class="input-xxlarge" placeholder="Search" name="Item[name]" id="Item_name" maxlength="255" type="text">
+            </div>
+            <button class="btn btn-primary" type="submit" name="yt0">Search</button>
+        </form>
+        <br><br><br><br><br>';
+    }
 
-    <form class="well pull-right form-search" id="searchForm" action="/ndsm_store/" method="post"  >
-        <div class="input-prepend">
-            <span class="add-on"><i class="icon-search"></i></span>
-            <input class="input-xxlarge" placeholder="Search" name="Item[name]" id="Item_name" maxlength="255" type="text">
-        </div>
-        <button class="btn btn-primary" type="submit" name="yt0">Search</button>
-    </form>
-    <br><br><br><br><br>
+    ?>
 
 
 
