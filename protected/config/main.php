@@ -50,6 +50,8 @@ return array(
 			'showScriptName'=>false,
 			'rules'=>array(
 				''=>'site/index',
+				'register' => 'user/register',
+				'<controller:user>/<id:\d+>/<code:\w+>'=>'<controller>/validate',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
@@ -64,6 +66,14 @@ return array(
 			'password' => 'root',
 			'charset' => 'utf8',
 		),
+
+		/*'db'=>array(
+			'connectionString' => 'mysql:host=localhost;dbname=acc7_store2',
+			'emulatePrepare' => true,
+			'username' => 'acc7_admin',
+			'password' => 'admin',
+			'charset' => 'utf8',
+		),*/
 		
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors

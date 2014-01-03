@@ -22,10 +22,9 @@
 <body>
 
 <?php 
-    //mail("anthonyka7@gmail.com", "this is a message", "testing this app");
     $current_controller =  Yii::app()->controller->id;
     $current_action =  Yii::app()->controller->action->id;
-    $actions_without_search = array("login", "create");
+    $actions_without_search = array("login", "register");
     $login_form = (Yii::app()->user->isGuest and !in_array($current_action, $actions_without_search) ) ?
      '<form class="navbar-form pull-right form-inline" id="inlineForm" action="site/login" method="post">
 
@@ -50,7 +49,7 @@
             'items'=>array(
                 array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 
                     'visible'=>!Yii::app()->user->isGuest),
-                    array('label'=>'Register', 'url'=>array('/user/create'), 
+                    array('label'=>'Register', 'url'=>array('/user/register'), 
                         'visible'=>Yii::app()->user->isGuest and !in_array($current_action, $actions_without_search)),
                     array('label'=>'Settings', 'url'=>'#', 'class'=>'pull-right', 'items'=>array(
                     array('label'=>'Manage Users', 'url'=>array('/user/index')),
@@ -87,10 +86,27 @@
         'fade'=>true, // use transitions?
         'closeText'=>'&times;', // close link text - if set to false, no close link is displayed
         'alerts'=>array( // configurations per alert type
+            // success, info, warning, error or danger
             'success'=>array(
                 'block'=>true,
                 'fade'=>true,
-            ), // success, info, warning, error or danger
+            ), 
+            'warning'=>array(
+                'block'=>true,
+                'fade'=>true,
+            ), 
+            'info'=>array(
+                'block'=>true,
+                'fade'=>true,
+            ), 
+            'error'=>array(
+                'block'=>true,
+                'fade'=>true,
+            ), 
+            'danger'=>array(
+                'block'=>true,
+                'fade'=>true,
+            ), 
         ),
     )); ?>
 

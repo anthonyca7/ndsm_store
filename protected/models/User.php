@@ -20,6 +20,8 @@ class User extends CustomActiveRecord
 	/**
 	 * @return string the associated database table name
 	 */
+	public $password_repeat;
+
 	public function tableName()
 	{
 		return 'user';
@@ -34,9 +36,11 @@ class User extends CustomActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('email, password, first, last', 'required'),
+			array('email, password, first, last, password_repeat', 'required'),
 			array('email', 'unique'),
 			array('email, password', 'length', 'max'=>255),
+			array('password', 'compare'),
+			array('password_repeat', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, email, password, status, create_time, update_time, last_login', 'safe', 'on'=>'search'),
@@ -64,6 +68,7 @@ class User extends CustomActiveRecord
 			'id' => 'ID',
 			'first' => 'First',
 			'last' => 'Last',
+			'password_repeat' => 'Confirm Password',
 			'email' => 'Email',
 			'password' => 'Password',
 			'status' => 'Status',

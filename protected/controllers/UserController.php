@@ -7,6 +7,7 @@ class UserController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
+	const VALIDATED = 1;
 
 	/**
 	 * @return array action filters
@@ -26,17 +27,17 @@ class UserController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('view','create'),
+			array('allow',  
+				'actions'=>array('view','register', 'validate' ),
 				'users'=>array('*'),
 			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+			array('allow', 
 				'actions'=>array('update'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete','index'),
-				'users'=>array('anthonyka7@gmail.com', 'anthonyca7@gmail.com'),
+				'users'=>array('anthonyka7@gmail.com', 'anthonyca7@gmail.com', 'anthonyca7@hotmail.com'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -55,33 +56,80 @@ class UserController extends Controller
 		));
 	}
 
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionCreate()
+	public function actionValidate($id, $code)
 	{
+		Yii::app()->user->logout();
+		$user = User::model()->findByPk($id);
+		if ($user->validation_code === $code) {
+			$user->status = 1;
+			if($user->update(array('status'))){
+				Yii::app()->user->setFlash('success', "<strong>{$user->email}, you have successfully 
+					validated your account</strong>");
+
+			}
+			else{
+				Yii::app()->user->setFlash('error', "An Error occured while we tried to validate your account");
+			}
+		}
+		else{
+			if($user->status !== self::VALIDATED)
+				Yii::app()->user->setFlash('error', "An Error occured while we tried to validate your account");
+			
+		}
+		$this->redirect(array('site/index'));
+	}
+
+	/**
+	 * register a new model.
+	 * If creation is successful, thfe browser will be redirected to the 'view' page.
+	 */
+	public function actionRegister()
+	{
+		if (!Yii::app()->user->isGuest) {
+			$this->redirect(array('site/index'));
+		}
+
 		$model=new User;
 
 		// Uncomment the following line if AJAX validation is needed
-		$this->performAjaxValidation($model);
+		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['User']))
 		{
 			$model->attributes = $_POST['User'];
 			$password = $model->password;
 			$model->password = crypt($model->password, '$2a$10$anthony.cabshahdasswor$');
+			$model->password_repeat = crypt($model->password_repeat, '$2a$10$anthony.cabshahdasswor$');
+
 			$model->status = 0;
+			$model->validation_code = md5('anthony' . $model->password . $model->email);
+
 			if($model->save()){
 				$useri = new UserIdentity($model->email, $password);
 				if ($useri->authenticate()) {
 					Yii::app()->user->login($useri,2592000);
-					$this->redirect(array('site/index'));
+
+					$header  = "MIME-Version: 1.0\r\n";
+ 					$header .= "Content-type: text/html; charset: utf8\r\n";
+
+ 					$link = CHtml::link("Click here to activate this account", 
+					 	array('user/validate', 'id'=>$model->id, 'code'=>$model->validation_code));
+
+					mail($model->email, "Finish your registration", $link, $header);
+					Yii::app()->user->setFlash('warning', 
+						"<strong>{$model->email}, Go to your email to validate this account, 
+						don't forget to check the spam folder</strong>");
 				}
+				$this->redirect(array('site/index'));
 			}
+			else{
+				$model->password = '';
+				$model->password_repeat = '';
+			}
+
 		}
 
-		$this->render('create',array(
+		$this->render('register',array(
 			'model'=>$model,
 		));
 	}

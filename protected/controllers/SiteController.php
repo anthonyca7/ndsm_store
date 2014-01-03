@@ -77,6 +77,8 @@ class SiteController extends Controller
 	 */
 	public function actionLogin()
 	{
+		if (Yii::app()->user->isGuest){
+
 		$model=new LoginForm;
 
 		// if it is ajax validation request
@@ -92,12 +94,23 @@ class SiteController extends Controller
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login()){
-				Yii::app()->user->setFlash('success', "<strong>{$model->username}, you have successfully logged in</strong>");
+
+				$user = User::model()->findByAttributes(array('email' => Yii::app()->user->name));
+				if (isset($user) and $user->status==1) 
+					Yii::app()->user->setFlash('success', "<strong>{$user->email}, you have successfully logged in</strong>");
+				else
+					Yii::app()->user->setFlash('warning', 
+						"<strong>{$user->email}, Go to your email to validate this account, 
+						don't forget to check the spam folder</strong>");
 				$this->redirect(Yii::app()->user->returnUrl);
 			}
 		}
 		// display the login form
 		$this->render('login',array('model'=>$model));
+		}
+		else{
+			$this->redirect(array('site/index'));
+		}
 	}
 
 	/**
