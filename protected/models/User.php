@@ -38,12 +38,14 @@ class User extends CustomActiveRecord
 		return array(
 			array('email, password, first, last, password_repeat', 'required'),
 			array('email', 'unique'),
-			array('email, password', 'length', 'max'=>255),
+			array('email', 'email'),
+			array('email', 'length', 'max'=>255, 'min'=>10),
+			array('password, password_repeat', 'length', 'max'=>255, 'min'=>6),
 			array('password', 'compare'),
 			array('password_repeat', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, email, password, status, create_time, update_time, last_login', 'safe', 'on'=>'search'),
+			array('id, email, status, create_time, update_time, last_login', 'safe', 'on'=>'search'),
 		);
 	}
 

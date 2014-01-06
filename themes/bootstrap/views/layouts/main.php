@@ -4,9 +4,10 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+
 
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/styles.css" />
-
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 
 	<?php Yii::app()->bootstrap->register(); 
@@ -35,6 +36,7 @@
         <button class="btn btn-primary" type="submit" name="yt0">Login</button>     
 
         </form>' : '';
+    $page_errors = !isset(Yii::app()->errorHandler->error);
 
     //Yii::app()->urlManager->parseUrl(Yii::app()->request) ;
     $this->widget('bootstrap.widgets.TbNavbar', array(
@@ -121,13 +123,13 @@
     $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Search')); 
     $this->endWidget(); */
     
-    if ( !in_array($current_action, $actions_without_search) ) {
-        echo '<form class="well pull-right form-search" id="searchForm" action="/ndsm_store/" method="post"  >
+    if ( !in_array($current_action, $actions_without_search) and $page_errors ) {
+        echo '<form class="well pull-right form-search" id="searchForm" action="item" method="get"  >
             <div class="input-prepend">
                 <span class="add-on"><i class="icon-search"></i></span>
-                <input class="input-xxlarge" placeholder="Search" name="Item[name]" id="Item_name" maxlength="255" type="text">
+                <input class="input-xxlarge" placeholder="Search" name="q" id="Item_name" maxlength="255" type="text">
             </div>
-            <button class="btn btn-primary" type="submit" name="yt0">Search</button>
+            <button class="btn btn-primary" type="submit">Search</button>
         </form>
         <br><br><br><br><br>';
     }

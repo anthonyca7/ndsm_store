@@ -60,23 +60,24 @@ class UserController extends Controller
 	{
 		Yii::app()->user->logout();
 		$user = User::model()->findByPk($id);
-		if ($user->validation_code === $code) {
+
+		if ( ($user->validation_code === $code) ) {
 			$user->status = 1;
 			if($user->update(array('status'))){
-				Yii::app()->user->setFlash('success', "<strong>{$user->email}, you have successfully 
-					validated your account</strong>");
+				$useri = new UserIdentity($user->email, $user->password);
+				Yii::app()->user->login($useri,2592000);
+				Yii::app()->user->setFlash('success', "<strong>{$user->email}, you have validated your account</strong>");
 
 			}
 			else{
-				Yii::app()->user->setFlash('error', "An Error occured while we tried to validate your account");
+				throw new CHttpException(403,'There was an error while your account was being validated');
 			}
 		}
 		else{
 			if($user->status !== self::VALIDATED)
-				Yii::app()->user->setFlash('error', "An Error occured while we tried to validate your account");
-			
+				throw new CHttpException(403,'There was an error while your account was being validated');
 		}
-		$this->redirect(array('site/index'));
+		$this->redirect(array('site/login'));
 	}
 
 	/**
@@ -98,27 +99,35 @@ class UserController extends Controller
 		{
 			$model->attributes = $_POST['User'];
 			$password = $model->password;
-			$model->password = crypt($model->password, '$2a$10$anthony.cabshahdasswor$');
-			$model->password_repeat = crypt($model->password_repeat, '$2a$10$anthony.cabshahdasswor$');
 
 			$model->status = 0;
 			$model->validation_code = md5('anthony' . $model->password . $model->email);
 
 			if($model->save()){
-				$useri = new UserIdentity($model->email, $password);
-				if ($useri->authenticate()) {
-					Yii::app()->user->login($useri,2592000);
+				$model->password = crypt($model->password, '$2a$10$anthony.cabshahdasswor$');
+				//$model->password_repeat = crypt($model->password_repeat, '$2a$10$anthony.cabshahdasswor$');
+				if($model->update('password')){
+					
+					$useri = new UserIdentity($model->email, $password);
+					if ($useri->authenticate()) {
+						Yii::app()->user->login($useri,2592000);
 
-					$header  = "MIME-Version: 1.0\r\n";
- 					$header .= "Content-type: text/html; charset: utf8\r\n";
+						$header  = "MIME-Version: 1.0\r\n";
+	 					$header .= "Content-type: text/html; charset: utf8\r\n";
 
- 					$link = CHtml::link("Click here to activate this account", 
-					 	array('user/validate', 'id'=>$model->id, 'code'=>$model->validation_code));
+	 					$link = CHtml::link("Click here to activate this account", 
+						 	array('user/validate', 'id'=>$model->id, 'code'=>$model->validation_code));
 
-					mail($model->email, "Finish your registration", $link, $header);
-					Yii::app()->user->setFlash('warning', 
-						"<strong>{$model->email}, Go to your email to validate this account, 
-						don't forget to check the spam folder</strong>");
+						mail($model->email, "Finish your registration", $link, $header);
+						Yii::app()->user->setFlash('warning', 
+							"<strong>{$model->email}, Go to your email to validate this account, 
+							don't forget to check the spam folder</strong>");
+					}
+				}
+				else{
+					$model->delete();
+					Yii::app()->user->setFlash('error', 'Something went wrong with the registration');
+
 				}
 				$this->redirect(array('site/index'));
 			}

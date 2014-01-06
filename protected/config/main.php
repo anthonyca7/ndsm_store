@@ -51,6 +51,7 @@ return array(
 			'rules'=>array(
 				''=>'site/index',
 				'register' => 'user/register',
+				'reserve/<id:\d+>/<quantity:\d+>' => 'item/reserve',
 				'<controller:user>/<id:\d+>/<code:\w+>'=>'<controller>/validate',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',

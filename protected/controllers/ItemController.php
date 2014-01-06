@@ -18,6 +18,70 @@ class ItemController extends Controller
 		);
 	}
 
+	public function accessRules()
+	{
+		return array(
+			array('allow',  
+				'actions'=>array('view','index' ),
+				'users'=>array('*'),
+			),
+			array('allow', 
+				'actions'=>array('reserve'),
+				'users'=>array('@'),
+			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('create','delete','admin','update'),
+				'users'=>array('anthonyka7@gmail.com', 'anthonyca7@gmail.com', 'anthonyca7@hotmail.com'),
+			),
+			array('deny',  // deny all users
+				'users'=>array('*'),
+			),
+		);
+	}
+
+	public function actionReserve($id, $quantity)
+	{
+
+		echo "This is the action reserve method " . $id . " " . $quantity;
+		$command = Yii::app()->db->createCommand();
+		
+		//$user=User::model()->find('LOWER(email)=?',array(strtolower($this->username)));
+		$command->insert('shopping_history', array(
+			'user_id'=>Yii::app()->user->name,
+			'item_id'=>$id,
+			'date'=>date("Y-m-d H:i:s", time())
+		));
+
+	}
+
+	/*$this->createTable('shopping_history', array(
+			'user_id' => 'int(11) DEFAULT NULL',
+			'item_id' => 'int(11) DEFAULT NULL',
+			'date' => 'DATETIME NULL',
+			'PRIMARY KEY (`user_id`, `item_id`)',
+		), 'ENGINE=InnoDB');
+*/
+
+	/*public function assignUser($userId, $role)
+	{
+	$command = Yii::app()->db->createCommand();
+	$command->insert('tbl_project_user_assignment', array(
+	'role'=>$role,
+	'user_id'=>$userId,
+	'project_id'=>$this->id,
+	));
+	}*/
+
+	
+	/*public function removeUser($userId)
+	{
+	$command = Yii::app()->db->createCommand();
+	$command->delete(
+	'tbl_project_user_assignment',
+	'user_id=:userId AND project_id=:projectId',
+	array(':userId'=>$userId,':projectId'=>$this->id));
+	}*/
+
 
 	/**
 	 * Displays a particular model.
@@ -101,12 +165,39 @@ class ItemController extends Controller
 	/**
 	 * Lists all models.
 	 */
-	public function actionIndex()
+	/*public function actionIndex()
 	{
 		$dataProvider=new CActiveDataProvider('Item');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
+	}*/
+	public function actionIndex()
+	{
+	    $criteria = new CDbCriteria();
+
+	    if(isset($_GET['q']) and $_GET['q']!='')
+	    {
+	      $q = $_GET['q'];
+	      $criteria->compare('name', $q, true, 'OR');
+	      $criteria->compare('description', $q, true, 'OR');
+
+	      $dataProvider=new CActiveDataProvider("Item", array('criteria'=>$criteria));
+	      //Item_name
+	      Yii::app()->clientScript->registerScript('search', "
+			$('#Item_name').val('" . $q . "');
+
+			");
+
+		  $this->render('index',array(
+		    'dataProvider'=>$dataProvider,
+		  ));
+
+
+	    }
+	    else{
+	    	throw new CHttpException(403,'Enter what you are looking for on the search box');
+	    }
 	}
 
 	/**
