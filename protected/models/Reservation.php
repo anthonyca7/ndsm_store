@@ -1,32 +1,30 @@
 <?php
 
 /**
- * This is the model class for table "user".
+ * This is the model class for table "reservation".
  *
- * The followings are the available columns in table 'user':
+ * The followings are the available columns in table 'reservation':
  * @property integer $id
- * @property string $email
- * @property string $password
- * @property integer $status
+ * @property integer $user_id
+ * @property integer $item_id
+ * @property integer $brought
+ * @property integer $quantity
  * @property string $create_time
  * @property string $update_time
- * @property string $last_login
  *
  * The followings are the available model relations:
- * @property Item[] $items
+ * @property Item $item
+ * @property User $user
  */
-class User extends CustomActiveRecord
+class Reservation extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
-	public $password_repeat;
-
 	public function tableName()
 	{
-		return 'user';
+		return 'reservation';
 	}
-
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -36,16 +34,11 @@ class User extends CustomActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('email, password, first, last, password_repeat', 'required'),
-			array('email', 'unique'),
-			array('email', 'email'),
-			array('email', 'length', 'max'=>255, 'min'=>10),
-			array('password, password_repeat', 'length', 'max'=>255, 'min'=>6),
-			array('password', 'compare'),
-			array('password_repeat', 'safe'),
+			array('user_id, item_id, brought, quantity', 'numerical', 'integerOnly'=>true),
+			array('create_time, update_time', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, email, status, create_time, update_time, last_login', 'safe', 'on'=>'search'),
+			array('id, user_id, item_id, brought, quantity, create_time, update_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -57,7 +50,8 @@ class User extends CustomActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'items' => array(self::MANY_MANY, 'Item', 'reservation(user_id, item_id)'),
+			'item' => array(self::BELONGS_TO, 'Item', 'item_id'),
+			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 		);
 	}
 
@@ -68,15 +62,12 @@ class User extends CustomActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'first' => 'First',
-			'last' => 'Last',
-			'password_repeat' => 'Confirm Password',
-			'email' => 'Email',
-			'password' => 'Password',
-			'status' => 'Status',
+			'user_id' => 'User',
+			'item_id' => 'Item',
+			'brought' => 'Brought',
+			'quantity' => 'Quantity',
 			'create_time' => 'Create Time',
 			'update_time' => 'Update Time',
-			'last_login' => 'Last Login',
 		);
 	}
 
@@ -99,30 +90,23 @@ class User extends CustomActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('first',$this->first);
-		$criteria->compare('last',$this->last);
-		$criteria->compare('email',$this->email,true);
-		$criteria->compare('password',$this->password,true);
-		$criteria->compare('status',$this->status);
+		$criteria->compare('user_id',$this->user_id);
+		$criteria->compare('item_id',$this->item_id);
+		$criteria->compare('brought',$this->brought);
+		$criteria->compare('quantity',$this->quantity);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('update_time',$this->update_time,true);
-		$criteria->compare('last_login',$this->last_login,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
 
-	public function validatePassword($password)
-	{
-		return $this->password === crypt($password, '$2a$10$anthony.cabshahdasswor$');
-	}
-
-	 /**	
+	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return User the static model class
+	 * @return Reservation the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

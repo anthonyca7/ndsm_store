@@ -39,48 +39,27 @@ class ItemController extends Controller
 		);
 	}
 
+
+
+
 	public function actionReserve($id, $quantity)
 	{
+		$model=$this->loadModel($id);
 
 		echo "This is the action reserve method " . $id . " " . $quantity;
-		$command = Yii::app()->db->createCommand();
+
+		$this->redirect(array('?q=w'));
 		
-		//$user=User::model()->find('LOWER(email)=?',array(strtolower($this->username)));
-		$command->insert('shopping_history', array(
-			'user_id'=>Yii::app()->user->name,
-			'item_id'=>$id,
-			'date'=>date("Y-m-d H:i:s", time())
-		));
 
 	}
 
-	/*$this->createTable('shopping_history', array(
+	/*$this->createTable('reservation', array(
 			'user_id' => 'int(11) DEFAULT NULL',
 			'item_id' => 'int(11) DEFAULT NULL',
 			'date' => 'DATETIME NULL',
 			'PRIMARY KEY (`user_id`, `item_id`)',
 		), 'ENGINE=InnoDB');
 */
-
-	/*public function assignUser($userId, $role)
-	{
-	$command = Yii::app()->db->createCommand();
-	$command->insert('tbl_project_user_assignment', array(
-	'role'=>$role,
-	'user_id'=>$userId,
-	'project_id'=>$this->id,
-	));
-	}*/
-
-	
-	/*public function removeUser($userId)
-	{
-	$command = Yii::app()->db->createCommand();
-	$command->delete(
-	'tbl_project_user_assignment',
-	'user_id=:userId AND project_id=:projectId',
-	array(':userId'=>$userId,':projectId'=>$this->id));
-	}*/
 
 
 	/**
@@ -102,6 +81,7 @@ class ItemController extends Controller
 	{
 		$model=new Item;
 		$model->quantity = 1;
+		$model->available = 1;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);

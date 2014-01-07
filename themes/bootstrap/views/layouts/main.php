@@ -25,7 +25,7 @@
 <?php 
     $current_controller =  Yii::app()->controller->id;
     $current_action =  Yii::app()->controller->action->id;
-    $actions_without_search = array("login", "register");
+    $actions_without_search = array("login", "register", "create");
     $login_form = (Yii::app()->user->isGuest and !in_array($current_action, $actions_without_search) ) ?
      '<form class="navbar-form pull-right form-inline" id="inlineForm" action="site/login" method="post">
 
@@ -53,7 +53,7 @@
                     'visible'=>!Yii::app()->user->isGuest),
                     array('label'=>'Register', 'url'=>array('/user/register'), 
                         'visible'=>Yii::app()->user->isGuest and !in_array($current_action, $actions_without_search)),
-                    array('label'=>'Settings', 'url'=>'#', 'class'=>'pull-right', 'items'=>array(
+                    /*array('label'=>'Settings', 'url'=>'#', 'class'=>'pull-right', 'items'=>array(
                     array('label'=>'Manage Users', 'url'=>array('/user/index')),
                     array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
                 	array('label'=>'Contact', 'url'=>array('/site/contact')),
@@ -61,7 +61,8 @@
                     array('label'=>'NAV HEADER'),
                     array('label'=>'Separated link', 'url'=>'#'),
                     array('label'=>'One more separated link', 'url'=>'#'),
-                ), 'visible'=>!Yii::app()->user->isGuest),
+                ), 'visible'=>!Yii::app()->user->isGuest),*/
+                //array('label'=>'Profile'),
             ),
         ),
 
@@ -124,7 +125,7 @@
     $this->endWidget(); */
     
     if ( !in_array($current_action, $actions_without_search) and $page_errors ) {
-        echo '<form class="well pull-right form-search" id="searchForm" action="item" method="get"  >
+        echo '<form class="well pull-right form-search" id="searchForm" action="/item" method="get"  >
             <div class="input-prepend">
                 <span class="add-on"><i class="icon-search"></i></span>
                 <input class="input-xxlarge" placeholder="Search" name="q" id="Item_name" maxlength="255" type="text">
@@ -135,17 +136,6 @@
     }
 
     ?>
-
-
-
-
-
-
-
-
-
-
-
 
 
 	<?php echo $content; ?>

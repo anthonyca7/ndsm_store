@@ -13,7 +13,9 @@
 
 	<?php echo $form->textFieldRow($model,'quantity',array('class'=>'span5')); ?>
 
-	<?php echo $form->textAreaRow($model,'description',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
+	<?php echo $form->textFieldRow($model,'available', array('class'=>'span5')); ?>
+
+	<?php echo $form->textAreaRow($model,'description',array('rows'=>4, 'cols'=>50, 'class'=>'span8')); ?>
 
 	<div class="form-actions">
 		<?php $this->widget('bootstrap.widgets.TbButton', array(

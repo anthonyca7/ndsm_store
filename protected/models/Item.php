@@ -31,8 +31,9 @@ class Item extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('name', 'unique'),
 			array('name, description, price, quantity', 'required'),
-			array('quantity', 'numerical', 'integerOnly'=>true, 'min'=>1),
+			array('quantity, available', 'numerical', 'integerOnly'=>true, 'min'=>1),
 			array('name', 'length', 'max'=>255),
 			array('price', 'length', 'max'=>9),
 			array('price', 'numerical', 'min'=>0.01),
@@ -50,7 +51,7 @@ class Item extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'users' => array(self::MANY_MANY, 'User', 'shopping_history(item_id, user_id)'),
+			'users' => array(self::MANY_MANY, 'User', 'reservation(item_id, user_id)'),
 		);
 	}
 
@@ -65,6 +66,7 @@ class Item extends CActiveRecord
 			'price' => 'Price',
 			'quantity' => 'Quantity',
 			'description' => 'Description',
+			'available' => 'Available',
 		);
 	}
 
@@ -83,7 +85,6 @@ class Item extends CActiveRecord
 	public function search()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
@@ -91,6 +92,7 @@ class Item extends CActiveRecord
 		$criteria->compare('price',$this->price,true);
 		$criteria->compare('quantity',$this->quantity);
 		$criteria->compare('description',$this->description,true);
+		$criteria->compare('available',$this->available);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
