@@ -1,6 +1,7 @@
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'item-form',
 	'enableAjaxValidation'=>false,
+	'htmlOptions' => array('enctype' => 'multipart/form-data'),
 )); ?>
 
 	<p class="help-block">Fields with <span class="required">*</span> are required.</p>
@@ -16,6 +17,10 @@
 	<?php echo $form->textFieldRow($model,'available', array('class'=>'span5')); ?>
 
 	<?php echo $form->textAreaRow($model,'description',array('rows'=>4, 'cols'=>50, 'class'=>'span8')); ?>
+
+	<?php echo $form->labelEx($model, 'image');
+	echo $form->fileField($model, 'image');
+	echo $form->error($model, 'image'); ?>
 
 	<div class="form-actions">
 		<?php $this->widget('bootstrap.widgets.TbButton', array(

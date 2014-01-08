@@ -122,6 +122,7 @@ class UserController extends Controller
 						Yii::app()->user->setFlash('warning', 
 							"<strong>{$model->email}, Go to your email to validate this account, 
 							don't forget to check the spam folder</strong>");
+						$this->redirect(array('site/index'));
 					}
 				}
 				else{

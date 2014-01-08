@@ -16,7 +16,7 @@
  * @property Item $item
  * @property User $user
  */
-class Reservation extends CActiveRecord
+class Reservation extends CustomActiveRecord
 {
 	/**
 	 * @return string the associated database table name

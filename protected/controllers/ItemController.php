@@ -44,20 +44,52 @@ class ItemController extends Controller
 
 	public function actionReserve($id, $quantity)
 	{
-		$model=$this->loadModel($id);
+		$user = User::model()->findByPk(Yii::app()->user->id);
+		$item = $this->loadModel($id);
 
-		echo "This is the action reserve method " . $id . " " . $quantity;
+		if( isset($item) and ($item->available > 0) and ($item->available >= $quantity) ){
+			if($user->status == 1){
+				$r_model = new Reservation;
+				$r_model->user_id = $user->id;
+				$r_model->item_id = $id;
+				$r_model->brought = 0;
+				$r_model->quantity = $quantity;
 
-		$this->redirect(array('?q=w'));
-		
+				if ($r_model->save()) {
+					$item->available = $item->available - 1;
+					$item->update(array('available'));
+					Yii::app()->user->setflash('success', "You have reserved {$quantity} {$item->name}");
+				}
+				else{
+					Yii::app()->user->setflash('error', 'There was an error while attempting to make your reservation');
+				}
+
+			}
+			else{
+				Yii::app()->user->setflash('warning', "You need to validate your email to reserve any item");
+			}
+
+
+		}
+		else{
+			Yii::app()->user->setflash('error', "There are currently no {$item->name} available");
+			
+		}
+
+		$this->redirect(array('site/index'));
+		//echo "This is the action reserve method " . $id . " " . $quantity;		
 
 	}
 
-	/*$this->createTable('reservation', array(
+	/*
+	$this->createTable('reservation', array(
+			'id' => 'pk',
 			'user_id' => 'int(11) DEFAULT NULL',
 			'item_id' => 'int(11) DEFAULT NULL',
 			'date' => 'DATETIME NULL',
-			'PRIMARY KEY (`user_id`, `item_id`)',
+			'brought' => 'tinyint',
+			'quantity' => 'int',
+
 		), 'ENGINE=InnoDB');
 */
 
@@ -89,8 +121,12 @@ class ItemController extends Controller
 		if(isset($_POST['Item']))
 		{
 			$model->attributes=$_POST['Item'];
-			if($model->save())
+			$model->image=CUploadedFile::getInstance($model,'image');
+			$filename = "/{$model->image->name}";
+			if($model->save()){
+				$model->image->saveAs(Yii::app()->basePath.'/../images/'.$model->id.$filename);
 				$this->redirect(array('view','id'=>$model->id));
+			}
 		}
 
 		$this->render('create',array(

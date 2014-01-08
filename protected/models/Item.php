@@ -15,6 +15,9 @@
  */
 class Item extends CActiveRecord
 {
+	public $image;
+
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -32,11 +35,16 @@ class Item extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'unique'),
-			array('name, description, price, quantity', 'required'),
-			array('quantity, available', 'numerical', 'integerOnly'=>true, 'min'=>1),
+			array('name, description, price, quantity, available', 'required'),
+			array('quantity', 'numerical', 'integerOnly'=>true, 'min'=>1),
+			array('available', 'numerical', 'integerOnly'=>true, 'min'=>0),
 			array('name', 'length', 'max'=>255),
 			array('price', 'length', 'max'=>9),
+			array('available', 'compare', 'compareAttribute'=>'quantity', 'operator'=>'<=', 
+				'message'=>'The number of items available cannot be less than the quantity'),
 			array('price', 'numerical', 'min'=>0.01),
+			array('image', 'file', 'types'=>'jpg, gif, png'),
+			array('image', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, name, price, quantity, description', 'safe', 'on'=>'search'),
