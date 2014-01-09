@@ -27,7 +27,7 @@
     $current_action =  Yii::app()->controller->action->id;
     $actions_without_search = array("login", "register", "create");
     $login_form = (Yii::app()->user->isGuest and !in_array($current_action, $actions_without_search) ) ?
-     '<form class="navbar-form pull-right form-inline" id="inlineForm" action="site/login" method="post">
+     '<form class="navbar-form pull-right form-inline" id="inlineForm" action="' . Yii::app()->createAbsoluteUrl('site/login') . '" method="post">
 
 
         <input class="input-medium" name="LoginForm[username]" id="LoginForm_username" maxlength="100" type="text" placeholder="Username" >
@@ -42,7 +42,7 @@
     $this->widget('bootstrap.widgets.TbNavbar', array(
     'type'=>'inverse', // null or 'inverse'
     'brand'=>CHtml::encode(Yii::app()->name),
-    'brandUrl'=>'/',
+    'brandUrl'=>Yii::app()->createAbsoluteUrl('site/index'),
     'collapse'=>true, // requires bootstrap-responsive.css
     'items'=>array(
         array(
@@ -125,7 +125,7 @@
     $this->endWidget(); */
     
     if ( !in_array($current_action, $actions_without_search) and $page_errors ) {
-        echo '<form class="well pull-right form-search" id="searchForm" action="/item" method="get"  >
+        echo '<form class="well pull-right form-search" id="searchForm" action="' . Yii::app()->createAbsoluteUrl('item/index') . '" method="get"  >
             <div class="input-prepend">
                 <span class="add-on"><i class="icon-search"></i></span>
                 <input class="input-xxlarge" placeholder="Search" name="q" id="Item_name" maxlength="255" type="text">

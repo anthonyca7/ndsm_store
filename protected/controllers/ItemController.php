@@ -42,7 +42,7 @@ class ItemController extends Controller
 
 
 
-	public function actionReserve($id, $quantity)
+	public function reserve($id, $quantity)
 	{
 		$user = User::model()->findByPk(Yii::app()->user->id);
 		$item = $this->loadModel($id);
@@ -67,6 +67,7 @@ class ItemController extends Controller
 			}
 			else{
 				Yii::app()->user->setflash('warning', "You need to validate your email to reserve any item");
+				$this->redirect(array();
 			}
 
 
@@ -77,8 +78,12 @@ class ItemController extends Controller
 		}
 
 		$this->redirect(array('site/index'));
-		//echo "This is the action reserve method " . $id . " " . $quantity;		
 
+	}
+
+	public function actionReserve($id, $quantity)
+	{
+		$this->reserve($id, $quantity);
 	}
 
 	/*

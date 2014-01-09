@@ -1,0 +1,101 @@
+2014/01/07 22:38:57 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "favicon.ico".' in /var/www/yii/framework/web/CController.php:483
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(270): CController->missingAction('favicon.ico')
+#1 /var/www/yii/framework/web/CWebApplication.php(282): CController->run('favicon.ico')
+#2 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('item/favicon.ic...')
+#3 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /var/www/ndsm_store/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/ndsm_store/item/favicon.ico
+---
+2014/01/07 22:44:48 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'Enter what you are looking for on the search box' in /var/www/ndsm_store/protected/controllers/ItemController.php:215
+Stack trace:
+#0 /var/www/yii/framework/web/actions/CInlineAction.php(49): ItemController->actionIndex()
+#1 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#2 /var/www/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#3 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#4 /var/www/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#5 /var/www/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#6 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#7 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#8 /var/www/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 /var/www/yii/framework/web/CWebApplication.php(282): CController->run('index')
+#10 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('item/index')
+#11 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /var/www/ndsm_store/index.php(13): CApplication->run()
+#13 {main}
+REQUEST_URI=/ndsm_store/item/index?q=
+HTTP_REFERER=http://localhost/ndsm_store/
+---
+2014/01/07 22:46:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "favicon.ico".' in /var/www/yii/framework/web/CController.php:483
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(270): CController->missingAction('favicon.ico')
+#1 /var/www/yii/framework/web/CWebApplication.php(282): CController->run('favicon.ico')
+#2 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('site/favicon.ic...')
+#3 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /var/www/ndsm_store/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/ndsm_store/site/favicon.ico
+---
+2014/01/09 10:31:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "favicon.ico".' in /var/www/yii/framework/web/CController.php:483
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(270): CController->missingAction('favicon.ico')
+#1 /var/www/yii/framework/web/CWebApplication.php(282): CController->run('favicon.ico')
+#2 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('item/favicon.ic...')
+#3 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /var/www/ndsm_store/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/ndsm_store/item/favicon.ico
+---
+2014/01/09 10:31:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "favicon.ico".' in /var/www/yii/framework/web/CController.php:483
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(270): CController->missingAction('favicon.ico')
+#1 /var/www/yii/framework/web/CWebApplication.php(282): CController->run('favicon.ico')
+#2 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('site/favicon.ic...')
+#3 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /var/www/ndsm_store/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/ndsm_store/site/favicon.ico
+---
+2014/01/09 10:41:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "{$id}".' in /var/www/yii/framework/web/CController.php:483
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(270): CController->missingAction('{$id}')
+#1 /var/www/yii/framework/web/CWebApplication.php(282): CController->run('{$id}')
+#2 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('item/{$id}/{$qu...')
+#3 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /var/www/ndsm_store/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/ndsm_store/item/%7B$id%7D/%7B$quantity%7D
+HTTP_REFERER=http://localhost/ndsm_store/item/2
+---
+2014/01/09 10:41:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "{$id}".' in /var/www/yii/framework/web/CController.php:483
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(270): CController->missingAction('{$id}')
+#1 /var/www/yii/framework/web/CWebApplication.php(282): CController->run('{$id}')
+#2 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('item/{$id}/favi...')
+#3 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /var/www/ndsm_store/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/ndsm_store/item/%7B$id%7D/favicon.ico
+---
+2014/01/09 10:42:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "2".' in /var/www/yii/framework/web/CController.php:483
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(270): CController->missingAction('2')
+#1 /var/www/yii/framework/web/CWebApplication.php(282): CController->run('2')
+#2 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('item/2')
+#3 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /var/www/ndsm_store/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/ndsm_store/item/2/1
+HTTP_REFERER=http://localhost/ndsm_store/item/2
+---
+2014/01/09 10:42:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "2".' in /var/www/yii/framework/web/CController.php:483
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(270): CController->missingAction('2')
+#1 /var/www/yii/framework/web/CWebApplication.php(282): CController->run('2')
+#2 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('item/2/favicon....')
+#3 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /var/www/ndsm_store/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/ndsm_store/item/2/favicon.ico
+---
