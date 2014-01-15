@@ -14,7 +14,7 @@
 
       $baseUrl = Yii::app()->baseUrl;
       $cs = Yii::app()->getClientScript();
-      //$cs->registerScriptFile($baseUrl . '/js/jsfile');
+      //$cs->registerScriptFile($baseUrl . '/js/angular.min.js');
       $cs->registerCssFile($baseUrl.'/css/changes.css');
     ?>
 
@@ -76,13 +76,13 @@
 
 <div class="container" id="page"> 
      <?php if(isset($this->breadcrumbs)):?>
-        <?php $this->widget('bootstrap.widgets.TbBreadcrumbs', array(
+        <?php /*$this->widget('bootstrap.widgets.TbBreadcrumbs', array(
             'links'=>$this->breadcrumbs,
-        )); ?><!-- breadcrumbs -->
+        ));*/ ?><!-- breadcrumbs -->
     <?php endif?> 
 
-
     <?php 
+
 
     $this->widget('bootstrap.widgets.TbAlert', array(
         'block'=>true, // display a larger alert block?
@@ -114,15 +114,7 @@
     )); ?>
 
     <?php
-    /*$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-        'id'=>'searchForm',
-        'type'=>'search',
-        'htmlOptions'=>array('class'=>'well pull-right'),
-    )); 
-     
-    echo $form->textFieldRow(Item::model(), 'name', array('class'=>'input-xxlarge', 'placeholder' => 'search', 'prepend'=>'<i class="icon-search"></i>')); 
-    $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Search')); 
-    $this->endWidget(); */
+
     
     if ( !in_array($current_action, $actions_without_search) and $page_errors ) {
         echo '<form class="well pull-right form-search" id="searchForm" action="' . Yii::app()->createAbsoluteUrl('item/index') . '" method="get"  >
@@ -131,8 +123,7 @@
                 <input class="input-xxlarge" placeholder="Search" name="q" id="Item_name" maxlength="255" type="text">
             </div>
             <button class="btn btn-primary" type="submit">Search</button>
-        </form>
-        <br><br><br><br><br>';
+        </form>';
     }
 
     ?>
@@ -143,7 +134,7 @@
 	<div class="clear"></div>
 
 
-</div><!-- page -->
+</div>
 
 </body>
 </html>

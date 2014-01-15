@@ -1,31 +1,32 @@
 <?php
 
 /**
- * This is the model class for table "reservation".
+ * This is the model class for table "comment".
  *
- * The followings are the available columns in table 'reservation':
+ * The followings are the available columns in table 'comment':
  * @property integer $id
- * @property integer $user_id
+ * @property string $content
+ * @property integer $rating
  * @property integer $item_id
- * @property integer $brought
- * @property integer $quantity
  * @property string $create_time
+ * @property integer $create_user_id
  * @property string $update_time
+ * @property integer $update_user_id
  *
  * The followings are the available model relations:
+ * @property User $updateUser
  * @property Item $item
- * @property User $user
+ * @property User $createUser
  */
-class Reservation extends CustomActiveRecord
+class Comment extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'reservation';
+		return 'comment';
 	}
-
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -35,11 +36,12 @@ class Reservation extends CustomActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, item_id, brought, quantity', 'numerical', 'integerOnly'=>true),
+			array('content, rating, item_id', 'required'),
+			array('rating, item_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
 			array('create_time, update_time', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, item_id, brought, quantity, create_time, update_time', 'safe', 'on'=>'search'),
+			array('id, content, rating, item_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -51,8 +53,9 @@ class Reservation extends CustomActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'updateUser' => array(self::BELONGS_TO, 'User', 'update_user_id'),
 			'item' => array(self::BELONGS_TO, 'Item', 'item_id'),
-			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+			'createUser' => array(self::BELONGS_TO, 'User', 'create_user_id'),
 		);
 	}
 
@@ -63,12 +66,13 @@ class Reservation extends CustomActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'user_id' => 'User',
+			'content' => 'Content',
+			'rating' => 'Rating',
 			'item_id' => 'Item',
-			'brought' => 'Brought',
-			'quantity' => 'Quantity',
 			'create_time' => 'Create Time',
+			'create_user_id' => 'Create User',
 			'update_time' => 'Update Time',
+			'update_user_id' => 'Update User',
 		);
 	}
 
@@ -91,12 +95,13 @@ class Reservation extends CustomActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('user_id',$this->user_id);
+		$criteria->compare('content',$this->content,true);
+		$criteria->compare('rating',$this->rating);
 		$criteria->compare('item_id',$this->item_id);
-		$criteria->compare('brought',$this->brought);
-		$criteria->compare('quantity',$this->quantity);
 		$criteria->compare('create_time',$this->create_time,true);
+		$criteria->compare('create_user_id',$this->create_user_id);
 		$criteria->compare('update_time',$this->update_time,true);
+		$criteria->compare('update_user_id',$this->update_user_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -107,7 +112,7 @@ class Reservation extends CustomActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Reservation the static model class
+	 * @return Comment the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

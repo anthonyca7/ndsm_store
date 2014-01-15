@@ -15,3 +15,13 @@
 .pt{
 	margin-bottom: 5%;
 }
+
+body{
+	padding-top: 0em;
+
+}
+
+input{
+	display: inline;
+	width: 170px;
+}

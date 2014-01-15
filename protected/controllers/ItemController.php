@@ -42,10 +42,17 @@ class ItemController extends Controller
 
 
 
-	public function reserve($id, $quantity)
+	private function reserve($id)
 	{
 		$user = User::model()->findByPk(Yii::app()->user->id);
 		$item = $this->loadModel($id);
+
+		if (isset($_GET['quantity'])) {
+			$quantity = $_GET['quantity'];
+		}
+		else{
+			throw new CHttpException(400, "pass a valid quantity");
+		}
 
 		if( isset($item) and ($item->available > 0) and ($item->available >= $quantity) ){
 			if($user->status == 1){
@@ -53,12 +60,14 @@ class ItemController extends Controller
 				$r_model->user_id = $user->id;
 				$r_model->item_id = $id;
 				$r_model->brought = 0;
-				$r_model->quantity = $quantity;
+				$r_model->quantity = $_GET['quantity'];
+
+
 
 				if ($r_model->save()) {
-					$item->available = $item->available - 1;
+					$item->available = $item->available - $quantity;
 					$item->update(array('available'));
-					Yii::app()->user->setflash('success', "You have reserved {$quantity} {$item->name}");
+					Yii::app()->user->setflash('success', "You have reserved {$quantity} items");
 				}
 				else{
 					Yii::app()->user->setflash('error', 'There was an error while attempting to make your reservation');
@@ -67,36 +76,50 @@ class ItemController extends Controller
 			}
 			else{
 				Yii::app()->user->setflash('warning', "You need to validate your email to reserve any item");
-				$this->redirect(array();
+				$this->redirect($this->createUrl('item/view', array('id'=>$id)));
 			}
 
 
 		}
 		else{
-			Yii::app()->user->setflash('error', "There are currently no {$item->name} available");
+			Yii::app()->user->setflash('error', "Sorry, we don't have {$quantity} {$item->name}s available");
 			
+
 		}
 
 		$this->redirect(array('site/index'));
 
 	}
 
+	
+
 	public function actionReserve($id, $quantity)
 	{
-		$this->reserve($id, $quantity);
+		if (!$this->check_for_existing_reservation($id, Yii::app()->user->id)) {
+			$this->reserve($id, $quantity);
+		}
+		else{
+			Yii::app()->user->setflash('info', 'You have already reserved this item');
+			$this->redirect(array('item/view', 'id'=>$id));
+		}
 	}
 
-	/*
-	$this->createTable('reservation', array(
-			'id' => 'pk',
-			'user_id' => 'int(11) DEFAULT NULL',
-			'item_id' => 'int(11) DEFAULT NULL',
-			'date' => 'DATETIME NULL',
-			'brought' => 'tinyint',
-			'quantity' => 'int',
+	public function capitalize_and_pluralize($str, $amount)
+	{
+		$str = capitalize($str);
+		if ($amount < 2) {
+			return $amount;
+		}
+		else{
+			return $amount . 's';
+		}
+	}
+	public function capitalize($str)
+	{
+		$str[0] = strtoupper($str[0]);
+		return $str;
+	}
 
-		), 'ENGINE=InnoDB');
-*/
 
 
 	/**
@@ -248,6 +271,25 @@ class ItemController extends Controller
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
 	}
+
+	public function check_for_existing_reservation($item_id, $user_id)
+	{
+
+		/*Reservation::model()->exists('user_id = :userid AND item_id = :itemid AND brought = :b',
+			array(':userid' => $user_id,
+				  ':itemid' => $item_id,
+				  ':b' => '0')
+			);*/
+
+		$sql = "SELECT * FROM reservation WHERE user_id=:user_id AND item_id=:item_id AND brought=:brought";
+		$command = Yii::app()->db->createCommand($sql);
+		$command->bindValue(":item_id", $item_id, PDO::PARAM_INT);
+		$command->bindValue(":user_id", Yii::app()->user->getId(), PDO::PARAM_INT);
+		$command->bindValue(":brought", 0, PDO::PARAM_INT);
+		return $command->execute()>=1;
+
+	}
+
 
 	/**
 	 * Performs the AJAX validation.

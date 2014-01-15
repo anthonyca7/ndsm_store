@@ -28,7 +28,7 @@ class UserController extends Controller
 	{
 		return array(
 			array('allow',  
-				'actions'=>array('view','register', 'validate' ),
+				'actions'=>array('view', 'register', 'validate', 'profile' ),
 				'users'=>array('*'),
 			),
 			array('allow', 
@@ -45,15 +45,29 @@ class UserController extends Controller
 		);
 	}
 
+	/*private function showProfile($id)
+	{
+		$this->render('profile',array(
+			'model'=>$this->loadModel($id),
+		));
+	}*/
+
 	/**
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
-	public function actionView($id)
+	public function actionProfile($id)
 	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
+		if (Yii::app()->user->id===$id) {
+			$this->render('profile',array(
+				'model'=>$this->loadModel($id),
+			));
+		}
+		else{
+			$this->render('view',array(
+				'model'=>$this->loadModel($id),
+			));
+		}
 	}
 
 	public function actionValidate($id, $code)
@@ -161,8 +175,9 @@ class UserController extends Controller
 		if(isset($_POST['User']))
 		{
 			$model->attributes=$_POST['User'];
-			if($model->save())
+			if($model->save()){
 				$this->redirect(array('view','id'=>$model->id));
+			}
 		}
 
 		$this->render('update',array(
