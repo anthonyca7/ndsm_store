@@ -18,10 +18,27 @@
 
 body{
 	padding-top: 0em;
-
 }
 
-input{
-	display: inline;
-	width: 170px;
+.modal {
+    width: 80%; 
+    height: 100%;
+    margin-left:-40%; 
+    margin-top: -5%;
+}
+
+.close{
+	color: #000000;
+}
+
+.modal input{
+	margin-bottom: 2%;
+}
+
+.modal-body{
+	padding-top: 2%;
+	max-height: none;
+	max-width: none;
+	padding-left: 10%;
+	padding-right: 10%;
 }

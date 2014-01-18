@@ -54,6 +54,7 @@ return array(
 				'profile/<id:\d+>' => 'user/profile',
 				'reserve/<id:\d+>' => 'item/reserve',
 				'<controller:user>/<id:\d+>/<code:\w+>'=>'<controller>/validate',
+				'updatereservation/<id:\d+>' => 'item/updatereservation',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',

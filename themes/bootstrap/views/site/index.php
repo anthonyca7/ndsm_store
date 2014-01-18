@@ -1,41 +1,102 @@
-<?php 
-	//$banner_path = Yii::app()->basePath.'/images/lndms.png';
-	//$banner = Yii::app()->assetManager->publish($banner_path); 
-	//echo '<img src=images/lndms.png height=50px>'
-	
-    $this->widget('bootstrap.widgets.TbCarousel', array(
-	'slide'=>true,
-    'items'=>array(
-        array('image'=>'images/lndms.png' ),
-        array('image'=>'images/picture1.jpeg'  ),
-        array('image'=>'images/picture2.jpg' ),
-    ),
-    'htmlOptions' => array('style'=>"width: 450px; height: 300px; display:inline", 'class'=>'span8'),
-)); ?>
 
-<?php
-/*
-    The most frequently brought items has to be shown
-    Recommended items for the user
+<div class="container">
+    <div class="row block">
+        <div class="span4">
+            <h2>Find some really cool products</h2>
+            <p class="lead">The store contains some really nice products. This is how it works, you search and reserve the item that you want and then come on the next day and pick it up</p>
+        
+            <a href="#register" role="button" data-toggle="modal" class="btn btn-info btn-large">Register</a>
+            <a href="#" class="btn btn-success btn-large">See all items</a>
+       </div>
+        
+        <div class="span8">
+            <img src="images/tablet.jpg" height=50px alt="">
 
-
-*/
-
-
-?>
-<div class="cor-text span6">
-
-<div class="pt">
-<h1>Find all school supplies you need</h1>
-<h3>This page contains all the item supplies that the school has available</h3>
+        </div>
+    </div>
 </div>
+            <!-- Button to trigger modal -->
+            <!-- <a href="#myModal" role="button" class="btn" data-toggle="modal">Launch demo modal</a> -->
+             
+            <!-- Modal -->
+            <div id="register" class="modal hide fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-header" style="background-color: #2f96b4;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 id="myModalLabel">Register</h3>
+                </div>
+                <div class="modal-body">
+                
+                <?php 
+                
+                $model=new User;
+                ?>
 
-<div class="pt">
-<h1>It is easy to get started</h1>
-<h3>Just search for the item that you need, reserve it and then just pick up before two weeks.</h3>
+
+
+                <form class="form-horizontal well" id="user-form" action="<?php echo $this->createUrl('user/register'); ?>" method="post">
+
+                <div class="control-group">
+                    <label class="control-label">First Name</label>
+                    <div class="controls">
+                        <div class="input-prepend">
+                            <span class="add-on"><i class="icon-user"></i></span>
+                            <input class="span4 required" maxlength="255" name="User[first]" id="User_first" type="text"><br>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Last Name</label>
+                    <div class="controls">
+                        <div class="input-prepend">
+                            <span class="add-on"><i class="icon-user"></i></span>    
+                            <input class="span4 required" maxlength="255" name="User[last]" id="User_last" type="text">  <br>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Email</label>
+                    <div class="controls">
+                        <div class="input-prepend">
+                            <span class="add-on"><i class="icon-envelope"></i></span>
+                            <input class="span4 required" maxlength="255" name="User[email]" id="User_email" type="text"> <br>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="control-group">
+                    <label class="control-label">Password</label>
+                    <div class="controls">
+                        <div class="input-prepend">
+                            <span class="add-on"><i class="icon-lock"></i></span>
+                            <input class="span4 required" maxlength="255" name="User[password]" id="User_password" value="" type="password"><br>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="control-group">
+                    <label class="control-label">Password</label>
+                    <div class="controls">
+                        <div class="input-prepend">
+                            <span class="add-on"><i class="icon-lock"></i></span>
+                            <input class="span4 required" maxlength="255" name="User[password_repeat]" id="User_password_repeat" value="" type="password"><br>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="modal-footer">
+                            <button class="btn btn-info btn-large pull-left" type="submit" name="yt0">Create Account</button>
+                        </div>
+                    </div>
+                </div>
+
+                </form>
+
+            </div>
+    </div>
 </div>
-
-
-</div>
-
-

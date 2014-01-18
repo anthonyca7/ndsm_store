@@ -16,17 +16,25 @@ $this->menu=array(
 
 <h1><?php echo $this->capitalize($model->name); ?></h1>
 <?php 
-	$link = Yii::app()->createAbsoluteUrl("item/reserve", array('id'=>$model->id));
  	
- 	if(!$this->check_for_existing_reservation($model->id, Yii::app()->user->id)){  ?>
+ 	if($reservation === null){ 
+ 		$link = Yii::app()->createAbsoluteUrl("item/reserve", array('id'=>$model->id)); 
+ 	?>
 	
 	<form method="get" action="<?php echo $link ?>">
 		Quantity: <input type="text" name="quantity" id="quantity" class="span1" />
-				  <input type="submit" value="Reserve">
+				  <input type="submit" value="Reserve" class="btn btn-primary">
 	</form>
 
-<?php }else{ ?>
-	You have already reserved this item
+<?php }else{ 
+			$link = Yii::app()->createAbsoluteUrl("item/updatereservation", array('id'=>$model->id));
+		?>
+		You have <?php echo $reservation->quantity ?> reserved<br>
+		Update quantity: 
+		<form method="get" action="<?php echo $link ?>">
+			<input type="text" name="nq" id="nq" class="span1" />
+			<input type="submit" value="Update Reservation" class="btn btn-primary">
+		</form>
 
 <?php } ?>
 <?php $this->widget('bootstrap.widgets.TbDetailView',array(

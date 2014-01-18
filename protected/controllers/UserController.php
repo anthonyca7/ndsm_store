@@ -45,12 +45,7 @@ class UserController extends Controller
 		);
 	}
 
-	/*private function showProfile($id)
-	{
-		$this->render('profile',array(
-			'model'=>$this->loadModel($id),
-		));
-	}*/
+	
 
 	/**
 	 * Displays a particular model.
@@ -80,7 +75,7 @@ class UserController extends Controller
 			if($user->update(array('status'))){
 				$useri = new UserIdentity($user->email, $user->password);
 				Yii::app()->user->login($useri,2592000);
-				Yii::app()->user->setFlash('success', "<strong>{$user->email}, you have validated your account</strong>");
+				Yii::app()->user->setFlash('info', "<strong>{$user->email}, you have validated your account</strong>");
 
 			}
 			else{
@@ -185,11 +180,7 @@ class UserController extends Controller
 		));
 	}
 
-	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
+	
 	public function actionDelete($id)
 	{
 		if(Yii::app()->request->isPostRequest)

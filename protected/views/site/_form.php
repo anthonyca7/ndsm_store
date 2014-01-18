@@ -3,6 +3,8 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
+<!-- 	<p class="help-block">Fields with <span class="required">*</span> are required.</p>
+ -->
  	<?php $model->password = '' ?>
  	<?php $model->password_repeat = '' ?>
 	<?php echo $form->errorSummary($model); ?>

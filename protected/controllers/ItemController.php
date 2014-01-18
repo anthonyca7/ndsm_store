@@ -26,7 +26,7 @@ class ItemController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', 
-				'actions'=>array('reserve'),
+				'actions'=>array('reserve', 'updatereservation'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -62,12 +62,10 @@ class ItemController extends Controller
 				$r_model->brought = 0;
 				$r_model->quantity = $_GET['quantity'];
 
-
-
 				if ($r_model->save()) {
 					$item->available = $item->available - $quantity;
 					$item->update(array('available'));
-					Yii::app()->user->setflash('success', "You have reserved {$quantity} items");
+					Yii::app()->user->setflash('info', "You have reserved {$quantity} items");
 				}
 				else{
 					Yii::app()->user->setflash('error', 'There was an error while attempting to make your reservation');
@@ -83,11 +81,9 @@ class ItemController extends Controller
 		}
 		else{
 			Yii::app()->user->setflash('error', "Sorry, we don't have {$quantity} {$item->name}s available");
-			
-
 		}
 
-		$this->redirect(array('site/index'));
+		$this->redirect($this->createUrl('item/view', array('id'=>$id)));
 
 	}
 
@@ -101,6 +97,49 @@ class ItemController extends Controller
 		else{
 			Yii::app()->user->setflash('info', 'You have already reserved this item');
 			$this->redirect(array('item/view', 'id'=>$id));
+		}
+	}
+
+	public function actionUpdatereservation($id)
+	{
+		$reservation = Reservation::model()->findByAttributes(array('user_id'=>Yii::app()->user->id,
+																	'item_id'=>$id));
+		if ($reservation === null or !isset($_GET['nq']) or !$this->validposint($_GET['nq'])) {
+			if (intval($_GET['nq']) <= 0) {
+				Yii::app()->user->setflash('error', 'You choose an amount bigger than 0');
+			}
+			else{
+				Yii::app()->user->setflash('error', 'You need to select a valid item');
+			}
+			$this->redirect($this->createUrl('item/view', array('id'=>$id)));
+		}
+		else{
+			$item = $this->loadModel($id);
+			$new_quantity = $_GET['nq'];
+			$old_quantity = $reservation->quantity;
+
+			$diff = $new_quantity - $old_quantity;
+
+			$item = $this->loadModel($id);
+			$updated_quantity = $item->available - $diff;
+
+			if ($updated_quantity < 0) {
+				Yii::app()->user->setflash('warning', 'You tried amount to more than what we have available');
+				$this->redirect($this->createUrl('item/view', array('id'=>$id)));
+			}
+
+			$reservation->quantity = $new_quantity;
+			$item->available -= $diff;
+
+			if ($reservation->update(array('quantity')) and $item->update(array('available'))) {
+				Yii::app()->user->setflash('info', "You have now reserved $new_quantity of this item");
+				$this->redirect(array('item/view', 'id'=>$id));
+			}
+			else{
+				Yii::app()->user->setflash('error', 'Something went wrong, please try again');
+			}
+			$this->redirect($this->createUrl('item/view', array('id'=>$id)));
+
 		}
 	}
 
@@ -120,6 +159,10 @@ class ItemController extends Controller
 		return $str;
 	}
 
+	public function validposint($var) {
+	    return ((string)(int)$var === $var) and ((int) $var > 0);
+	}
+
 
 
 	/**
@@ -128,8 +171,14 @@ class ItemController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$reservation = Reservation::model()->findByAttributes(array(
+			'user_id'=>Yii::app()->user->id,
+			'item_id'=>$id,
+			'brought'=>0,
+			));
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
+			'reservation'=>$reservation,
 		));
 	}
 
