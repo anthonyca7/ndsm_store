@@ -106,7 +106,7 @@ class ItemController extends Controller
 																	'item_id'=>$id));
 		if ($reservation === null or !isset($_GET['nq']) or !$this->validposint($_GET['nq'])) {
 			if (intval($_GET['nq']) <= 0) {
-				Yii::app()->user->setflash('error', 'You choose an amount bigger than 0');
+				Yii::app()->user->setflash('error', 'You need to choose an amount bigger than 0');
 			}
 			else{
 				Yii::app()->user->setflash('error', 'You need to select a valid item');
@@ -171,6 +171,7 @@ class ItemController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$this->layout = 'clearcolumn';
 		$reservation = Reservation::model()->findByAttributes(array(
 			'user_id'=>Yii::app()->user->id,
 			'item_id'=>$id,
@@ -188,6 +189,8 @@ class ItemController extends Controller
 	 */
 	public function actionCreate()
 	{
+		$this->layout = "clearcolumn";
+
 		$model=new Item;
 		$model->quantity = 1;
 		$model->available = 1;
@@ -201,7 +204,12 @@ class ItemController extends Controller
 			$model->image=CUploadedFile::getInstance($model,'image');
 			$filename = "/{$model->image->name}";
 			if($model->save()){
-				$model->image->saveAs(Yii::app()->basePath.'/../images/'.$model->id.$filename);
+
+				if (!file_exists('images/'.$model->id)) {
+    				mkdir('images/'.$model->id, 0777, true);
+				}
+
+				$model->image->saveAs('images/'.$model->id.$filename);
 				$this->redirect(array('view','id'=>$model->id));
 			}
 		}
@@ -267,6 +275,7 @@ class ItemController extends Controller
 	}*/
 	public function actionIndex()
 	{
+		$this->layout = "column1";
 	    $criteria = new CDbCriteria();
 
 	    if(isset($_GET['q']) and $_GET['q']!='')
@@ -281,16 +290,18 @@ class ItemController extends Controller
 			$('#Item_name').val('" . $q . "');
 
 			");
-
-		  $this->render('index',array(
-		    'dataProvider'=>$dataProvider,
-		  ));
-
-
 	    }
 	    else{
-	    	throw new CHttpException(403,'Enter what you are looking for on the search box');
+	       $dataProvider=new CActiveDataProvider('Item');
 	    }
+
+		$this->render('index',array(
+		  'dataProvider'=>$dataProvider,
+		));
+
+
+	    
+	    
 	}
 
 	/**

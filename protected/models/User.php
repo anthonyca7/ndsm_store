@@ -36,11 +36,12 @@ class User extends CustomActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('email, password, first, last, password_repeat', 'required'),
+			array('email, username, password, first, last, password_repeat', 'required'),
 			array('email', 'unique'),
+			array('username', 'unique'),
 			array('email', 'email'),
 			array('email', 'length', 'max'=>255, 'min'=>10),
-			array('password, password_repeat', 'length', 'max'=>255, 'min'=>6),
+			array('password, password_repeat, username', 'length', 'max'=>255, 'min'=>6),
 			array('password', 'compare'),
 			array('password_repeat', 'safe'),
 			// The following rule is used by search().
@@ -68,8 +69,9 @@ class User extends CustomActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'first' => 'First',
-			'last' => 'Last',
+			'username' => 'Username',
+			'first' => 'First Name',
+			'last' => 'Last Name',
 			'password_repeat' => 'Confirm Password',
 			'email' => 'Email',
 			'password' => 'Password',
@@ -102,6 +104,7 @@ class User extends CustomActiveRecord
 		$criteria->compare('first',$this->first);
 		$criteria->compare('last',$this->last);
 		$criteria->compare('email',$this->email,true);
+		$criteria->compare('username',$this->username,true);
 		$criteria->compare('password',$this->password,true);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('create_time',$this->create_time,true);

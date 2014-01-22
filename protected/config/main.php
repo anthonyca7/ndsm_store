@@ -63,7 +63,7 @@ return array(
 
 		
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=storedb',
+			'connectionString' => 'mysql:host=localhost;dbname=s2',
 			'emulatePrepare' => true,
 			'username' => 'root',
 			'password' => 'root',
@@ -110,5 +110,7 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'anthonyca7@newdesignmiddle.org',
+		'maindir'=> 'http://storendms.heliohost.org',
+		//<link rel="stylesheet" type="text/css" href="http://storendms.heliohost.org//css/changes.css">
 	),
 );

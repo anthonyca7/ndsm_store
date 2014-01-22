@@ -95,6 +95,7 @@ class UserController extends Controller
 	 */
 	public function actionRegister()
 	{
+		$this->layout = "clearcolumn";
 		if (!Yii::app()->user->isGuest) {
 			$this->redirect(array('site/index'));
 		}
@@ -114,7 +115,6 @@ class UserController extends Controller
 
 			if($model->save()){
 				$model->password = crypt($model->password, '$2a$10$anthony.cabshahdasswor$');
-				//$model->password_repeat = crypt($model->password_repeat, '$2a$10$anthony.cabshahdasswor$');
 				if($model->update('password')){
 					
 					$useri = new UserIdentity($model->email, $password);
@@ -124,8 +124,19 @@ class UserController extends Controller
 						$header  = "MIME-Version: 1.0\r\n";
 	 					$header .= "Content-type: text/html; charset: utf8\r\n";
 
-	 					$link = CHtml::link("Click here to activate this account", 
-						 	array('user/validate', 'id'=>$model->id, 'code'=>$model->validation_code));
+	 					$link = "<a href='" . $this->createAbsoluteUrl('user/validate', array('id'=>$model->id, 
+	 						'code'=>$model->validation_code))  .  "'> click here to validate! </a> ";
+
+	 					/*	<h1>Finish the registration</h1>
+
+	 						<p class='lead'>
+	 							Welcome to the ndms store, click on the button below to finish the process 
+
+	 						</p>
+	 						<a href='"  .  array('user/validate', 'id'=>$model->id, 'code'=>$model->validation_code)); . "'  role='button' class='btn btn-info btn-large'>Validate</a>   
+
+	 						";*/
+						 
 
 						mail($model->email, "Finish your registration", $link, $header);
 						Yii::app()->user->setFlash('warning', 

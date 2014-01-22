@@ -1,49 +1,52 @@
-<?php
-$this->breadcrumbs=array(
-	'Items'=>array('index'),
-	$model->name,
-);
-
-$this->menu=array(
-	array('label'=>'List Item','url'=>array('index')),
-	array('label'=>'Create Item','url'=>array('create')),
-	array('label'=>'Reserve', 'url'=>array('item/reserve', 'id'=>$model->id, 'quantity'=>1)),
-	array('label'=>'Update Item','url'=>array('update','id'=>$model->id)),
-	array('label'=>'Delete Item','url'=>'#','linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Item','url'=>array('admin')),
-);
+<?php 
+	$image_link = Item::getImage($model->id, $model->image);
 ?>
 
-<h1><?php echo $this->capitalize($model->name); ?></h1>
-<?php 
+
+<div class="row">
+	<div class="span3">
+		<img class="img-polaroid block" src='<?php echo $image_link; ?>' >
+
+		<?php 
  	
  	if($reservation === null){ 
  		$link = Yii::app()->createAbsoluteUrl("item/reserve", array('id'=>$model->id)); 
  	?>
-	
-	<form method="get" action="<?php echo $link ?>">
-		Quantity: <input type="text" name="quantity" id="quantity" class="span1" />
-				  <input type="submit" value="Reserve" class="btn btn-primary">
+
+ 	<form method="get" action="<?php echo $link ?>" id="resform" class="form-horizontal">
+		Quantity: 
+			<input type="text" name="quantity" id="quantity" class="span1 inline" value="1" />
+			<input type="submit" value="Reserve" class="btn btn-primary btn-large">
 	</form>
 
-<?php }else{ 
-			$link = Yii::app()->createAbsoluteUrl("item/updatereservation", array('id'=>$model->id));
-		?>
-		You have <?php echo $reservation->quantity ?> reserved<br>
-		Update quantity: 
-		<form method="get" action="<?php echo $link ?>">
-			<input type="text" name="nq" id="nq" class="span1" />
-			<input type="submit" value="Update Reservation" class="btn btn-primary">
-		</form>
+	</div>
 
-<?php } ?>
-<?php $this->widget('bootstrap.widgets.TbDetailView',array(
-	'data'=>$model,
-	'attributes'=>array(
-		'name',
-		'price',
-		'quantity',
-		'description',
-		'available',
-	),
-)); ?>
+	<?php }else{ $link = Yii::app()->createAbsoluteUrl("item/updatereservation", array('id'=>$model->id)); ?>
+               
+        You have <?php echo $reservation->quantity ?> reserved<br>
+
+        
+        Update quantity:
+        <form method="get" action="<?php echo $link ?>" id="resform" class="form-horizontal">
+            <input type="text" name="nq" id="nq" class="span1 inline" />
+            <input type="submit" value="Update Reservation" class="btn btn-primary">
+        </form>
+    </div>
+	
+
+	<?php } ?>
+
+	<div class="span9">
+		<h2> <?php echo $this->capitalize($model->name); ?> </h2>
+		<hr class="no-vmargin">
+		<?php if($model->available != "0"): ?>
+			<p class="text-info"><?php echo $model->available . ' ' . $model->name; ?> left<br>
+		<?php else: ?>
+			<p class="text-info">There are no more <?php echo $model->name ?> left<br>
+		<?php endif; ?>
+		Price: $<?php echo $model->price; ?></p>
+		<p class="lead"> <?php echo $model->description; ?></p>
+	</div>	
+
+</div>
+

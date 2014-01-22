@@ -6,7 +6,7 @@
             <p class="lead">The store contains some really nice products. This is how it works, you search and reserve the item that you want and then come on the next day and pick it up</p>
         
             <a href="#register" role="button" data-toggle="modal" class="btn btn-info btn-large">Register</a>
-            <a href="#" class="btn btn-success btn-large">See all items</a>
+            <a href='<?php echo $this->createUrl("item/index") ?>' class="btn btn-success btn-large">See all items</a>
        </div>
         
         <div class="span8">
@@ -65,6 +65,16 @@
                     </div>
                 </div>
 
+                <div class="control-group">
+                    <label class="control-label">Username</label>
+                    <div class="controls">
+                        <div class="input-prepend">
+                            <span class="add-on"><i class="icon-user"></i></span>    
+                            <input class="span4 required" maxlength="255" name="User[username]" id="User_email" type="text"> <br>
+                        </div>
+                    </div>
+                </div>
+
 
                 <div class="control-group">
                     <label class="control-label">Password</label>
@@ -78,7 +88,7 @@
 
 
                 <div class="control-group">
-                    <label class="control-label">Password</label>
+                    <label class="control-label">Confirm Password</label>
                     <div class="controls">
                         <div class="input-prepend">
                             <span class="add-on"><i class="icon-lock"></i></span>

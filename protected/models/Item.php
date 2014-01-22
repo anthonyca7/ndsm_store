@@ -13,9 +13,8 @@
  * The followings are the available model relations:
  * @property User[] $users
  */
-class Item extends CActiveRecord
+class Item extends CustomActiveRecord
 {
-	public $image;
 
 
 	/**
@@ -49,6 +48,28 @@ class Item extends CActiveRecord
 			// @todo Please remove those attributes that should not be searched.
 			array('id, name, price, quantity, description', 'safe', 'on'=>'search'),
 		);
+	}
+
+	public static function getImage($id, $name)
+	{
+		$loc = $this->createAbsoluteUrl('site/index') . Yii::app()->request->baseUrl . "/images/" . $id . '/' . $name; 
+		
+
+		if ($name != null) {
+    		return $loc;
+		}
+		return Yii::app()->request->baseUrl . "/images/noimage.jpeg";
+
+		$header_response = get_headers($loc, 1);
+		if ( strpos( $header_response[0], "404" ) !== false )
+		{
+		   return Yii::app()->request->baseUrl . "/images/noimage.jpeg";
+		} 
+		else 
+		{
+		   return $loc;
+		}
+
 	}
 
 	/**
