@@ -183,6 +183,9 @@ class ItemController extends Controller
 		));
 	}
 
+
+
+
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
@@ -192,9 +195,6 @@ class ItemController extends Controller
 		$this->layout = "clearcolumn";
 
 		$model=new Item;
-		$model->quantity = 1;
-		$model->available = 1;
-
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -203,13 +203,13 @@ class ItemController extends Controller
 			$model->attributes=$_POST['Item'];
 			$model->image=CUploadedFile::getInstance($model,'image');
 			$filename = "/{$model->image->name}";
-			if($model->save()){
 
-				if (!file_exists('images/'.$model->id)) {
-    				mkdir('images/'.$model->id, 0777, true);
+			if($model->save()){
+				if (!file_exists(Yii::app()->basePath . "/../images/" .$model->id)) {
+    				mkdir(Yii::app()->basePath . "/../images/". $model->id, 0777, true);
 				}
 
-				$model->image->saveAs('images/'.$model->id.$filename);
+				$model->image->saveAs(Yii::app()->basePath . "/../images/" . $model->id . $filename);
 				$this->redirect(array('view','id'=>$model->id));
 			}
 		}
@@ -234,8 +234,13 @@ class ItemController extends Controller
 		if(isset($_POST['Item']))
 		{
 			$model->attributes=$_POST['Item'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			if($model->save()){
+				if (!file_exists(Yii::app()->theme->baseUrl . "/images/" .$model->id)) {
+    				mkdir(Yii::app()->theme->baseUrl . "/images/". $model->id, 0777, true);
+				}
+				$model->image->saveAs(Yii::app()->theme->baseUrl . "/images/" . $model->id . '/'. $filename);
+				$this->redirect(array('view','id'=>$model->id)); 
+			}
 		}
 
 		$this->render('update',array(
@@ -288,6 +293,13 @@ class ItemController extends Controller
 	      //Item_name
 	      Yii::app()->clientScript->registerScript('search', "
 			$('#Item_name').val('" . $q . "');
+			var content_width = $('.item-view').width();
+			var image_height = content_width * 0.75;
+			var image_width = content_width * 0.95;
+			var well_dim = content_width * 0.07;
+
+			$('.item-view').css({'height':content_width+'px'});
+			$('.item-image').css({'height':image_height+'px', 'width':image_width+'px' });
 
 			");
 	    }

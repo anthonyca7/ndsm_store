@@ -4317,3 +4317,881 @@ Stack trace:
 REQUEST_URI=/ndsm_store/themes/bootstrap/css/changes.css
 HTTP_REFERER=http://localhost/ndsm_store/
 ---
+2014/01/21 21:39:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/1/magnet.jpg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/1/magnet...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/1/magnet.jpg
+HTTP_REFERER=http://localhost/ndsm_store/item/index
+---
+2014/01/21 21:39:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "favicon.ico".' in /var/www/yii/framework/web/CController.php:483
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(270): CController->missingAction('favicon.ico')
+#1 /var/www/yii/framework/web/CWebApplication.php(282): CController->run('favicon.ico')
+#2 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('item/favicon.ic...')
+#3 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /var/www/ndsm_store/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/ndsm_store/item/favicon.ico
+---
+2014/01/21 21:39:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/1/magnet.jpg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/1/magnet...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/1/magnet.jpg
+HTTP_REFERER=http://localhost/ndsm_store/item/index
+---
+2014/01/21 21:39:50 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/1/magnet.jpg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/1/magnet...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/1/magnet.jpg
+HTTP_REFERER=http://localhost/ndsm_store/item/index
+---
+2014/01/21 21:39:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/bootstrap/images/1/magnet.jpg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('themes/bootstra...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/themes/bootstrap/images/1/magnet.jpg
+HTTP_REFERER=http://localhost/ndsm_store/item/1
+---
+2014/01/21 21:41:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/bootstrap/images/1/magnet.jpg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('themes/bootstra...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/themes/bootstrap/images/1/magnet.jpg
+HTTP_REFERER=http://localhost/ndsm_store/item/1
+---
+2014/01/21 21:43:01 [error] [php] get_headers(): This function may only be used against URLs (/var/www/ndsm_store/protected/models/Item.php:63)
+Stack trace:
+#0 /var/www/yii/framework/web/CBaseController.php(126): require()
+#1 /var/www/yii/framework/web/CBaseController.php(95): ItemController->renderInternal()
+#2 /var/www/yii/framework/web/CController.php(869): ItemController->renderFile()
+#3 /var/www/yii/framework/web/CController.php(782): ItemController->renderPartial()
+#4 /var/www/ndsm_store/protected/controllers/ItemController.php(183): ItemController->render()
+#5 unknown(0): ItemController->actionView()
+#6 /var/www/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#7 /var/www/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#8 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#9 /var/www/yii/framework/web/filters/CFilterChain.php(133): ItemController->runAction()
+#10 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#11 /var/www/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#12 /var/www/yii/framework/web/filters/CInlineFilter.php(58): ItemController->filterAccessControl()
+#13 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#14 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#15 /var/www/yii/framework/web/CController.php(265): ItemController->runActionWithFilters()
+#16 /var/www/yii/framework/web/CWebApplication.php(282): ItemController->run()
+#17 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#18 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#19 /var/www/ndsm_store/index.php(13): CWebApplication->run()
+REQUEST_URI=/ndsm_store/item/1
+in /var/www/ndsm_store/protected/models/Item.php (63)
+in /var/www/ndsm_store/protected/views/item/view.php (2)
+in /var/www/ndsm_store/protected/controllers/ItemController.php (183)
+2014/01/21 21:43:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/1/magnet.jpg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/1/magnet...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/1/magnet.jpg
+HTTP_REFERER=http://localhost/ndsm_store/item/index
+---
+2014/01/21 21:44:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "favicon.ico".' in /var/www/yii/framework/web/CController.php:483
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(270): CController->missingAction('favicon.ico')
+#1 /var/www/yii/framework/web/CWebApplication.php(282): CController->run('favicon.ico')
+#2 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('site/favicon.ic...')
+#3 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /var/www/ndsm_store/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/ndsm_store/site/favicon.ico
+---
+2014/01/21 21:49:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/1/magnet.jpg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/1/magnet...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/1/magnet.jpg
+HTTP_REFERER=http://localhost/ndsm_store/item/index
+---
+2014/01/21 22:09:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/bootstrap/images/1/magnet.jpg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('themes/bootstra...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/themes/bootstrap/images/1/magnet.jpg
+HTTP_REFERER=http://localhost/ndsm_store/item/1
+---
+2014/01/21 22:09:45 [error] [php] getimagesize(/ndsm_store/themes/bootstrap/images/1/magnet.jpg): failed to open stream: No such file or directory (/var/www/ndsm_store/protected/models/Item.php:63)
+Stack trace:
+#0 /var/www/yii/framework/web/CBaseController.php(126): require()
+#1 /var/www/yii/framework/web/CBaseController.php(95): ItemController->renderInternal()
+#2 /var/www/yii/framework/web/CController.php(869): ItemController->renderFile()
+#3 /var/www/yii/framework/web/CController.php(782): ItemController->renderPartial()
+#4 /var/www/ndsm_store/protected/controllers/ItemController.php(183): ItemController->render()
+#5 unknown(0): ItemController->actionView()
+#6 /var/www/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#7 /var/www/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#8 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#9 /var/www/yii/framework/web/filters/CFilterChain.php(133): ItemController->runAction()
+#10 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#11 /var/www/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#12 /var/www/yii/framework/web/filters/CInlineFilter.php(58): ItemController->filterAccessControl()
+#13 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#14 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#15 /var/www/yii/framework/web/CController.php(265): ItemController->runActionWithFilters()
+#16 /var/www/yii/framework/web/CWebApplication.php(282): ItemController->run()
+#17 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#18 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#19 /var/www/ndsm_store/index.php(13): CWebApplication->run()
+REQUEST_URI=/ndsm_store/item/1
+in /var/www/ndsm_store/protected/models/Item.php (63)
+in /var/www/ndsm_store/protected/views/item/view.php (2)
+in /var/www/ndsm_store/protected/controllers/ItemController.php (183)
+2014/01/21 22:09:56 [error] [php] getimagesize(/ndsm_store/themes/bootstrap/images/2/magnet.jpg): failed to open stream: No such file or directory (/var/www/ndsm_store/protected/models/Item.php:63)
+Stack trace:
+#0 /var/www/yii/framework/web/CBaseController.php(126): require()
+#1 /var/www/yii/framework/web/CBaseController.php(95): ItemController->renderInternal()
+#2 /var/www/yii/framework/web/CController.php(869): ItemController->renderFile()
+#3 /var/www/yii/framework/web/CController.php(782): ItemController->renderPartial()
+#4 /var/www/ndsm_store/protected/controllers/ItemController.php(183): ItemController->render()
+#5 unknown(0): ItemController->actionView()
+#6 /var/www/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#7 /var/www/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#8 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#9 /var/www/yii/framework/web/filters/CFilterChain.php(133): ItemController->runAction()
+#10 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#11 /var/www/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#12 /var/www/yii/framework/web/filters/CInlineFilter.php(58): ItemController->filterAccessControl()
+#13 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#14 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#15 /var/www/yii/framework/web/CController.php(265): ItemController->runActionWithFilters()
+#16 /var/www/yii/framework/web/CWebApplication.php(282): ItemController->run()
+#17 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#18 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#19 /var/www/ndsm_store/index.php(13): CWebApplication->run()
+REQUEST_URI=/ndsm_store/item/2
+in /var/www/ndsm_store/protected/models/Item.php (63)
+in /var/www/ndsm_store/protected/views/item/view.php (2)
+in /var/www/ndsm_store/protected/controllers/ItemController.php (183)
+2014/01/21 22:14:50 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /var/www/yii/framework/web/CController.php:336
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /var/www/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /var/www/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 /var/www/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /var/www/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /var/www/yii/framework/web/CWebApplication.php(282): CController->run('update')
+#9 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('item/update/fav...')
+#10 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /var/www/ndsm_store/index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/ndsm_store/item/update/favicon.ico
+---
+2014/01/21 22:15:25 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (236)
+in /var/www/ndsm_store/index.php (13)
+2014/01/21 22:15:25 [error] [php] mkdir(): Permission denied (/var/www/ndsm_store/protected/controllers/ItemController.php:239)
+Stack trace:
+#0 /var/www/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#1 /var/www/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#2 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /var/www/yii/framework/web/filters/CFilterChain.php(133): ItemController->runAction()
+#4 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#5 /var/www/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#6 /var/www/yii/framework/web/filters/CInlineFilter.php(58): ItemController->filterAccessControl()
+#7 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#8 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#9 /var/www/yii/framework/web/CController.php(265): ItemController->runActionWithFilters()
+#10 /var/www/yii/framework/web/CWebApplication.php(282): ItemController->run()
+#11 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#12 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#13 /var/www/ndsm_store/index.php(13): CWebApplication->run()
+REQUEST_URI=/ndsm_store/item/update/2
+in /var/www/ndsm_store/protected/controllers/ItemController.php (239)
+in /var/www/ndsm_store/index.php (13)
+2014/01/21 22:17:54 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (236)
+in /var/www/ndsm_store/index.php (13)
+2014/01/21 22:17:54 [error] [php] mkdir(): Permission denied (/var/www/ndsm_store/protected/controllers/ItemController.php:239)
+Stack trace:
+#0 /var/www/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#1 /var/www/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#2 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /var/www/yii/framework/web/filters/CFilterChain.php(133): ItemController->runAction()
+#4 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#5 /var/www/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#6 /var/www/yii/framework/web/filters/CInlineFilter.php(58): ItemController->filterAccessControl()
+#7 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#8 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#9 /var/www/yii/framework/web/CController.php(265): ItemController->runActionWithFilters()
+#10 /var/www/yii/framework/web/CWebApplication.php(282): ItemController->run()
+#11 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#12 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#13 /var/www/ndsm_store/index.php(13): CWebApplication->run()
+REQUEST_URI=/ndsm_store/item/update/2
+in /var/www/ndsm_store/protected/controllers/ItemController.php (239)
+in /var/www/ndsm_store/index.php (13)
+2014/01/21 22:18:45 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (236)
+in /var/www/ndsm_store/index.php (13)
+2014/01/21 22:18:45 [error] [php] mkdir(): Permission denied (/var/www/ndsm_store/protected/controllers/ItemController.php:239)
+Stack trace:
+#0 /var/www/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#1 /var/www/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#2 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /var/www/yii/framework/web/filters/CFilterChain.php(133): ItemController->runAction()
+#4 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#5 /var/www/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#6 /var/www/yii/framework/web/filters/CInlineFilter.php(58): ItemController->filterAccessControl()
+#7 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#8 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#9 /var/www/yii/framework/web/CController.php(265): ItemController->runActionWithFilters()
+#10 /var/www/yii/framework/web/CWebApplication.php(282): ItemController->run()
+#11 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#12 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#13 /var/www/ndsm_store/index.php(13): CWebApplication->run()
+REQUEST_URI=/ndsm_store/item/update/2
+in /var/www/ndsm_store/protected/controllers/ItemController.php (239)
+in /var/www/ndsm_store/index.php (13)
+2014/01/21 22:22:05 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/21 22:22:05 [error] [php] mkdir(): Permission denied (/var/www/ndsm_store/protected/controllers/ItemController.php:209)
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/yii/framework/web/filters/CFilterChain.php(133): ItemController->runAction()
+#2 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /var/www/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /var/www/yii/framework/web/filters/CInlineFilter.php(58): ItemController->filterAccessControl()
+#5 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /var/www/yii/framework/web/CController.php(265): ItemController->runActionWithFilters()
+#8 /var/www/yii/framework/web/CWebApplication.php(282): ItemController->run()
+#9 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /var/www/ndsm_store/index.php(13): CWebApplication->run()
+REQUEST_URI=/ndsm_store/item/create
+in /var/www/ndsm_store/protected/controllers/ItemController.php (209)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 00:31:46 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (235)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 00:31:46 [error] [php] mkdir(): Permission denied (/var/www/ndsm_store/protected/controllers/ItemController.php:238)
+Stack trace:
+#0 /var/www/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#1 /var/www/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#2 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /var/www/yii/framework/web/filters/CFilterChain.php(133): ItemController->runAction()
+#4 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#5 /var/www/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#6 /var/www/yii/framework/web/filters/CInlineFilter.php(58): ItemController->filterAccessControl()
+#7 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#8 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#9 /var/www/yii/framework/web/CController.php(265): ItemController->runActionWithFilters()
+#10 /var/www/yii/framework/web/CWebApplication.php(282): ItemController->run()
+#11 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#12 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#13 /var/www/ndsm_store/index.php(13): CWebApplication->run()
+REQUEST_URI=/ndsm_store/item/update/2
+in /var/www/ndsm_store/protected/controllers/ItemController.php (238)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 00:38:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "favicon.ico".' in /var/www/yii/framework/web/CController.php:483
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(270): CController->missingAction('favicon.ico')
+#1 /var/www/yii/framework/web/CWebApplication.php(282): CController->run('favicon.ico')
+#2 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('item/favicon.ic...')
+#3 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /var/www/ndsm_store/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/ndsm_store/item/favicon.ico
+---
+2014/01/22 00:38:17 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /var/www/yii/framework/web/CController.php:336
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /var/www/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /var/www/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 /var/www/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /var/www/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /var/www/yii/framework/web/CWebApplication.php(282): CController->run('update')
+#9 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('item/update/fav...')
+#10 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /var/www/ndsm_store/index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/ndsm_store/item/update/favicon.ico
+---
+2014/01/22 00:38:37 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (235)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 00:38:37 [error] [php] mkdir(): Permission denied (/var/www/ndsm_store/protected/controllers/ItemController.php:238)
+Stack trace:
+#0 /var/www/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#1 /var/www/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#2 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /var/www/yii/framework/web/filters/CFilterChain.php(133): ItemController->runAction()
+#4 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#5 /var/www/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#6 /var/www/yii/framework/web/filters/CInlineFilter.php(58): ItemController->filterAccessControl()
+#7 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#8 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#9 /var/www/yii/framework/web/CController.php(265): ItemController->runActionWithFilters()
+#10 /var/www/yii/framework/web/CWebApplication.php(282): ItemController->run()
+#11 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#12 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#13 /var/www/ndsm_store/index.php(13): CWebApplication->run()
+REQUEST_URI=/ndsm_store/item/update/1
+in /var/www/ndsm_store/protected/controllers/ItemController.php (238)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 00:39:20 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (235)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 00:45:04 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 00:45:04 [error] [php] move_uploaded_file(/ndsm_store/themes/bootstrap/images/5/magnet.jpg): failed to open stream: No such file or directory (/var/www/yii/framework/web/CUploadedFile.php:198)
+Stack trace:
+#0 /var/www/yii/framework/web/actions/CInlineAction.php(49): ItemController->actionCreate()
+#1 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#2 /var/www/yii/framework/web/filters/CFilterChain.php(133): ItemController->runAction()
+#3 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#4 /var/www/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#5 /var/www/yii/framework/web/filters/CInlineFilter.php(58): ItemController->filterAccessControl()
+#6 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#7 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#8 /var/www/yii/framework/web/CController.php(265): ItemController->runActionWithFilters()
+#9 /var/www/yii/framework/web/CWebApplication.php(282): ItemController->run()
+#10 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /var/www/ndsm_store/index.php(13): CWebApplication->run()
+REQUEST_URI=/ndsm_store/item/create
+in /var/www/ndsm_store/protected/controllers/ItemController.php (211)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 00:45:43 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 00:45:43 [error] [php] mkdir(): Permission denied (/var/www/ndsm_store/protected/controllers/ItemController.php:209)
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/yii/framework/web/filters/CFilterChain.php(133): ItemController->runAction()
+#2 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /var/www/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /var/www/yii/framework/web/filters/CInlineFilter.php(58): ItemController->filterAccessControl()
+#5 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /var/www/yii/framework/web/CController.php(265): ItemController->runActionWithFilters()
+#8 /var/www/yii/framework/web/CWebApplication.php(282): ItemController->run()
+#9 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /var/www/ndsm_store/index.php(13): CWebApplication->run()
+REQUEST_URI=/ndsm_store/item/create
+in /var/www/ndsm_store/protected/controllers/ItemController.php (209)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 00:51:13 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 00:51:13 [error] [php] mkdir(): Permission denied (/var/www/ndsm_store/protected/controllers/ItemController.php:209)
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/yii/framework/web/filters/CFilterChain.php(133): ItemController->runAction()
+#2 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /var/www/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /var/www/yii/framework/web/filters/CInlineFilter.php(58): ItemController->filterAccessControl()
+#5 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /var/www/yii/framework/web/CController.php(265): ItemController->runActionWithFilters()
+#8 /var/www/yii/framework/web/CWebApplication.php(282): ItemController->run()
+#9 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /var/www/ndsm_store/index.php(13): CWebApplication->run()
+REQUEST_URI=/ndsm_store/item/create
+in /var/www/ndsm_store/protected/controllers/ItemController.php (209)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 00:52:47 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 00:52:47 [error] [php] mkdir(): Permission denied (/var/www/ndsm_store/protected/controllers/ItemController.php:209)
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/yii/framework/web/filters/CFilterChain.php(133): ItemController->runAction()
+#2 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /var/www/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /var/www/yii/framework/web/filters/CInlineFilter.php(58): ItemController->filterAccessControl()
+#5 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /var/www/yii/framework/web/CController.php(265): ItemController->runActionWithFilters()
+#8 /var/www/yii/framework/web/CWebApplication.php(282): ItemController->run()
+#9 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /var/www/ndsm_store/index.php(13): CWebApplication->run()
+REQUEST_URI=/ndsm_store/item/create
+in /var/www/ndsm_store/protected/controllers/ItemController.php (209)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 00:55:48 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 00:55:48 [error] [php] mkdir(): Permission denied (/var/www/ndsm_store/protected/controllers/ItemController.php:209)
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/yii/framework/web/filters/CFilterChain.php(133): ItemController->runAction()
+#2 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /var/www/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /var/www/yii/framework/web/filters/CInlineFilter.php(58): ItemController->filterAccessControl()
+#5 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /var/www/yii/framework/web/CController.php(265): ItemController->runActionWithFilters()
+#8 /var/www/yii/framework/web/CWebApplication.php(282): ItemController->run()
+#9 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /var/www/ndsm_store/index.php(13): CWebApplication->run()
+REQUEST_URI=/ndsm_store/item/create
+in /var/www/ndsm_store/protected/controllers/ItemController.php (209)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 00:57:56 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 00:57:56 [error] [php] move_uploaded_file(/ndsm_store/images/magnet.jpg): failed to open stream: No such file or directory (/var/www/yii/framework/web/CUploadedFile.php:198)
+Stack trace:
+#0 /var/www/yii/framework/web/actions/CInlineAction.php(49): ItemController->actionCreate()
+#1 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#2 /var/www/yii/framework/web/filters/CFilterChain.php(133): ItemController->runAction()
+#3 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#4 /var/www/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#5 /var/www/yii/framework/web/filters/CInlineFilter.php(58): ItemController->filterAccessControl()
+#6 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#7 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#8 /var/www/yii/framework/web/CController.php(265): ItemController->runActionWithFilters()
+#9 /var/www/yii/framework/web/CWebApplication.php(282): ItemController->run()
+#10 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /var/www/ndsm_store/index.php(13): CWebApplication->run()
+REQUEST_URI=/ndsm_store/item/create
+in /var/www/ndsm_store/protected/controllers/ItemController.php (211)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 00:59:25 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 00:59:25 [error] [php] mkdir(): Permission denied (/var/www/ndsm_store/protected/controllers/ItemController.php:209)
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/yii/framework/web/filters/CFilterChain.php(133): ItemController->runAction()
+#2 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /var/www/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /var/www/yii/framework/web/filters/CInlineFilter.php(58): ItemController->filterAccessControl()
+#5 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /var/www/yii/framework/web/CController.php(265): ItemController->runActionWithFilters()
+#8 /var/www/yii/framework/web/CWebApplication.php(282): ItemController->run()
+#9 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /var/www/ndsm_store/index.php(13): CWebApplication->run()
+REQUEST_URI=/ndsm_store/item/create
+in /var/www/ndsm_store/protected/controllers/ItemController.php (209)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 01:00:30 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 01:00:46 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 01:00:46 [error] [php] mkdir(): Permission denied (/var/www/ndsm_store/protected/controllers/ItemController.php:209)
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/yii/framework/web/filters/CFilterChain.php(133): ItemController->runAction()
+#2 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /var/www/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /var/www/yii/framework/web/filters/CInlineFilter.php(58): ItemController->filterAccessControl()
+#5 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /var/www/yii/framework/web/CController.php(265): ItemController->runActionWithFilters()
+#8 /var/www/yii/framework/web/CWebApplication.php(282): ItemController->run()
+#9 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /var/www/ndsm_store/index.php(13): CWebApplication->run()
+REQUEST_URI=/ndsm_store/item/create
+in /var/www/ndsm_store/protected/controllers/ItemController.php (209)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 01:01:32 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 01:07:13 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 01:07:32 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 01:09:49 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 01:10:07 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 01:10:25 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 12:57:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "creae".' in /var/www/yii/framework/web/CController.php:483
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(270): CController->missingAction('creae')
+#1 /var/www/yii/framework/web/CWebApplication.php(282): CController->run('creae')
+#2 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('item/creae')
+#3 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /var/www/ndsm_store/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/ndsm_store/item/creae
+---
+2014/01/22 12:57:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "creaee".' in /var/www/yii/framework/web/CController.php:483
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(270): CController->missingAction('creaee')
+#1 /var/www/yii/framework/web/CWebApplication.php(282): CController->run('creaee')
+#2 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('item/creaee')
+#3 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /var/www/ndsm_store/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/ndsm_store/item/creaee
+---
+2014/01/22 12:59:12 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 12:59:12 [error] [php] mkdir(): Permission denied (/var/www/ndsm_store/protected/controllers/ItemController.php:208)
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/yii/framework/web/filters/CFilterChain.php(133): ItemController->runAction()
+#2 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /var/www/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /var/www/yii/framework/web/filters/CInlineFilter.php(58): ItemController->filterAccessControl()
+#5 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /var/www/yii/framework/web/CController.php(265): ItemController->runActionWithFilters()
+#8 /var/www/yii/framework/web/CWebApplication.php(282): ItemController->run()
+#9 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /var/www/ndsm_store/index.php(13): CWebApplication->run()
+REQUEST_URI=/ndsm_store/item/create
+in /var/www/ndsm_store/protected/controllers/ItemController.php (208)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 13:00:29 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 13:00:29 [error] [php] move_uploaded_file(/var/www/ndsm_store/protected/../images/16/magnet.jpg): failed to open stream: No such file or directory (/var/www/yii/framework/web/CUploadedFile.php:198)
+Stack trace:
+#0 /var/www/yii/framework/web/actions/CInlineAction.php(49): ItemController->actionCreate()
+#1 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#2 /var/www/yii/framework/web/filters/CFilterChain.php(133): ItemController->runAction()
+#3 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#4 /var/www/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#5 /var/www/yii/framework/web/filters/CInlineFilter.php(58): ItemController->filterAccessControl()
+#6 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#7 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#8 /var/www/yii/framework/web/CController.php(265): ItemController->runActionWithFilters()
+#9 /var/www/yii/framework/web/CWebApplication.php(282): ItemController->run()
+#10 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /var/www/ndsm_store/index.php(13): CWebApplication->run()
+REQUEST_URI=/ndsm_store/item/create
+in /var/www/ndsm_store/protected/controllers/ItemController.php (212)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 13:02:08 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 13:02:08 [error] [php] move_uploaded_file(/var/www/ndsm_store/protected/images/17/magnet.jpg): failed to open stream: No such file or directory (/var/www/yii/framework/web/CUploadedFile.php:198)
+Stack trace:
+#0 /var/www/yii/framework/web/actions/CInlineAction.php(49): ItemController->actionCreate()
+#1 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#2 /var/www/yii/framework/web/filters/CFilterChain.php(133): ItemController->runAction()
+#3 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#4 /var/www/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#5 /var/www/yii/framework/web/filters/CInlineFilter.php(58): ItemController->filterAccessControl()
+#6 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#7 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#8 /var/www/yii/framework/web/CController.php(265): ItemController->runActionWithFilters()
+#9 /var/www/yii/framework/web/CWebApplication.php(282): ItemController->run()
+#10 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /var/www/ndsm_store/index.php(13): CWebApplication->run()
+REQUEST_URI=/ndsm_store/item/create
+in /var/www/ndsm_store/protected/controllers/ItemController.php (212)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 13:03:59 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 13:03:59 [error] [php] move_uploaded_file(/var/www/ndsm_store/themes/bootstrap/images/18/magnet.jpg): failed to open stream: No such file or directory (/var/www/yii/framework/web/CUploadedFile.php:198)
+Stack trace:
+#0 /var/www/yii/framework/web/actions/CInlineAction.php(49): ItemController->actionCreate()
+#1 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#2 /var/www/yii/framework/web/filters/CFilterChain.php(133): ItemController->runAction()
+#3 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#4 /var/www/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#5 /var/www/yii/framework/web/filters/CInlineFilter.php(58): ItemController->filterAccessControl()
+#6 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#7 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#8 /var/www/yii/framework/web/CController.php(265): ItemController->runActionWithFilters()
+#9 /var/www/yii/framework/web/CWebApplication.php(282): ItemController->run()
+#10 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /var/www/ndsm_store/index.php(13): CWebApplication->run()
+REQUEST_URI=/ndsm_store/item/create
+in /var/www/ndsm_store/protected/controllers/ItemController.php (212)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 13:05:31 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 13:05:31 [error] [php] mkdir(): Permission denied (/var/www/ndsm_store/protected/controllers/ItemController.php:209)
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/yii/framework/web/filters/CFilterChain.php(133): ItemController->runAction()
+#2 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /var/www/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /var/www/yii/framework/web/filters/CInlineFilter.php(58): ItemController->filterAccessControl()
+#5 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /var/www/yii/framework/web/CController.php(265): ItemController->runActionWithFilters()
+#8 /var/www/yii/framework/web/CWebApplication.php(282): ItemController->run()
+#9 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /var/www/ndsm_store/index.php(13): CWebApplication->run()
+REQUEST_URI=/ndsm_store/item/create
+in /var/www/ndsm_store/protected/controllers/ItemController.php (209)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 13:06:55 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 13:06:55 [error] [php] mkdir(): Permission denied (/var/www/ndsm_store/protected/controllers/ItemController.php:209)
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/yii/framework/web/filters/CFilterChain.php(133): ItemController->runAction()
+#2 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /var/www/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /var/www/yii/framework/web/filters/CInlineFilter.php(58): ItemController->filterAccessControl()
+#5 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /var/www/yii/framework/web/CController.php(265): ItemController->runActionWithFilters()
+#8 /var/www/yii/framework/web/CWebApplication.php(282): ItemController->run()
+#9 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /var/www/ndsm_store/index.php(13): CWebApplication->run()
+REQUEST_URI=/ndsm_store/item/create
+in /var/www/ndsm_store/protected/controllers/ItemController.php (209)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 13:09:25 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 13:09:25 [error] [php] mkdir(): Permission denied (/var/www/ndsm_store/protected/controllers/ItemController.php:209)
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/yii/framework/web/filters/CFilterChain.php(133): ItemController->runAction()
+#2 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /var/www/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /var/www/yii/framework/web/filters/CInlineFilter.php(58): ItemController->filterAccessControl()
+#5 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /var/www/yii/framework/web/CController.php(265): ItemController->runActionWithFilters()
+#8 /var/www/yii/framework/web/CWebApplication.php(282): ItemController->run()
+#9 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /var/www/ndsm_store/index.php(13): CWebApplication->run()
+REQUEST_URI=/ndsm_store/item/create
+in /var/www/ndsm_store/protected/controllers/ItemController.php (209)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 13:11:59 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 13:15:20 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 13:15:20 [error] [php] mkdir(): Permission denied (/var/www/ndsm_store/protected/controllers/ItemController.php:209)
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/yii/framework/web/filters/CFilterChain.php(133): ItemController->runAction()
+#2 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /var/www/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /var/www/yii/framework/web/filters/CInlineFilter.php(58): ItemController->filterAccessControl()
+#5 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /var/www/yii/framework/web/CController.php(265): ItemController->runActionWithFilters()
+#8 /var/www/yii/framework/web/CWebApplication.php(282): ItemController->run()
+#9 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /var/www/ndsm_store/index.php(13): CWebApplication->run()
+REQUEST_URI=/ndsm_store/item/create
+in /var/www/ndsm_store/protected/controllers/ItemController.php (209)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 13:16:10 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 13:35:14 [error] [php] trim() expects parameter 1 to be string, array given (/var/www/yii/framework/web/CUrlManager.php:297)
+Stack trace:
+#0 /var/www/ndsm_store/protected/models/Item.php(56): CWebApplication->createUrl()
+#1 /var/www/ndsm_store/protected/views/item/view.php(2): getImage()
+#2 /var/www/yii/framework/web/CBaseController.php(126): require()
+#3 /var/www/yii/framework/web/CBaseController.php(95): ItemController->renderInternal()
+#4 /var/www/yii/framework/web/CController.php(869): ItemController->renderFile()
+#5 /var/www/yii/framework/web/CController.php(782): ItemController->renderPartial()
+#6 /var/www/ndsm_store/protected/controllers/ItemController.php(183): ItemController->render()
+#7 unknown(0): ItemController->actionView()
+#8 /var/www/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#9 /var/www/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#10 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#11 /var/www/yii/framework/web/filters/CFilterChain.php(133): ItemController->runAction()
+#12 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#13 /var/www/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#14 /var/www/yii/framework/web/filters/CInlineFilter.php(58): ItemController->filterAccessControl()
+#15 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#16 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#17 /var/www/yii/framework/web/CController.php(265): ItemController->runActionWithFilters()
+#18 /var/www/yii/framework/web/CWebApplication.php(282): ItemController->run()
+#19 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#20 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#21 /var/www/ndsm_store/index.php(13): CWebApplication->run()
+REQUEST_URI=/ndsm_store/item/24
+in /var/www/ndsm_store/protected/models/Item.php (56)
+in /var/www/ndsm_store/protected/views/item/view.php (2)
+in /var/www/ndsm_store/protected/controllers/ItemController.php (183)
+2014/01/22 13:43:29 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 13:44:02 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/24/magnet.jpg".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('images/24/magne...')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/images/24/magnet.jpg
+HTTP_REFERER=http://localhost/ndsm_store/item/index
+---
+2014/01/22 13:48:26 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 13:48:53 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 13:49:14 [warning] [application] Failed to set unsafe attribute "image" of "Item".
+in /var/www/ndsm_store/protected/controllers/ItemController.php (203)
+in /var/www/ndsm_store/index.php (13)
+2014/01/22 15:51:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "favicon.ico".' in /var/www/yii/framework/web/CController.php:483
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(270): CController->missingAction('favicon.ico')
+#1 /var/www/yii/framework/web/CWebApplication.php(282): CController->run('favicon.ico')
+#2 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('item/favicon.ic...')
+#3 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /var/www/ndsm_store/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/ndsm_store/item/favicon.ico
+---
+2014/01/22 19:25:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/changes.css".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('css/changes.css')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/css/changes.css
+HTTP_REFERER=http://localhost/ndsm_store/item/24
+---
+2014/01/22 19:29:23 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "favicon.ico".' in /var/www/yii/framework/web/CController.php:483
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(270): CController->missingAction('favicon.ico')
+#1 /var/www/yii/framework/web/CWebApplication.php(282): CController->run('favicon.ico')
+#2 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('item/favicon.ic...')
+#3 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /var/www/ndsm_store/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/ndsm_store/item/favicon.ico
+---
+2014/01/22 19:59:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/changes.css".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('css/changes.css')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/css/changes.css
+HTTP_REFERER=http://localhost/ndsm_store/item/24
+---
+2014/01/22 20:01:18 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/changes.css".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('css/changes.css')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/css/changes.css
+HTTP_REFERER=http://localhost/ndsm_store/item/24
+---
+2014/01/22 20:01:23 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/changes.css".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('css/changes.css')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/css/changes.css
+HTTP_REFERER=http://localhost/ndsm_store/item/24
+---
+2014/01/22 20:01:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/changes.css".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('css/changes.css')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/css/changes.css
+HTTP_REFERER=http://localhost/ndsm_store/item/25
+---
+2014/01/22 20:01:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/changes.css".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('css/changes.css')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/css/changes.css
+HTTP_REFERER=http://localhost/ndsm_store/item/25
+---
+2014/01/22 20:25:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/changes.css".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('css/changes.css')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/css/changes.css
+HTTP_REFERER=http://localhost/ndsm_store/item/25
+---
+2014/01/22 20:25:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/changes.css".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('css/changes.css')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/css/changes.css
+HTTP_REFERER=http://localhost/ndsm_store/item/25
+---
+2014/01/22 20:25:39 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/changes.css".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('css/changes.css')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/css/changes.css
+HTTP_REFERER=http://localhost/ndsm_store/item/25
+---
+2014/01/22 20:25:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/changes.css".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('css/changes.css')
+#1 /var/www/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/ndsm_store/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/ndsm_store/css/changes.css
+HTTP_REFERER=http://localhost/ndsm_store/item/25
+---

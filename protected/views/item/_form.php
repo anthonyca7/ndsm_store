@@ -10,9 +10,9 @@
 
 	<?php echo $form->textFieldRow($model,'price',array('class'=>'span4','maxlength'=>9)); ?>
 
-	<?php echo $form->textFieldRow($model,'quantity',array('class'=>'span1')); ?>
+	<?php echo $form->textFieldRow($model,'quantity',array('class'=>'span1', 'value'=>1)); ?>
 
-	<?php echo $form->textFieldRow($model,'available', array('class'=>'span1')); ?>
+	<?php echo $form->textFieldRow($model,'available', array('class'=>'span1', 'value'=>1)); ?>
 
 	<?php echo $form->textAreaRow($model,'description',array('rows'=>4, 'cols'=>50, 'class'=>'span8')); ?>
 

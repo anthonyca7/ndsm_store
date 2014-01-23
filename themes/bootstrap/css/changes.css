@@ -61,3 +61,13 @@ body{
 	margin-top: 0%;
 	margin-bottom: 0%;
 }
+
+.input-search{
+	width: 80%;
+    padding: 4px 0 4px 0 !important;
+    margin: 0%;
+}
+
+.item-well{
+	padding-left: 2%;
+}

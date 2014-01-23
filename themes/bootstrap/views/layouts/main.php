@@ -4,7 +4,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href='<?php echo Yii::app()->baseUrl . "/images/favicon.ico"; ?>' type="image/x-icon" />
 
 
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/styles.css" />
@@ -101,14 +101,13 @@
 
     <?php if ($page_errors):  ?>
 
-    <form class="well pull-right offset5 span7 form-search" id="searchForm" action="<?php echo Yii::app()->createUrl('item/index') ?>" method="get"  >    
-        <div class="row offset5 span7">
- 
-            <div class="input-prepend">
+    <form class="well pull-right offset5 span7 form-search input-prepend" id="searchForm" action="<?php echo Yii::app()->createUrl('item/index') ?>" method="get"  >    
+        <div class="row-fluid">
+            <div class="span12">
                 <span class="add-on"><i class="icon-search"></i></span>
-                <input class="input-xxlarge" placeholder="Search" name="q" id="Item_name" maxlength="255" type="text">
+                <input class="input-search" placeholder="Search" name="q" id="Item_name" maxlength="255" type="text">
+                <button class="btn btn-primary" type="submit">Search</button>                   
             </div>
-            <button class="btn btn-primary" type="submit">Search</button>       
         </div>
     </form>
 

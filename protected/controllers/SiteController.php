@@ -2,9 +2,6 @@
 
 class SiteController extends Controller
 {
-	/**
-	 * Declares class-based actions.
-	 */
 	public function actions()
 	{
 		return array(
@@ -77,6 +74,7 @@ class SiteController extends Controller
 	 */
 	public function actionLogin()
 	{
+		$layout = "column1";
 		if (Yii::app()->user->isGuest){
 
 		$model=new LoginForm;

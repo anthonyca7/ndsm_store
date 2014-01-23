@@ -50,24 +50,24 @@ class Item extends CustomActiveRecord
 		);
 	}
 
+	public static function capitalize($str)
+	{
+		$str[0] = strtoupper($str[0]);
+		return $str;
+	}
+
 	public static function getImage($id, $name)
 	{
-		$loc = $this->createAbsoluteUrl('site/index') . Yii::app()->request->baseUrl . "/images/" . $id . '/' . $name; 
-		
+		//$loc = dirname(Yii::app()->request->scriptFile) . "/images/" . $id . '/' . $name; 
+		$loc = Yii::app()->basePath . "/../images/" . $id . '/' . $name; 
 
-		if ($name != null) {
-    		return $loc;
-		}
-		return Yii::app()->request->baseUrl . "/images/noimage.jpeg";
-
-		$header_response = get_headers($loc, 1);
-		if ( strpos( $header_response[0], "404" ) !== false )
+		if ( @getimagesize($loc) )
 		{
-		   return Yii::app()->request->baseUrl . "/images/noimage.jpeg";
+		   return Yii::app()->baseUrl . "/images/" . $id . '/' . $name;
 		} 
 		else 
 		{
-		   return $loc;
+		   return Yii::app()->baseUrl . "/images/noimage.jpg";
 		}
 
 	}
