@@ -234,11 +234,14 @@ class ItemController extends Controller
 		if(isset($_POST['Item']))
 		{
 			$model->attributes=$_POST['Item'];
+			$model->image=CUploadedFile::getInstance($model,'image');
+			$filename = "/{$model->image->name}";
+
 			if($model->save()){
-				if (!file_exists(Yii::app()->theme->baseUrl . "/images/" .$model->id)) {
-    				mkdir(Yii::app()->theme->baseUrl . "/images/". $model->id, 0777, true);
+				if (!file_exists(Yii::app()->basePath . "/../images/" .$model->id)) {
+    				mkdir(Yii::app()->basePath . "/../images/". $model->id, 0777, true);
 				}
-				$model->image->saveAs(Yii::app()->theme->baseUrl . "/images/" . $model->id . '/'. $filename);
+				$model->image->saveAs(Yii::app()->basePath . "/../images/" . $model->id . $filename);
 				$this->redirect(array('view','id'=>$model->id)); 
 			}
 		}
@@ -268,16 +271,6 @@ class ItemController extends Controller
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
-	/**
-	 * Lists all models.
-	 */
-	/*public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('Item');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}*/
 	public function actionIndex()
 	{
 		$this->layout = "column1";
@@ -289,22 +282,24 @@ class ItemController extends Controller
 	      $criteria->compare('name', $q, true, 'OR');
 	      $criteria->compare('description', $q, true, 'OR');
 
-	      $dataProvider=new CActiveDataProvider("Item", array('criteria'=>$criteria));
-	      //Item_name
+	      $dataProvider=new CActiveDataProvider("Item", array('criteria'=>$criteria,
+	      	'pagination'=>array(
+				'pageSize'=>9,
+				)
+	      	));
 	      Yii::app()->clientScript->registerScript('search', "
 			$('#Item_name').val('" . $q . "');
-			var content_width = $('.item-view').width();
-			var image_height = content_width * 0.75;
-			var image_width = content_width * 0.95;
-			var well_dim = content_width * 0.07;
 
-			$('.item-view').css({'height':content_width+'px'});
-			$('.item-image').css({'height':image_height+'px', 'width':image_width+'px' });
-
+			
 			");
 	    }
 	    else{
-	       $dataProvider=new CActiveDataProvider('Item');
+	       $dataProvider=new CActiveDataProvider('Item', array(
+	       	'pagination'=>array(
+				'pageSize'=>9,
+			)
+
+	       	));
 	    }
 
 		$this->render('index',array(
@@ -346,12 +341,6 @@ class ItemController extends Controller
 
 	public function check_for_existing_reservation($item_id, $user_id)
 	{
-
-		/*Reservation::model()->exists('user_id = :userid AND item_id = :itemid AND brought = :b',
-			array(':userid' => $user_id,
-				  ':itemid' => $item_id,
-				  ':b' => '0')
-			);*/
 
 		$sql = "SELECT * FROM reservation WHERE user_id=:user_id AND item_id=:item_id AND brought=:brought";
 		$command = Yii::app()->db->createCommand($sql);

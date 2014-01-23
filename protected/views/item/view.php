@@ -12,15 +12,15 @@
 	<div class="span9">
 		<h2> <?php echo $this->capitalize($model->name); ?> </h2>
 		<hr class="no-vmargin">
+		<p class="lead"> <?php echo $model->description; ?></p>
+		<hr>
+
 		<?php if($model->available != "0"): ?>
 			<p class="text-info"><?php echo $model->available . ' ' . $model->name; ?> left<br>
 		<?php else: ?>
 			<p class="text-info">There are no more <?php echo $model->name ?> left<br>
 		<?php endif; ?>
 		Price: $<?php echo $model->price; ?></p>
-		<p class="lead"> <?php echo $model->description; ?></p>
-
-		<hr>
 		
 		<?php if($reservation === null){ 
 	 		$link = Yii::app()->createAbsoluteUrl("item/reserve", array('id'=>$model->id)); 

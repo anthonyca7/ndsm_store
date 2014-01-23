@@ -6,16 +6,15 @@
 	<meta name="language" content="en" />
     <link rel="shortcut icon" href='<?php echo Yii::app()->baseUrl . "/images/favicon.ico"; ?>' type="image/x-icon" />
 
-
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/styles.css" />
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 
 	<?php Yii::app()->bootstrap->register(); 
 
       $baseUrl = Yii::app()->baseUrl;
-      $baseUrl[0] = substr($baseUrl, 1);
       $cs = Yii::app()->getClientScript();
       $cs->registerCssFile(Yii::app()->theme->baseUrl . '/css/changes.css');
+      $cs->registerScriptFile(Yii::app()->theme->baseUrl . '/js/custom.js');
     ?>
 
 </head>
