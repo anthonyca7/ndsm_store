@@ -58,7 +58,6 @@ class Item extends CustomActiveRecord
 
 	public static function getImage($id, $name)
 	{
-		//$loc = dirname(Yii::app()->request->scriptFile) . "/images/" . $id . '/' . $name; 
 		$loc = Yii::app()->basePath . "/../images/" . $id . '/' . $name; 
 
 		if ( @getimagesize($loc) )

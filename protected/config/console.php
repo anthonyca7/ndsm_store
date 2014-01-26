@@ -15,14 +15,6 @@ return array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 		),*/
 		// uncomment the following to use a MySQL database
-		
-		/*'db'=>array(
-			'connectionString' => 'mysql:host=64.62.211.131;dbname=acc7_store2',
-			'emulatePrepare' => true,
-			'username' => 'acc7_admin',
-			'password' => 'admin',
-			'charset' => 'utf8',
-		),*/
 
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=s2',
@@ -31,6 +23,24 @@ return array(
 			'password' => 'root',
 			'charset' => 'utf8',
 		),
+		
+		/*'db'=>array(
+			'connectionString' => 'mysql:host=64.62.211.131;dbname=acc7_s2',
+			'emulatePrepare' => true,
+			'username' => 'acc7_admin',
+			'password' => 'admin',
+			'charset' => 'utf8',
+		),*/
+
+		/*'db'=>array(
+        'tablePrefix'=>'',
+        'connectionString' => 'pgsql:host=64.62.211.131;port=5432;dbname=acc7_admin',
+        'username'=>'acc7_admin',
+        'password'=>'admin',
+        'charset'=>'UTF8',
+		),*/
+
+
 		
 		'log'=>array(
 			'class'=>'CLogRouter',

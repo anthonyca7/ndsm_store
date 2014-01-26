@@ -15,10 +15,7 @@
         </div>
     </div>
 </div>
-            <!-- Button to trigger modal -->
-            <!-- <a href="#myModal" role="button" class="btn" data-toggle="modal">Launch demo modal</a> -->
-             
-            <!-- Modal -->
+
             <div id="register" class="modal hide fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-header" style="background-color: #2f96b4;">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

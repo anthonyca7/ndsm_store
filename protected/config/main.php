@@ -6,6 +6,11 @@
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 
+// $mysql_host = "mysql12.000webhost.com";
+// $mysql_database = "a1160700_admin";
+// $mysql_user = "a1160700_admin";
+// $mysql_password = "admin1";
+
 Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap');
 
 return array(
@@ -69,9 +74,29 @@ return array(
 			'password' => 'root',
 			'charset' => 'utf8',
 		),
+		/*'db'=>array(
+			'connectionString' => 'mysql:host=localhost;dbname=s2',
+			'emulatePrepare' => true,
+			'username' => 'root',
+			'password' => 'root',
+			'charset' => 'utf8',
+		),*/
+
+		//$mysql_host = "mysql12.000webhost.com";
+		// $mysql_database = "a1160700_admin";
+		// $mysql_user = "a1160700_admin";
+		// $mysql_password = "admin1";
 
 		/*'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=acc7_store2',
+        'tablePrefix'=>'',
+        'connectionString' => 'pgsql:host=64.62.211.131;port=5432;dbname=acc7_admin',
+        'username'=>'acc7_admin',
+        'password'=>'admin',
+        'charset'=>'UTF8',
+		),*/
+
+		/*'db'=>array(
+			'connectionString' => 'mysql:host=localhost;dbname=acc7_s2',
 			'emulatePrepare' => true,
 			'username' => 'acc7_admin',
 			'password' => 'admin',

@@ -1,11 +1,18 @@
+<?php 
+$product_name = $data->name;
+$product_name = (strlen($product_name) > 25) ? substr($product_name,0,22).'...' : $product_name;
+$link = $this->createUrl("item/view", array("id" => $data->id));  ?>
+
+
 <div class="span3 well item-view item-well">
-	<p class="lead no-vmargin"><?php echo Item::capitalize($data->name) ?></p>
-	<a href='<?php echo $this->createUrl("item/view", array("id" => $data->id)) ?>'>
-		<img class="img-polaroid item-image pagination-centered" src='<?php echo Item::model()->getImage($data->id, $data->image) ?>' >
+	<p class="lead no-vmargin"><a href="<?php echo $link; ?>" rel="tooltip" data-original-title="<?php echo $data->name; ?>"><?php echo $product_name; ?></a></p>
+	<a href='<?php echo $link; ?>'>
+		<img class="img-polaroid item-image pagination-centered" src='<?php echo Item::model()->getImage($data->id, $data->image) ?>'
+		alt="<?php echo $data->name; ?>" >
 	</a>	
 </div>
 
-<?php //$string = (strlen($string) > 50) ? substr($string,0,47).'...' : $string; ?>
+
 <script type="text/javascript">
 	$(document).ready(function () {
 		var content_width = $('.item-view').width();

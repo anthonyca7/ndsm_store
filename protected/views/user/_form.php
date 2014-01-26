@@ -37,7 +37,7 @@
             <div class="controls">
                 <div class="input-prepend">
                     <span class="add-on"><i class="icon-envelope"></i></span>
-                    <?php echo $form->textField($model,'email', array('class' => 'span4 required')); ?>
+                    <?php echo $form->textField($model,'email', array('class' => 'span4 required', 'id'=>'email')); ?>
                 </div>
                 <?php /*echo $form->error($model,'email');*/ ?>
             </div>
@@ -48,7 +48,7 @@
             <div class="controls">
                 <div class="input-prepend">
                     <span class="add-on"><i class="icon-user"></i></span>    
-                    <?php echo $form->textField($model,'username', array('class' => 'span4 required')); ?>
+                    <?php echo $form->textField($model,'username', array('class' => 'span4 required', 'id'=>'username' )); ?>
                 </div>
                 <?php /*echo $form->error($model,'last');*/ ?>
             </div>
@@ -84,6 +84,8 @@
                     <button class="btn btn-info btn-large pull-left" type="submit" name="yt0"><?php echo $label; ?></button>
             </div>
         </div>
+
+
 
 
 <?php $this->endWidget(); ?>

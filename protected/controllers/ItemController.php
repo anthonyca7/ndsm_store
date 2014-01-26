@@ -202,9 +202,10 @@ class ItemController extends Controller
 		{
 			$model->attributes=$_POST['Item'];
 			$model->image=CUploadedFile::getInstance($model,'image');
-			$filename = "/{$model->image->name}";
-
+			
 			if($model->save()){
+				$filename = "/{$model->image->name}";
+
 				if (!file_exists(Yii::app()->basePath . "/../images/" .$model->id)) {
     				mkdir(Yii::app()->basePath . "/../images/". $model->id, 0777, true);
 				}
@@ -226,6 +227,7 @@ class ItemController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
+		$this->layout = "clearcolumn";
 		$model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
@@ -235,9 +237,9 @@ class ItemController extends Controller
 		{
 			$model->attributes=$_POST['Item'];
 			$model->image=CUploadedFile::getInstance($model,'image');
-			$filename = "/{$model->image->name}";
 
 			if($model->save()){
+				$filename = "/{$model->image->name}";
 				if (!file_exists(Yii::app()->basePath . "/../images/" .$model->id)) {
     				mkdir(Yii::app()->basePath . "/../images/". $model->id, 0777, true);
 				}
