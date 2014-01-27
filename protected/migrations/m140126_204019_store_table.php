@@ -7,6 +7,7 @@ class m140126_204019_store_table extends CDbMigration
 		$this->createTable('store', array(
 			'id' => 'pk',
 			'store_name' => 'string NOT NULL UNIQUE',
+			'unique_identifier' => 'string NOT NULL UNIQUE',
 			'image' => 'string DEFAULT NULL',
 			'create_user_id' => 'int(11) DEFAULT NULL',
 			'update_user_id' => 'int(11) DEFAULT NULL',
@@ -19,10 +20,10 @@ class m140126_204019_store_table extends CDbMigration
 		$this->addColumn('reservation', 'school_id', 'int(11) NOT NULL'); 
 		$this->addColumn('comment', 'school_id', 'int(11) NOT NULL'); 
 
-		$this->addForeignKey("fk_school_item", "item", "school_id", "store", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_school_user", "user", "school_id", "store", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_school_item", "reservation", "school_id", "store", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_school_item", "comment", "school_id", "store", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_school_item_assignment", "item", "school_id", "store", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_school_user_assignment", "user", "school_id", "store", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_school_reservation_assignment", "reservation", "school_id", "store", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_school_comment_assignment", "comment", "school_id", "store", "id", "CASCADE", "RESTRICT");
 
 	}
 

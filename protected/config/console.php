@@ -17,12 +17,20 @@ return array(
 		// uncomment the following to use a MySQL database
 
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=s2',
+			'connectionString' => 'mysql:host=localhost;dbname=s3',
 			'emulatePrepare' => true,
 			'username' => 'root',
 			'password' => 'root',
 			'charset' => 'utf8',
 		),
+
+		/*'db'=>array(
+			'connectionString' => 'mysql:host=localhost;dbname=schoolstores_zxq_admin',
+			'emulatePrepare' => true,
+			'username' => '897704_admin',
+			'password' => 'admin',
+			'charset' => 'utf8',
+		),*/
 		
 		/*'db'=>array(
 			'connectionString' => 'mysql:host=64.62.211.131;dbname=acc7_s2',
