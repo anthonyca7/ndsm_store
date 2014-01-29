@@ -2,10 +2,8 @@
 
 class UserController extends Controller
 {
-	/**
-	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
-	 * using two-column layout. See 'protected/views/layouts/column2.php'.
-	 */
+
+	private $_store = null;
 	public $layout='//layouts/column2';
 	const VALIDATED = 1;
 
@@ -16,6 +14,7 @@ class UserController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
+			//'storeContext',
 		);
 	}
 
@@ -89,18 +88,16 @@ class UserController extends Controller
 		$this->redirect(array('site/login'));
 	}
 
-	/**
-	 * register a new model.
-	 * If creation is successful, thfe browser will be redirected to the 'view' page.
-	 */
-	public function actionRegister()
+	public function actionRegister($tag)
 	{
+		
 		$this->layout = "clearcolumn";
 		if (!Yii::app()->user->isGuest) {
 			$this->redirect(array('site/index'));
 		}
 
 		$model=new User;
+		$model->school_id = $this->_store->id;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -111,6 +108,8 @@ class UserController extends Controller
 			$password = $model->password;
 
 			$model->status = 0;
+			$model->is_admin = 0;
+			$model->is_active = 1;
 			$model->validation_code = md5('anthony' . $model->password . $model->email);
 
 			if($model->save()){
@@ -126,17 +125,6 @@ class UserController extends Controller
 
 	 					$link = "<a href='" . $this->createAbsoluteUrl('user/validate', array('id'=>$model->id, 
 	 						'code'=>$model->validation_code))  .  "'> click here to validate! </a> ";
-
-	 					/*	<h1>Finish the registration</h1>
-
-	 						<p class='lead'>
-	 							Welcome to the ndms store, click on the button below to finish the process 
-
-	 						</p>
-	 						<a href='"  .  array('user/validate', 'id'=>$model->id, 'code'=>$model->validation_code)); . "'  role='button' class='btn btn-info btn-large'>Validate</a>   
-
-	 						";*/
-						 
 
 						mail($model->email, "Finish your registration", $link, $header);
 						Yii::app()->user->setFlash('warning', 
@@ -192,7 +180,7 @@ class UserController extends Controller
 	}
 
 	
-	public function actionDelete($id)
+	public function actionDelete($tag)
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
@@ -210,7 +198,7 @@ class UserController extends Controller
 	/**
 	 * Lists all models.
 	 */
-	public function actionIndex()
+	public function actionIndex($tag)
 	{	
 		$dataProvider=new CActiveDataProvider('User');
 		$this->render('index',array(
@@ -221,7 +209,7 @@ class UserController extends Controller
 	/**
 	 * Manages all models.
 	 */
-	public function actionAdmin()
+	public function actionAdmin($tag)
 	{
 		$model=new User('search');
 		$model->unsetAttributes();  // clear any default values
@@ -241,7 +229,7 @@ class UserController extends Controller
 	public function loadModel($id)
 	{
 		$model=User::model()->findByPk($id);
-		if($model===null)
+		if($model===null and $model->school_id!==$this->_store->id )
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
 	}
@@ -257,5 +245,30 @@ class UserController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+
+	protected function loadstore($tag)
+	{
+		if($this->_store===null)
+		{
+			$this->_store = Store::model()->findByAttributes(array('unique_identifier'=>$tag));
+		}
+
+		if($this->_store===null)
+		{
+			throw new CHttpException(404,'The requested STORE does not exist.');
+		}
+		return $this->_store;
+
+	}
+
+	public function filterStoreContext($filterChain)
+	{
+		if(isset($_GET['tag']))
+			$this->loadstore($_GET['tag']);
+		else
+			throw new CHttpException(403,'Must specify a store before performing this action.');
+
+		$filterChain->run();
 	}
 }

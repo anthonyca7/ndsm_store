@@ -33,10 +33,9 @@ class User extends CustomActiveRecord
 	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
+
 		return array(
-			array('email, username, password, first, last, password_repeat', 'required'),
+			array('email, username, password, first, last, password_repeat, is_admin, is_active', 'required'),
 			array('email', 'unique'),
 			array('username', 'unique'),
 			array('email', 'email'),
@@ -44,21 +43,18 @@ class User extends CustomActiveRecord
 			array('password, password_repeat, username', 'length', 'max'=>255, 'min'=>6),
 			array('password', 'compare'),
 			array('password_repeat', 'safe'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
+
 			array('id, email, status, create_time, update_time, last_login', 'safe', 'on'=>'search'),
 		);
 	}
 
-	/**
-	 * @return array relational rules.
-	 */
 	public function relations()
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
 			'items' => array(self::MANY_MANY, 'Item', 'reservation(user_id, item_id)'),
+			'store' => array(self::BELONGS_TO, 'Store', 'school_id')
 		);
 	}
 
@@ -72,6 +68,7 @@ class User extends CustomActiveRecord
 			'username' => 'Username',
 			'first' => 'First Name',
 			'last' => 'Last Name',
+			'school_id' => 'Store',
 			'password_repeat' => 'Confirm Password',
 			'email' => 'Email',
 			'password' => 'Password',

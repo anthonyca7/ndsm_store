@@ -34,7 +34,7 @@ class Item extends CustomActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'unique'),
-			array('name, description, price, quantity, available', 'required'),
+			array('name, description, price, quantity, available, school_id', 'required'),
 			array('quantity', 'numerical', 'integerOnly'=>true, 'min'=>1),
 			array('available', 'numerical', 'integerOnly'=>true, 'min'=>0),
 			array('name', 'length', 'max'=>255),
@@ -43,7 +43,7 @@ class Item extends CustomActiveRecord
 				'message'=>'The number of items available cannot be less than the quantity'),
 			array('price', 'numerical', 'min'=>0.01),
 			array('image', 'file', 'types'=>'jpg, gif, png'),
-			array('image', 'safe'),
+			array('image, school_id', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, name, price, quantity, description', 'safe', 'on'=>'search'),
@@ -76,21 +76,18 @@ class Item extends CustomActiveRecord
 	 */
 	public function relations()
 	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
 		return array(
 			'users' => array(self::MANY_MANY, 'User', 'reservation(item_id, user_id)'),
+			'store' => array(self::BELONGS_TO, 'Store', 'school_id')
 		);
 	}
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
 	public function attributeLabels()
 	{
 		return array(
 			'id' => 'ID',
 			'name' => 'Name',
+			'school_id' => 'Store',
 			'price' => 'Price',
 			'quantity' => 'Quantity',
 			'description' => 'Description',
@@ -98,21 +95,8 @@ class Item extends CustomActiveRecord
 		);
 	}
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
-	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);

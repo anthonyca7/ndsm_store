@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'store':
  * @property integer $id
- * @property string $store_name
+ * @property string $name
  * @property string $unique_identifier
  * @property string $image
  * @property integer $create_user_id
@@ -37,13 +37,15 @@ class Store extends CustomActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('store_name, unique_identifier', 'required'),
+			array('name, unique_identifier', 'required'),
+			array('name, unique_identifier', 'unique'),
+			//IMPORTANTANT array('unique_identifier', 'match', 'pattern'=>'/w+/', 'message'=> 'invalid pattern'),
 			array('create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
-			array('store_name, unique_identifier, image', 'length', 'max'=>255),
+			array('name, unique_identifier, image', 'length', 'max'=>255),
 			array('create_time, update_time', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, store_name, unique_identifier, image, create_user_id, update_user_id, create_time, update_time', 'safe', 'on'=>'search'),
+			array('name, unique_identifier, image, create_user_id, update_user_id, create_time, update_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,7 +71,7 @@ class Store extends CustomActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'store_name' => 'Store Name',
+			'name' => 'Store Name',
 			'unique_identifier' => 'Unique Identifier',
 			'image' => 'Image',
 			'create_user_id' => 'Create User',
@@ -98,7 +100,7 @@ class Store extends CustomActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('store_name',$this->store_name,true);
+		$criteria->compare('name',$this->name,true);
 		$criteria->compare('unique_identifier',$this->unique_identifier,true);
 		$criteria->compare('image',$this->image,true);
 		$criteria->compare('create_user_id',$this->create_user_id);

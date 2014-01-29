@@ -38,7 +38,7 @@
     $this->widget('bootstrap.widgets.TbNavbar', array(
     'type'=>'inverse', // null or 'inverse'
     'brand'=>CHtml::encode(Yii::app()->name),
-    'brandUrl'=>Yii::app()->createAbsoluteUrl('site/index'),
+    'brandUrl'=>Yii::app()->createAbsoluteUrl(''),
     'collapse'=>true, // requires bootstrap-responsive.css
     'items'=>array(
         array(

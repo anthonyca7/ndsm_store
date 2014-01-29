@@ -6,7 +6,7 @@ class StoreController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
+	public $layout='//layouts/clearcolumn';
 
 	/**
 	 * @return array action filters
@@ -18,20 +18,15 @@ class StoreController extends Controller
 		);
 	}
 
-	/**
-	 * Specifies the access control rules.
-	 * This method is used by the 'accessControl' filter.
-	 * @return array access control rules
-	 */
 	public function accessRules()
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view', 'homepage', "create"),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('update'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -44,10 +39,12 @@ class StoreController extends Controller
 		);
 	}
 
-	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
+
+	public function actionHomepage()
+	{
+		$this->render('homepage');
+	}
+
 	public function actionView($id)
 	{
 		$this->render('view',array(
@@ -55,40 +52,54 @@ class StoreController extends Controller
 		));
 	}
 
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
 	public function actionCreate()
 	{
 		$model=new Store;
+		$admin=new User;
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['Store']))
+		if(isset($_POST['Store']) and isset($_POST['User']))
 		{
 			$model->attributes=$_POST['Store'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			$admin->attributes=$_POST['User'];
+
+			$admin->status = 0;
+			$admin->is_admin = 1;
+			$admin->is_active = 0;
+
+			$model->approved = 0;
+
+			if($model->save() and $admin->save()){
+				$admin->school_id = $model->id;
+				if ($admin->save()) {
+					$useri = new UserIdentity($admin->email, $admin->password);
+					if ($useri->authenticate()) 
+						Yii::app()->user->login($useri,2592000);
+					$this->redirect(array('view','id'=>$model->id));
+				}
+				else{
+					$command = Yii::app()->db->createCommand();
+					$command->delete('store', 'id=:sid', array(':sid'=>$model->id));
+					$command2 = Yii::app()->db->createCommand();
+					$command2->delete('user', 'id=:sid', array(':sid'=>$admin->id));
+				}
+			}
+			else{
+				$command = Yii::app()->db->createCommand();
+				$command->delete('store', 'id=:sid', array(':sid'=>$model->id));
+				$command2 = Yii::app()->db->createCommand();
+				$command2->delete('user', 'id=:sid', array(':sid'=>$admin->id));
+			}
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
+			'admin'=>$admin,
 		));
 	}
 
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Store']))
 		{
@@ -102,11 +113,6 @@ class StoreController extends Controller
 		));
 	}
 
-	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
 	public function actionDelete($id)
 	{
 		if(Yii::app()->request->isPostRequest)
@@ -122,9 +128,6 @@ class StoreController extends Controller
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
-	/**
-	 * Lists all models.
-	 */
 	public function actionIndex()
 	{
 		$dataProvider=new CActiveDataProvider('Store');

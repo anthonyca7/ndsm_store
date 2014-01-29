@@ -10,8 +10,7 @@
        </div>
         
         <div class="span8">
-            <img src="images/tablet.jpg" height=50px alt="">
-
+            <img src="<?php echo Yii::app()->baseUrl . "/images/tablet.jpg"; ?>" height=50px alt="">
         </div>
     </div>
 </div>
@@ -30,7 +29,7 @@
 
 
 
-                <form class="form-horizontal well" id="user-form" action="<?php echo $this->createUrl('user/register'); ?>" method="post">
+                <form class="form-horizontal well" id="user-form" action="<?php echo $this->createUrl('/register'); ?>" method="post">
 
                 <div class="control-group">
                     <label class="control-label">First Name</label>

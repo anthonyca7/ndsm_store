@@ -2,11 +2,9 @@
 
 class ItemController extends Controller
 {
-	/**
-	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
-	 * using two-column layout. See 'protected/views/layouts/column2.php'.
-	 */
 	public $layout='//layouts/column2';
+	private $_store = null;
+
 
 	/**
 	 * @return array action filters
@@ -15,6 +13,7 @@ class ItemController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
+			'storeContext'
 		);
 	}
 
@@ -42,7 +41,7 @@ class ItemController extends Controller
 
 
 
-	private function reserve($id)
+	private function reserve($id, $quantity)
 	{
 		$user = User::model()->findByPk(Yii::app()->user->id);
 		$item = $this->loadModel($id);
@@ -61,6 +60,7 @@ class ItemController extends Controller
 				$r_model->item_id = $id;
 				$r_model->brought = 0;
 				$r_model->quantity = $_GET['quantity'];
+				$r_model->school_id = $this->_store->id;
 
 				if ($r_model->save()) {
 					$item->available = $item->available - $quantity;
@@ -89,7 +89,7 @@ class ItemController extends Controller
 
 	
 
-	public function actionReserve($id, $quantity)
+	public function actionReserve($id, $quantity, $tag)
 	{
 		if (!$this->check_for_existing_reservation($id, Yii::app()->user->id)) {
 			$this->reserve($id, $quantity);
@@ -184,12 +184,6 @@ class ItemController extends Controller
 	}
 
 
-
-
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
 	public function actionCreate()
 	{
 		$this->layout = "clearcolumn";
@@ -202,6 +196,7 @@ class ItemController extends Controller
 		{
 			$model->attributes=$_POST['Item'];
 			$model->image=CUploadedFile::getInstance($model,'image');
+			$model->school_id = $this->_store->id;
 			
 			if($model->save()){
 				$filename = "/{$model->image->name}";
@@ -277,6 +272,7 @@ class ItemController extends Controller
 	{
 		$this->layout = "column1";
 	    $criteria = new CDbCriteria();
+	    $criteria->compare('school_id', $this->_store->id, true, 'AND');
 
 	    if(isset($_GET['q']) and $_GET['q']!='')
 	    {
@@ -297,6 +293,7 @@ class ItemController extends Controller
 	    }
 	    else{
 	       $dataProvider=new CActiveDataProvider('Item', array(
+	       	'criteria'=>$criteria,
 	       	'pagination'=>array(
 				'pageSize'=>9,
 			)
@@ -307,15 +304,33 @@ class ItemController extends Controller
 		$this->render('index',array(
 		  'dataProvider'=>$dataProvider,
 		));
-
-
-	    
-	    
 	}
 
-	/**
-	 * Manages all models.
-	 */
+	protected function loadstore($tag)
+	{
+		if($this->_store===null)
+		{
+			$this->_store = Store::model()->findByAttributes(array('unique_identifier'=>$tag));
+		}
+
+		if($this->_store===null)
+		{
+			throw new CHttpException(404,'The requested STORE does not exist.');
+		}
+		return $this->_store;
+
+	}
+
+	public function filterStoreContext($filterChain)
+	{
+		if(isset($_GET['tag']))
+			$this->loadstore($_GET['tag']);
+		else
+			throw new CHttpException(403,'Must specify a store before performing this action.');
+
+		$filterChain->run();
+	}
+
 	public function actionAdmin()
 	{
 		$model=new Item('search');
@@ -336,12 +351,12 @@ class ItemController extends Controller
 	public function loadModel($id)
 	{
 		$model=Item::model()->findByPk($id);
-		if($model===null)
+		if($model===null or $model->school_id!==$this->_store->id )
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
 	}
 
-	public function check_for_existing_reservation($item_id, $user_id)
+	private function check_for_existing_reservation($item_id, $user_id)
 	{
 
 		$sql = "SELECT * FROM reservation WHERE user_id=:user_id AND item_id=:item_id AND brought=:brought";

@@ -12,6 +12,12 @@
 	<?php echo CHtml::link(CHtml::encode($data->id),array('view','id'=>$data->id)); ?>
 	<br />
 
+	<?php if (isset($data->school_id)): ?>
+		<b><?php echo CHtml::encode($data->getAttributeLabel('school_id')); ?>:</b>
+		<?php echo CHtml::link(CHtml::encode($data->id),array('view','id'=>$data->store->name)); ?>
+		<br />	
+	<?php endif ?>
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('email')); ?>:</b>
 	<?php echo CHtml::encode($data->email); ?>
 	<br />

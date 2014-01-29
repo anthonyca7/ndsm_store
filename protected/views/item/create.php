@@ -5,6 +5,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
+	array('label'=>'Create Item','url'=>array('index')),
 	array('label'=>'List Item','url'=>array('index')),
 	array('label'=>'Manage Item','url'=>array('admin')),
 );

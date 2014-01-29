@@ -26,5 +26,8 @@ $this->menu=array(
                 'create_time',
                 'update_time',
                 'last_login',
+                'is_active',
+                'school_id',
+                'is_admin'
         ),
 )); ?>

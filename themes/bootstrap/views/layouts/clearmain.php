@@ -4,7 +4,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href='<?php echo Yii::app()->baseUrl . "/images/favicon.ico"; ?>' type="image/x-icon" />
 
 
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/styles.css" />
@@ -39,7 +39,7 @@
     $this->widget('bootstrap.widgets.TbNavbar', array(
     'type'=>'inverse', // null or 'inverse'
     'brand'=>CHtml::encode(Yii::app()->name),
-    'brandUrl'=>Yii::app()->createAbsoluteUrl('site/index'),
+    'brandUrl'=>Yii::app()->createAbsoluteUrl(''),
     'collapse'=>true, // requires bootstrap-responsive.css
     'items'=>array(
         array(

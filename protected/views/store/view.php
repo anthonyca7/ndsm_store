@@ -19,12 +19,13 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'store_name',
+		'name',
 		'unique_identifier',
 		'image',
 		'create_user_id',
 		'update_user_id',
 		'create_time',
 		'update_time',
+		'approved'
 	),
 )); ?>

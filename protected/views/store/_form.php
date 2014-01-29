@@ -8,27 +8,91 @@
 )); ?>
 
 	<?php echo $form->errorSummary($model); ?>
+	<?php echo $form->errorSummary($admin); ?>
 
-	<?php echo $form->textFieldRow($model,'store_name',array('class'=>'span5','maxlength'=>255)); ?>
+    <p class="lead">Enter Store Information</p>
 
-	<?php echo $form->textFieldRow($model,'unique_identifier',array('class'=>'span5','maxlength'=>255)); ?>
+    <?php echo $form->textFieldRow($model,'name',array('class'=>'span4','maxlength'=>255)); ?>
 
-	<?php echo $form->textFieldRow($model,'image',array('class'=>'span5','maxlength'=>255)); ?>
+    <?php echo $form->textFieldRow($model,'unique_identifier',array('class'=>'span2','maxlength'=>15)); ?>
 
-	<?php echo $form->textFieldRow($model,'create_user_id',array('class'=>'span5')); ?>
+    <?php //create user and user_id and image?>
 
-	<?php echo $form->textFieldRow($model,'update_user_id',array('class'=>'span5')); ?>
+	<p class="lead">Register an account</p>
+	<div class="control-group">
+            <label class="control-label">First Name</label>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-user"></i></span>
+                    <?php echo $form->textField($admin,'first', array('class' => 'span4 required')); ?>
+                </div>
+                <?php /*echo $form->error($admin,'first');*/ ?>
+            </div>
+        </div>
 
-	<?php echo $form->textFieldRow($model,'create_time',array('class'=>'span5')); ?>
+        <div class="control-group">
+            <label class="control-label">Last Name</label>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-user"></i></span>    
+                    <?php echo $form->textField($admin,'last', array('class' => 'span4 required')); ?>
+                </div>
+                <?php /*echo $form->error($admin,'last');*/ ?>
+            </div>
+        </div>
 
-	<?php echo $form->textFieldRow($model,'update_time',array('class'=>'span5')); ?>
+        <div class="control-group">
+            <label class="control-label">Email</label>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-envelope"></i></span>
+                    <?php echo $form->textField($admin,'email', array('class' => 'span4 required', 'id'=>'email')); ?>
+                </div>
+                <?php /*echo $form->error($admin,'email');*/ ?>
+            </div>
+        </div>
 
-	<div class="form-actions">
-		<?php $this->widget('bootstrap.widgets.TbButton', array(
-			'buttonType'=>'submit',
-			'type'=>'primary',
-			'label'=>$model->isNewRecord ? 'Create' : 'Save',
-		)); ?>
-	</div>
+        <div class="control-group">
+            <label class="control-label">Username</label>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-user"></i></span>    
+                    <?php echo $form->textField($admin,'username', array('class' => 'span4 required', 'id'=>'username' )); ?>
+                </div>
+                <?php /*echo $form->error($admin,'last');*/ ?>
+            </div>
+        </div>
+
+
+        <div class="control-group">
+            <label class="control-label">Password</label>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-lock"></i></span>
+                    <?php echo $form->passwordField($admin,'password', array('class' => 'span4 required')); ?>
+                </div>
+                <?php /* echo $form->error($admin,'password');*/ ?>
+            </div>
+        </div>
+
+
+        <div class="control-group">
+            <label class="control-label">Confirm Password</label>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-lock"></i></span>
+                    <?php echo $form->passwordField($admin,'password_repeat', array('class' => 'span4 required')); ?>
+                </div>
+                <?php /*echo $form->error($admin,'password_repeat');*/ ?>
+            </div>
+        </div>
+
+	<div class="control-group">
+        <div class="controls">
+            <div class="modal-footer">
+                <button class="btn btn-info btn-large pull-left" type="submit" name="yt0">Register</button>
+            </div>
+        </div>
+    </div>
 
 <?php $this->endWidget(); ?>

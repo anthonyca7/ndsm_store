@@ -6,7 +6,7 @@ class m140126_204019_store_table extends CDbMigration
 	{
 		$this->createTable('store', array(
 			'id' => 'pk',
-			'store_name' => 'string NOT NULL UNIQUE',
+			'name' => 'string NOT NULL UNIQUE',
 			'unique_identifier' => 'string NOT NULL UNIQUE',
 			'image' => 'string DEFAULT NULL',
 			'create_user_id' => 'int(11) DEFAULT NULL',
