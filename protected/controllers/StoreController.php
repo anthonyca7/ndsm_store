@@ -2,15 +2,9 @@
 
 class StoreController extends Controller
 {
-	/**
-	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
-	 * using two-column layout. See 'protected/views/layouts/column2.php'.
-	 */
-	public $layout='//layouts/clearcolumn';
 
-	/**
-	 * @return array action filters
-	 */
+	public $layout='//layouts/column1';
+
 	public function filters()
 	{
 		return array(
@@ -42,18 +36,21 @@ class StoreController extends Controller
 
 	public function actionHomepage()
 	{
+		$this->layout = "clearcolumn";
 		$this->render('homepage');
 	}
 
-	public function actionView($id)
+	public function actionView($tag)
 	{
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$this->loadByTag($tag),
 		));
 	}
 
 	public function actionCreate()
 	{
+		$this->layout = "clearcolumn";
+
 		$model=new Store;
 		$admin=new User;
 
@@ -68,19 +65,42 @@ class StoreController extends Controller
 
 			$model->approved = 0;
 
-			if($model->save() and $admin->save()){
+			if ($model->save()) {
+				$admin->password = crypt($admin->password, '$2a$10$anthony.cabshahdasswor$');
+				$admin->password_repeat = crypt($admin->password_repeat, '$2a$10$anthony.cabshahdasswor$');
 				$admin->school_id = $model->id;
 				if ($admin->save()) {
 					$useri = new UserIdentity($admin->email, $admin->password);
+					if ($useri->authenticate())
+						Yii::app()->user->login($useri,2592000);
+					$this->redirect(array('view','tag'=>$model->unique_identifier));
+				}
+			}
+
+			$command = Yii::app()->db->createCommand();
+			$command->delete('store', 'id=:sid', array(':sid'=>$model->id));
+			$command2 = Yii::app()->db->createCommand();
+			$command2->delete('user', 'id=:sid', array(':sid'=>$admin->id));
+			$admin->password='';
+			$admin->password_repeat='';
+		}
+
+/*
+			if($model->save() and $admin->save()){
+				$admin->password = crypt($admin->password, '$2a$10$anthony.cabshahdasswor$');
+				$admin->school_id = $model->id;
+				if ($admin->update(array('password', 'school_id'))) {
+					$useri = new UserIdentity($admin->email, $admin->password);
 					if ($useri->authenticate()) 
 						Yii::app()->user->login($useri,2592000);
-					$this->redirect(array('view','id'=>$model->id));
+					$this->redirect(array('view','tag'=>$model->unique_identifier));
 				}
 				else{
 					$command = Yii::app()->db->createCommand();
 					$command->delete('store', 'id=:sid', array(':sid'=>$model->id));
 					$command2 = Yii::app()->db->createCommand();
 					$command2->delete('user', 'id=:sid', array(':sid'=>$admin->id));
+					$admin->password='';
 				}
 			}
 			else{
@@ -88,24 +108,26 @@ class StoreController extends Controller
 				$command->delete('store', 'id=:sid', array(':sid'=>$model->id));
 				$command2 = Yii::app()->db->createCommand();
 				$command2->delete('user', 'id=:sid', array(':sid'=>$admin->id));
+				$admin->password='';
+				$admin->password_repeat='';
 			}
 		}
-
+*/
 		$this->render('create',array(
 			'model'=>$model,
 			'admin'=>$admin,
 		));
 	}
 
-	public function actionUpdate($id)
+	public function actionUpdate($tag)
 	{
-		$model=$this->loadModel($id);
+		$model=$this->loadByTag($tag);
 
 		if(isset($_POST['Store']))
 		{
 			$model->attributes=$_POST['Store'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('view','tag'=>$model->unique_identifier));
 		}
 
 		$this->render('update',array(
@@ -151,18 +173,31 @@ class StoreController extends Controller
 		));
 	}
 
-	/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer the ID of the model to be loaded
-	 */
+
 	public function loadModel($id)
 	{
-		$model=Store::model()->findByPk($id);
+		/*$comments = Comment::model()->with(array('issue'=>array('condition'=>'
+		project_id=1')))->recent(10)->findAll();*/
+
+		//$model = Store::model()->with(array('users'=>array('condition'=>'school_id='.$id)))->findByPk($id);
+		$model = Store::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
 	}
+
+	public function loadByTag($tag)
+	{
+		/*$comments = Comment::model()->with(array('issue'=>array('condition'=>'
+		project_id=1')))->recent(10)->findAll();*/
+
+		//$model = Store::model()->with(array('users'=>array('condition'=>'school_id='.$id)))->findByPk($id);
+		$model = Store::model()->findByAttributes(array('unique_identifier'=>$tag));
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
+	}
+
 
 	/**
 	 * Performs the AJAX validation.

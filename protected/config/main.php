@@ -15,7 +15,7 @@ Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap');
 
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'NDMS Store',
+	'name'=>'School Stores',
 	'theme'=>'bootstrap',
 
 	// preloading 'log' component
@@ -55,6 +55,8 @@ return array(
 			'showScriptName'=>false,
 			'rules'=>array(
 				''=>'store/homepage',
+				'<tag:\w+>' => 'store/view',
+				'update/<tag:\w+>' => 'store/update',
 				'<tag:\w+>/register' => 'user/register',
 				'profile/<id:\d+>' => 'user/profile',
 				'<tag:\w+>/reserve/<id:\d+>' => 'item/reserve',
@@ -66,6 +68,7 @@ return array(
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+
 			),
 		),
 

@@ -35,10 +35,21 @@
         </form>' : '';
     $page_errors = !isset(Yii::app()->errorHandler->error);
 
+    if (Yii::app()->user->isGuest) {
+        $brand_tag = CHtml::encode(Yii::app()->name);
+        $brand_url = Yii::app()->createAbsoluteUrl('');
+    }
+    else{
+        $user = User::model()->with('store')->findByPk(Yii::app()->user->id);
+        $brand_tag = $user->store->name;
+        $brand_url = Yii::app()->createAbsoluteUrl('store/view', array('tag'=>$user->store->unique_identifier) );
+    }
+
+
     $this->widget('bootstrap.widgets.TbNavbar', array(
     'type'=>'inverse', // null or 'inverse'
-    'brand'=>CHtml::encode(Yii::app()->name),
-    'brandUrl'=>Yii::app()->createAbsoluteUrl(''),
+    'brand'=>ucwords($brand_tag),
+    'brandUrl'=>$brand_url,
     'collapse'=>true, // requires bootstrap-responsive.css
     'items'=>array(
         array(

@@ -16,7 +16,7 @@ class m140126_204019_store_table extends CDbMigration
 		),  'ENGINE=InnoDB');
 
 		$this->addColumn('item', 'school_id', 'int(11) NOT NULL'); 
-		$this->addColumn('user', 'school_id', 'int(11) DEFAULT NULL'); 
+		$this->addColumn('user', 'school_id', 'int(11) NOT NULL'); 
 		$this->addColumn('reservation', 'school_id', 'int(11) NOT NULL'); 
 		$this->addColumn('comment', 'school_id', 'int(11) NOT NULL'); 
 

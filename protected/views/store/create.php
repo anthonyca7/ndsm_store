@@ -11,4 +11,5 @@ $this->menu=array(
 ?>
 
 
-<?php echo $this->renderPartial('_form', array('model'=>$model, 'admin'=>$admin)); ?>
+<?php echo $this->renderPartial('_rform', array('model'=>$model, 'admin'=>$admin)); ?>
+

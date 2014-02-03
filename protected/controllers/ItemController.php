@@ -5,15 +5,12 @@ class ItemController extends Controller
 	public $layout='//layouts/column2';
 	private $_store = null;
 
-
-	/**
-	 * @return array action filters
-	 */
 	public function filters()
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'storeContext'
+			'storeContext',
+			'admin + admin create delete update'
 		);
 	}
 
@@ -25,12 +22,8 @@ class ItemController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', 
-				'actions'=>array('reserve', 'updatereservation'),
+				'actions'=>array('reserve', 'updatereservation', 'create','delete','admin','update'),
 				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('create','delete','admin','update'),
-				'users'=>array('anthonyka7@gmail.com', 'anthonyca7@gmail.com', 'anthonyca7@hotmail.com'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -329,6 +322,19 @@ class ItemController extends Controller
 			throw new CHttpException(403,'Must specify a store before performing this action.');
 
 		$filterChain->run();
+	}
+
+	public function filterAdmin($filterChain)
+	{
+		if (!Yii::app()->user->isGuest) {
+			$this->loadstore($_GET['tag']);
+			$user = User::model()->with('store')->findByPk(Yii::app()->user->id);
+			if ( $user->is_admin==1 and $user->store->id === $this->_store->id) {
+				$filterChain->run();
+				Yii::app()->end();
+			}
+		}
+		throw new CHttpException(403,'Invalid Request');
 	}
 
 	public function actionAdmin()

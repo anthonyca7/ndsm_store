@@ -14,7 +14,8 @@ class UserController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			//'storeContext',
+			'storeContext + register',
+			'admin + admin delete index',
 		);
 	}
 
@@ -31,12 +32,8 @@ class UserController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', 
-				'actions'=>array('update'),
+				'actions'=>array('update', 'admin','delete','index'),
 				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','index'),
-				'users'=>array('anthonyka7@gmail.com', 'anthonyca7@gmail.com', 'anthonyca7@hotmail.com'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -111,6 +108,7 @@ class UserController extends Controller
 			$model->is_admin = 0;
 			$model->is_active = 1;
 			$model->validation_code = md5('anthony' . $model->password . $model->email);
+			$model->school_id = $this->_store->id;
 
 			if($model->save()){
 				$model->password = crypt($model->password, '$2a$10$anthony.cabshahdasswor$');
@@ -200,7 +198,9 @@ class UserController extends Controller
 	 */
 	public function actionIndex($tag)
 	{	
-		$dataProvider=new CActiveDataProvider('User');
+		$dataProvider=new CActiveDataProvider('User', array(
+			'criteria'=>array('condition' => 'school_id='. $this->_store->id),
+		));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -229,7 +229,7 @@ class UserController extends Controller
 	public function loadModel($id)
 	{
 		$model=User::model()->findByPk($id);
-		if($model===null and $model->school_id!==$this->_store->id )
+		if($model===null or $model->school_id!==$this->_store->id )
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
 	}
@@ -270,5 +270,17 @@ class UserController extends Controller
 			throw new CHttpException(403,'Must specify a store before performing this action.');
 
 		$filterChain->run();
+	}
+	public function filterAdmin($filterChain)
+	{
+		if (!Yii::app()->user->isGuest) {
+			$this->loadstore($_GET['tag']);
+			$user = User::model()->with('store')->findByPk(Yii::app()->user->id);
+			if ( $user->is_admin==1 and $user->store->id === $this->_store->id) {
+				$filterChain->run();
+				Yii::app()->end();
+			}
+		}
+		throw new CHttpException(403,'Invalid Request');
 	}
 }

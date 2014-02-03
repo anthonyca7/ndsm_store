@@ -100,23 +100,31 @@ class SiteController extends Controller
 					Yii::app()->user->setFlash('warning', 
 						"<strong>{$user->email}, Go to your email to validate this account, 
 						don't forget to check the spam folder</strong>");
-				$this->redirect(Yii::app()->user->returnUrl);
+				if (Yii::app()->user->returnUrl != Yii::app()->baseUrl . '/') {
+					$this->redirect(Yii::app()->user->returnUrl);
+				}
+				else{
+					$user = User::model()->with('store')->findByPk(Yii::app()->user->id);
+					$this->redirect(array('store/view', 'tag'=>$user->store->unique_identifier));
+				}
 			}
 		}
 		// display the login form
 		$this->render('login',array('model'=>$model));
 		}
 		else{
-			$this->redirect(array('site/index'));
+			$user = User::model()->with('store')->findByPk(Yii::app()->user->id);
+			$this->redirect(array('store/view', 'tag'=>$user->store->unique_identifier));
 		}
 	}
 
-	/**
-	 * Logs out the current user and redirect to homepage.
-	 */
 	public function actionLogout()
 	{
-		Yii::app()->user->logout();
-		$this->redirect(Yii::app()->homeUrl);
+		if (!Yii::app()->user->isGuest) {
+			$user = User::model()->with('store')->findByPk(Yii::app()->user->id);
+			$school_tag = $user->store->unique_identifier;
+			Yii::app()->user->logout();
+			$this->redirect(Yii::app()->createAbsoluteUrl('store/view', array('tag'=>$school_tag)));
+		}
 	}
 }
