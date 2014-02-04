@@ -24,30 +24,13 @@ return array(
 			'charset' => 'utf8',
 		),
 
-		/*'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=schoolstores_zxq_admin',
-			'emulatePrepare' => true,
-			'username' => '897704_admin',
-			'password' => 'admin',
-			'charset' => 'utf8',
-		),*/
-		
-		/*'db'=>array(
-			'connectionString' => 'mysql:host=64.62.211.131;dbname=acc7_s2',
-			'emulatePrepare' => true,
-			'username' => 'acc7_admin',
-			'password' => 'admin',
-			'charset' => 'utf8',
-		),*/
-
-		/*'db'=>array(
-        'tablePrefix'=>'',
-        'connectionString' => 'pgsql:host=64.62.211.131;port=5432;dbname=acc7_admin',
-        'username'=>'acc7_admin',
-        'password'=>'admin',
-        'charset'=>'UTF8',
-		),*/
-
+		'authManager'=>array(
+			'class'=>'CDbAuthManager',
+		    'connectionID'=>'db',
+			'itemTable' => 'auth_item',
+			'itemChildTable' => 'auth_item_child',
+			'assignmentTable' => 'auth_assignment',
+		),
 
 		
 		'log'=>array(

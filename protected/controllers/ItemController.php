@@ -21,13 +21,13 @@ class ItemController extends Controller
 				'actions'=>array('view','index' ),
 				'users'=>array('*'),
 			),
-			array('allow', 
+			/*array('allow', 
 				'actions'=>array('reserve', 'updatereservation', 'create','delete','admin','update'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
-			),
+			),*/
 		);
 	}
 
@@ -329,7 +329,7 @@ class ItemController extends Controller
 		if (!Yii::app()->user->isGuest) {
 			$this->loadstore($_GET['tag']);
 			$user = User::model()->with('store')->findByPk(Yii::app()->user->id);
-			if ( $user->is_admin==1 and $user->store->id === $this->_store->id) {
+			if ( $user->is_admin and $user->store->id === $this->_store->id) {
 				$filterChain->run();
 				Yii::app()->end();
 			}
@@ -374,11 +374,6 @@ class ItemController extends Controller
 
 	}
 
-
-	/**
-	 * Performs the AJAX validation.
-	 * @param CModel the model to be validated
-	 */
 	protected function performAjaxValidation($model)
 	{
 		if(isset($_POST['ajax']) && $_POST['ajax']==='item-form')

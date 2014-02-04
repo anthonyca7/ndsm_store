@@ -58,7 +58,7 @@ return array(
 				'<tag:\w+>' => 'store/view',
 				'update/<tag:\w+>' => 'store/update',
 				'<tag:\w+>/register' => 'user/register',
-				'profile/<id:\d+>' => 'user/profile',
+				'<tag:\w+>/profile/<id:\d+>' => 'user/profile',
 				'<tag:\w+>/reserve/<id:\d+>' => 'item/reserve',
 				'<tag:\w+>/<controller:user>/<id:\d+>/<code:\w+>'=>'<controller>/validate',
 				'<tag:\w+>/updatereservation/<id:\d+>' => 'item/updatereservation',
@@ -68,9 +68,16 @@ return array(
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-
 			),
 		),
+
+		'authManager'=>array(
+			'class'=>'CDbAuthManager',
+		    'connectionID'=>'db',
+			'itemTable' => 'auth_item',
+			'itemChildTable' => 'auth_item_child',
+			'assignmentTable' => 'auth_assignment',
+		), 
 
 		
 		'db'=>array(
@@ -80,43 +87,6 @@ return array(
 			'password' => 'root',
 			'charset' => 'utf8',
 		),
-		
-		/*'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=schoolstores_zxq_admin',
-			'emulatePrepare' => true,
-			'username' => '897704_admin',
-			'password' => 'admin',
-			'charset' => 'utf8',
-		),*/
-
-		/*'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=s2',
-			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => 'root',
-			'charset' => 'utf8',
-		),*/
-
-		//$mysql_host = "mysql12.000webhost.com";
-		// $mysql_database = "a1160700_admin";
-		// $mysql_user = "a1160700_admin";
-		// $mysql_password = "admin1";
-
-		/*'db'=>array(
-        'tablePrefix'=>'',
-        'connectionString' => 'pgsql:host=64.62.211.131;port=5432;dbname=acc7_admin',
-        'username'=>'acc7_admin',
-        'password'=>'admin',
-        'charset'=>'UTF8',
-		),*/
-
-		/*'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=acc7_s2',
-			'emulatePrepare' => true,
-			'username' => 'acc7_admin',
-			'password' => 'admin',
-			'charset' => 'utf8',
-		),*/
 		
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors

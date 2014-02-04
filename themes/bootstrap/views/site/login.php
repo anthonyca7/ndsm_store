@@ -21,8 +21,6 @@ $this->breadcrumbs=array(
 	'validateOnSubmit'=>true,
 	),
 )); ?>
-	<?php echo Yii::app()->user->returnUrl. "<br>"; ?>
-	<?php echo Yii::app()->createUrl(''); ?>
 
 	<?php echo $form->textFieldRow($model,'username'); ?>
 

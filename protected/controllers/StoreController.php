@@ -64,16 +64,18 @@ class StoreController extends Controller
 			$admin->is_active = 0;
 
 			$model->approved = 0;
+			$password = $admin->password;
 
 			if ($model->save()) {
 				$admin->password = crypt($admin->password, '$2a$10$anthony.cabshahdasswor$');
 				$admin->password_repeat = crypt($admin->password_repeat, '$2a$10$anthony.cabshahdasswor$');
 				$admin->school_id = $model->id;
 				if ($admin->save()) {
-					$useri = new UserIdentity($admin->email, $admin->password);
+					$useri = new UserIdentity($admin->email, $password);
 					if ($useri->authenticate())
 						Yii::app()->user->login($useri,2592000);
 					$this->redirect(array('view','tag'=>$model->unique_identifier));
+
 				}
 			}
 
@@ -85,34 +87,6 @@ class StoreController extends Controller
 			$admin->password_repeat='';
 		}
 
-/*
-			if($model->save() and $admin->save()){
-				$admin->password = crypt($admin->password, '$2a$10$anthony.cabshahdasswor$');
-				$admin->school_id = $model->id;
-				if ($admin->update(array('password', 'school_id'))) {
-					$useri = new UserIdentity($admin->email, $admin->password);
-					if ($useri->authenticate()) 
-						Yii::app()->user->login($useri,2592000);
-					$this->redirect(array('view','tag'=>$model->unique_identifier));
-				}
-				else{
-					$command = Yii::app()->db->createCommand();
-					$command->delete('store', 'id=:sid', array(':sid'=>$model->id));
-					$command2 = Yii::app()->db->createCommand();
-					$command2->delete('user', 'id=:sid', array(':sid'=>$admin->id));
-					$admin->password='';
-				}
-			}
-			else{
-				$command = Yii::app()->db->createCommand();
-				$command->delete('store', 'id=:sid', array(':sid'=>$model->id));
-				$command2 = Yii::app()->db->createCommand();
-				$command2->delete('user', 'id=:sid', array(':sid'=>$admin->id));
-				$admin->password='';
-				$admin->password_repeat='';
-			}
-		}
-*/
 		$this->render('create',array(
 			'model'=>$model,
 			'admin'=>$admin,
@@ -198,6 +172,16 @@ class StoreController extends Controller
 		return $model;
 	}
 
+	public function filterAdmin($fc)
+	{
+		$user = User::model()->findByPk(Yii::app()->user->id);
+		if ($user->status == 2) {
+			$fc->run();
+			Yii::app()->end();
+		}
+
+		throw new CHttpException(403,'Invalid Request');
+	}
 
 	/**
 	 * Performs the AJAX validation.

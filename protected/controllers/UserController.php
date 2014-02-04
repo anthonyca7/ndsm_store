@@ -14,7 +14,7 @@ class UserController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'storeContext + register',
+			'storeContext + register update profile',
 			'admin + admin delete index',
 		);
 	}
@@ -90,7 +90,7 @@ class UserController extends Controller
 		
 		$this->layout = "clearcolumn";
 		if (!Yii::app()->user->isGuest) {
-			$this->redirect(array('site/index'));
+			$this->redirect(array('store/view', 'tag'=>$tag));
 		}
 
 		$model=new User;
@@ -128,15 +128,14 @@ class UserController extends Controller
 						Yii::app()->user->setFlash('warning', 
 							"<strong>{$model->email}, Go to your email to validate this account, 
 							don't forget to check the spam folder</strong>");
-						$this->redirect(array('site/index'));
+						$this->redirect(array('store/view', 'tag'=>$tag));
 					}
 				}
 				else{
 					$model->delete();
 					Yii::app()->user->setFlash('error', 'Something went wrong with the registration');
-
 				}
-				$this->redirect(array('site/index'));
+				$this->redirect(array('store/view', 'tag'=>$tag));
 			}
 			else{
 				$model->password = '';
@@ -151,13 +150,7 @@ class UserController extends Controller
 	}
 
 
-
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
-	public function actionUpdate($id)
+	public function actionUpdate($id, $tag)
 	{
 		$model=$this->loadModel($id);
 
@@ -168,7 +161,7 @@ class UserController extends Controller
 		{
 			$model->attributes=$_POST['User'];
 			if($model->save()){
-				$this->redirect(array('profile','id'=>$model->id));
+				$this->redirect(array('profile','id'=>$model->id, 'tag'=>$tag));
 			}
 		}
 
@@ -276,7 +269,19 @@ class UserController extends Controller
 		if (!Yii::app()->user->isGuest) {
 			$this->loadstore($_GET['tag']);
 			$user = User::model()->with('store')->findByPk(Yii::app()->user->id);
-			if ( $user->is_admin==1 and $user->store->id === $this->_store->id) {
+			if ( $user->is_admin and $user->store->id === $this->_store->id) {
+				$filterChain->run();
+				Yii::app()->end();
+			}
+		}
+		throw new CHttpException(403,'Invalid Request');
+	}
+	public function filterMember($filterChain)
+	{
+		if (!Yii::app()->user->isGuest) {
+			$this->loadstore($_GET['tag']);
+			$user = User::model()->with('store')->findByPk(Yii::app()->user->id);
+			if ( $user->store->id === $this->_store->id) {
 				$filterChain->run();
 				Yii::app()->end();
 			}
