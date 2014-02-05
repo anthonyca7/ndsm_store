@@ -74,6 +74,9 @@ class StoreController extends Controller
 					$useri = new UserIdentity($admin->email, $password);
 					if ($useri->authenticate())
 						Yii::app()->user->login($useri,2592000);
+					$auth = Yii::app()->authManager;
+					$auth->assign('storeAdmin',$admin->id);
+
 					$this->redirect(array('view','tag'=>$model->unique_identifier));
 
 				}

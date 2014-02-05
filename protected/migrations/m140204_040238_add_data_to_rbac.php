@@ -18,7 +18,7 @@ class m140204_040238_add_data_to_rbac extends CDbMigration
 	{
 		$authManager = Yii::app()->authManager;
 
-		 //create user operations
+		//create user operations
 		$authManager->createOperation(
 			"userIndex",
 			"View all users of a store"); 
@@ -77,7 +77,7 @@ class m140204_040238_add_data_to_rbac extends CDbMigration
 			"storeUpdate",
 			"Change store");
 		$authManager->createOperation(
-			"storeAdmin",
+			"sistratortoreAdmin",
 			"store administrator");
 		$authManager->createOperation(
 			"storeMakeAdmin",
@@ -91,17 +91,42 @@ class m140204_040238_add_data_to_rbac extends CDbMigration
 
 
 
+		//StoreMember
+		$bizRule='return Yii::app()->user->id==$params["user"]->id and $params["store"]->id==$user->store->id;';
+        $ownAccountOperations=$authManager->createTask('ownAccountOperations','user account operations',$bizRule);
+        $ownAccountOperations->addChild("userDelete");
+		$ownAccountOperations->addChild("userUpdate");
+		$ownAccountOperations->addChild("reservationDelete");
+		$ownAccountOperations->addChild("itemUpdateReservation");
 
+		$storeMember=$authManager->createRole("storeMember");
+		$storeMember->addChild("ownAccountOperations");
+		$storeMember->addChild("itemReserve");
 
+		//storeAdministrator
+		$bizRule='return $params["user"]->is_admin==1 and $params["store"]->id==$user->store->id;';
+        $manageOwnStore=$authManager->createTask('manageOwnStore','manage store operations',$bizRule);
+        $manageOwnStore->addChild("userAdmin");
+        $manageOwnStore->addChild("itemCreate");
+        $manageOwnStore->addChild("itemUpdate");
+		$manageOwnStore->addChild("itemDelete");
+		$manageOwnStore->addChild("itemAdmin");
+		$manageOwnStore->addChild("reservationAdmin");
+		$manageOwnStore->addChild("storeCancel");
+		$manageOwnStore->addChild("storeUpdate");
+		$manageOwnStore->addChild("storeMakeAdmin");
+		$manageOwnStore->addChild("userIndex");
 
+		$storeAdmin=$authManager->createRole("storeAdmin");
+		$storeAdmin->addChild("manageOwnStore");
+		$storeAdmin->addChild("storeMember");
 
-
-		
 	}
 
 	public function safeDown()
 	{
-		$this->_authManager->clearAll();
+		$authManager = Yii::app()->authManager;
+		$authManager->clearAll();
 	}
 	
 }

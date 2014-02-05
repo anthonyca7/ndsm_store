@@ -3,11 +3,13 @@
 class ItemController extends Controller
 {
 	public $layout='//layouts/column2';
-	private $_store = null;
+	private $store = null;
+	private $model = null;
 
 	public function filters()
 	{
 		return array(
+			array( 'CSDataLoaderFilter', 'loadByName', 'on'=>array( 'view' ) ),
 			'accessControl', // perform access control for CRUD operations
 			'storeContext',
 			'admin + admin create delete update'
@@ -18,16 +20,16 @@ class ItemController extends Controller
 	{
 		return array(
 			array('allow',  
-				'actions'=>array('view','index' ),
+				'actions'=>array('view', 'index'),
 				'users'=>array('*'),
 			),
-			/*array('allow', 
+			array('allow', 
 				'actions'=>array('reserve', 'updatereservation', 'create','delete','admin','update'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
-			),*/
+			),
 		);
 	}
 
@@ -37,7 +39,6 @@ class ItemController extends Controller
 	private function reserve($id, $quantity)
 	{
 		$user = User::model()->findByPk(Yii::app()->user->id);
-		$item = $this->loadModel($id);
 
 		if (isset($_GET['quantity'])) {
 			$quantity = $_GET['quantity'];
@@ -46,18 +47,18 @@ class ItemController extends Controller
 			throw new CHttpException(400, "pass a valid quantity");
 		}
 
-		if( isset($item) and ($item->available > 0) and ($item->available >= $quantity) ){
+		if( isset($model) and ($model->available > 0) and ($model->available >= $quantity) ){
 			if($user->status == 1){
 				$r_model = new Reservation;
 				$r_model->user_id = $user->id;
 				$r_model->item_id = $id;
 				$r_model->brought = 0;
 				$r_model->quantity = $_GET['quantity'];
-				$r_model->school_id = $this->_store->id;
+				$r_model->school_id = $this->store->id;
 
 				if ($r_model->save()) {
-					$item->available = $item->available - $quantity;
-					$item->update(array('available'));
+					$model->available = $model->available - $quantity;
+					$model->update(array('available'));
 					Yii::app()->user->setflash('info', "You have reserved {$quantity} items");
 				}
 				else{
@@ -67,16 +68,16 @@ class ItemController extends Controller
 			}
 			else{
 				Yii::app()->user->setflash('warning', "You need to validate your email to reserve any item");
-				$this->redirect($this->createUrl('item/view', array('id'=>$id)));
+				$this->redirect($this->createUrl('item/view', array('name'=>$model->name, 'tag'=>$this->store->unique_identifier)));
 			}
 
 
 		}
 		else{
-			Yii::app()->user->setflash('error', "Sorry, we don't have {$quantity} {$item->name}s available");
+			Yii::app()->user->setflash('error', "Sorry, we don't have {$quantity} {$model->name}s available");
 		}
 
-		$this->redirect($this->createUrl('item/view', array('id'=>$id)));
+		$this->redirect($this->createUrl('item/view', array('name'=>$model->name, 'tag'=>$this->store->unique_identifier)));
 
 	}
 
@@ -97,6 +98,7 @@ class ItemController extends Controller
 	{
 		$reservation = Reservation::model()->findByAttributes(array('user_id'=>Yii::app()->user->id,
 																	'item_id'=>$id));
+		$item = $this->loadModel($id);
 		if ($reservation === null or !isset($_GET['nq']) or !$this->validposint($_GET['nq'])) {
 			if (intval($_GET['nq']) <= 0) {
 				Yii::app()->user->setflash('error', 'You need to choose an amount bigger than 0');
@@ -104,10 +106,9 @@ class ItemController extends Controller
 			else{
 				Yii::app()->user->setflash('error', 'You need to select a valid item');
 			}
-			$this->redirect($this->createUrl('item/view', array('id'=>$id)));
+			$this->redirect($this->createUrl('item/view', array('name'=>$item->name, 'tag'=>$this->store->unique_identifier)));
 		}
 		else{
-			$item = $this->loadModel($id);
 			$new_quantity = $_GET['nq'];
 			$old_quantity = $reservation->quantity;
 
@@ -118,7 +119,7 @@ class ItemController extends Controller
 
 			if ($updated_quantity < 0) {
 				Yii::app()->user->setflash('warning', 'You tried amount to more than what we have available');
-				$this->redirect($this->createUrl('item/view', array('id'=>$id)));
+				$this->redirect($this->createUrl('item/view', array('name'=>$item->name, 'tag'=>$this->store->unique_identifier)));
 			}
 
 			$reservation->quantity = $new_quantity;
@@ -126,13 +127,12 @@ class ItemController extends Controller
 
 			if ($reservation->update(array('quantity')) and $item->update(array('available'))) {
 				Yii::app()->user->setflash('info', "You have now reserved $new_quantity of this item");
-				$this->redirect(array('item/view', 'id'=>$id));
+				$this->redirect(array('item/view', 'name'=>$item->name, 'tag'=>$this->store->unique_identifier));
 			}
 			else{
 				Yii::app()->user->setflash('error', 'Something went wrong, please try again');
 			}
-			$this->redirect($this->createUrl('item/view', array('id'=>$id)));
-
+			$this->redirect($this->createUrl('item/view', array('name'=>$item->name, 'tag'=>$this->store->unique_identifier)));
 		}
 	}
 
@@ -156,22 +156,16 @@ class ItemController extends Controller
 	    return ((string)(int)$var === $var) and ((int) $var > 0);
 	}
 
-
-
-	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionView($id)
+	public function actionView($name)
 	{
 		$this->layout = 'clearcolumn';
 		$reservation = Reservation::model()->findByAttributes(array(
 			'user_id'=>Yii::app()->user->id,
-			'item_id'=>$id,
+			'item_id'=>$this->model->id,
 			'brought'=>0,
 			));
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$this->model,
 			'reservation'=>$reservation,
 		));
 	}
@@ -189,7 +183,7 @@ class ItemController extends Controller
 		{
 			$model->attributes=$_POST['Item'];
 			$model->image=CUploadedFile::getInstance($model,'image');
-			$model->school_id = $this->_store->id;
+			$model->school_id = $this->store->id;
 			
 			if($model->save()){
 				$filename = "/{$model->image->name}";
@@ -265,7 +259,7 @@ class ItemController extends Controller
 	{
 		$this->layout = "column1";
 	    $criteria = new CDbCriteria();
-	    $criteria->compare('school_id', $this->_store->id, true, 'AND');
+	    $criteria->compare('school_id', $this->store->id, true, 'AND');
 
 	    if(isset($_GET['q']) and $_GET['q']!='')
 	    {
@@ -301,16 +295,16 @@ class ItemController extends Controller
 
 	protected function loadstore($tag)
 	{
-		if($this->_store===null)
+		if($this->store===null)
 		{
-			$this->_store = Store::model()->findByAttributes(array('unique_identifier'=>$tag));
+			$this->store = Store::model()->findByAttributes(array('unique_identifier'=>$tag));
 		}
 
-		if($this->_store===null)
+		if($this->store===null)
 		{
 			throw new CHttpException(404,'The requested STORE does not exist.');
 		}
-		return $this->_store;
+		return $this->store;
 
 	}
 
@@ -329,7 +323,7 @@ class ItemController extends Controller
 		if (!Yii::app()->user->isGuest) {
 			$this->loadstore($_GET['tag']);
 			$user = User::model()->with('store')->findByPk(Yii::app()->user->id);
-			if ( $user->is_admin and $user->store->id === $this->_store->id) {
+			if ( $user->is_admin and $user->store->id === $this->store->id) {
 				$filterChain->run();
 				Yii::app()->end();
 			}
@@ -349,17 +343,28 @@ class ItemController extends Controller
 		));
 	}
 
-	/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer the ID of the model to be loaded
-	 */
 	public function loadModel($id)
 	{
 		$model=Item::model()->findByPk($id);
-		if($model===null or $model->school_id!==$this->_store->id )
+		$this->model=$model;
+		if($model===null or $model->school_id!==$this->store->id )
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
+	}
+	public function loadByName(/*$name, $withstore=false*/)
+	{
+		/*if (!$withstore) {
+			$model=Item::model()->findByAttributes(array('name'=>$name));
+		}
+		else{*/
+
+			$this->model=Item::model()->with("store")->findByAttributes(array('name'=>Yii::app()->request->getParam( 'name' )));			
+		//}
+		$this->loadstore($_GET['tag']);
+
+		if($this->model===null or $this->model->school_id!==$this->store->id )
+			throw new CHttpException(404,'The requested page does not exist....');
+		return $this->model;
 	}
 
 	private function check_for_existing_reservation($item_id, $user_id)

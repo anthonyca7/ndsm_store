@@ -1,7 +1,7 @@
 <?php 
 $product_name = $data->name;
 $product_name = (strlen($product_name) > 25) ? substr($product_name,0,22).'...' : $product_name;
-$link = $this->createUrl("item/view", array("id" => $data->id));  ?>
+$link = $this->createUrl("item/view", array("name" => $data->name, 'tag'=>$data->store->unique_identifier));  ?>
 
 
 <div class="span3 well item-view item-well">

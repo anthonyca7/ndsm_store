@@ -23,12 +23,11 @@
 			<p class="text-info">There are no more <?php echo $model->name ?> left<br>
 		<?php endif; ?>
 		Price: $<?php echo $model->price; ?></p>
-		
-
 
 
 		<?php if($reservation === null){ 
-	 		$link = Yii::app()->createAbsoluteUrl("item/reserve", array('id'=>$model->id)); 
+	 		$link = Yii::app()->createAbsoluteUrl("item/reserve", array('tag'=>$model->store->name, 
+	 																	'id'=>$model->id)); 
 	 	?>
 
 	 	<form method="get" action="<?php echo $link ?>" id="resform" class="form-horizontal">
@@ -39,7 +38,8 @@
 
 		</div>
 
-		<?php }else{ $link = Yii::app()->createAbsoluteUrl("item/updatereservation", array('id'=>$model->id)); ?>
+		<?php }else{ $link = Yii::app()->createAbsoluteUrl("item/updatereservation",
+		 array('tag'=>$model->store->name, 'id'=>$model->id)); ?>
 	               
 	        You have <?php echo $reservation->quantity ?> reserved<br>
 

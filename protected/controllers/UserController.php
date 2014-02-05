@@ -1,5 +1,22 @@
 <?php
 
+
+/*//create user operations
+		$authManager->createOperation(
+			"userIndex",
+			"View all users of a store"); 
+		$authManager->createOperation(
+			"userDelete",
+			"Ability to delete a user"); 
+		$authManager->createOperation(
+			"userUpdate",
+			"Ability to delete a user"); 
+		$authManager->createOperation(
+			"userAdmin",
+			"user administrator"); 
+		$authManager->createOperation(
+			"userRoot",
+			"user root");*/
 class UserController extends Controller
 {
 
@@ -13,9 +30,9 @@ class UserController extends Controller
 	public function filters()
 	{
 		return array(
-			'accessControl', // perform access control for CRUD operations
 			'storeContext + register update profile',
 			'admin + admin delete index',
+			'accessControl', // perform access control for CRUD operations
 		);
 	}
 
@@ -117,19 +134,21 @@ class UserController extends Controller
 					$useri = new UserIdentity($model->email, $password);
 					if ($useri->authenticate()) {
 						Yii::app()->user->login($useri,2592000);
-
-						$header  = "MIME-Version: 1.0\r\n";
-	 					$header .= "Content-type: text/html; charset: utf8\r\n";
-
-	 					$link = "<a href='" . $this->createAbsoluteUrl('user/validate', array('id'=>$model->id, 
-	 						'code'=>$model->validation_code))  .  "'> click here to validate! </a> ";
-
-						mail($model->email, "Finish your registration", $link, $header);
-						Yii::app()->user->setFlash('warning', 
-							"<strong>{$model->email}, Go to your email to validate this account, 
-							don't forget to check the spam folder</strong>");
-						$this->redirect(array('store/view', 'tag'=>$tag));
 					}
+
+					$header  = "MIME-Version: 1.0\r\n";
+	 				$header .= "Content-type: text/html; charset: utf8\r\n";
+
+	 				$link = "<a href='" . $this->createAbsoluteUrl('user/validate', array('id'=>$model->id, 
+	 					'code'=>$model->validation_code))  .  "'> click here to validate! </a> ";
+
+					mail($model->email, "Finish your registration", $link, $header);
+					Yii::app()->user->setFlash('warning', 
+						"<strong>{$model->email}, Go to your email to validate this account, 
+						don't forget to check the spam folder</strong>");
+					$auth = Yii::app()->authManager;
+					$auth->assign('storeMember',$model->id);
+					$this->redirect(array('store/view', 'tag'=>$tag));
 				}
 				else{
 					$model->delete();
