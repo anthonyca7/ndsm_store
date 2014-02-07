@@ -24,18 +24,17 @@
 <?php $this->endContent(); ?>
 
 <?php if (isset($_GET['tag'])): ?>
-    <?php 
-        $page = Store::model()->findByAttributes(array('unique_identifier'=>$_GET['tag']));
+    <?php $page = Store::model()->findByAttributes(array('unique_identifier'=>$_GET['tag'])); ?>
+    <?php if ($page): ?>
+        <script type="text/javascript">
+        var title = "<?php echo ucwords($page->name); ?>";
+        $(document).ready(function  () {
+            $("#myModalLabel").html("Register to " + title);
+            $(".brand").html(title);
+            $(".brand").attr("href", '<?php echo $this->createUrl("store/view", array("tag"=>$_GET["tag"])); ?>');
 
-     ?>
-    <script type="text/javascript">
-    var title = "<?php echo ucwords($page->name); ?>";
-    $(document).ready(function  () {
-        $("#myModalLabel").html("Register to " + title);
-        $(".brand").html(title);
-        $(".brand").attr("href", '<?php echo $this->createUrl("store/view", array("tag"=>$_GET["tag"])); ?>');
-
-    });
-
-    </script>
+        });
+        </script> 
+    <?php endif ?>
+    
 <?php endif ?>

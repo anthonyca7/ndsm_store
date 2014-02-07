@@ -1,87 +1,85 @@
 <?php
 
-
-/*//create user operations
-		$authManager->createOperation(
-			"userIndex",
-			"View all users of a store"); 
-		$authManager->createOperation(
-			"userDelete",
-			"Ability to delete a user"); 
-		$authManager->createOperation(
-			"userUpdate",
-			"Ability to delete a user"); 
-		$authManager->createOperation(
-			"userAdmin",
-			"user administrator"); 
-		$authManager->createOperation(
-			"userRoot",
-			"user root");*/
 class UserController extends Controller
 {
 
-	private $_store = null;
+	private $store = null;
+	private $model = null;
+	private $id_user = null;
 	public $layout='//layouts/column2';
 	const VALIDATED = 1;
 
-	/**
-	 * @return array action filters
-	 */
 	public function filters()
 	{
 		return array(
-			'storeContext + register update profile',
-			'admin + admin delete index',
-			'accessControl', // perform access control for CRUD operations
+			'storeContext + index register update delete admin',
+			'loadUser + index update delete admin',
+			'loadIdUser + update profile delete validate',
+			'accessControl',  
 		);
 	}
 
-	/**
-	 * Specifies the access control rules.
-	 * This method is used by the 'accessControl' filter.
-	 * @return array access control rules
-	 */
 	public function accessRules()
 	{
+		$params=array();
+        $params['user']=$this->model;
+        $params['store']=$this->store;
+        $params['id_user']=$this->id_user;
+
 		return array(
 			array('allow',  
-				'actions'=>array('view', 'register', 'validate', 'profile' ),
+				'actions'=>array('validate', 'profile'),
 				'users'=>array('*'),
 			),
-			array('allow', 
-				'actions'=>array('update', 'admin','delete','index'),
-				'users'=>array('@'),
+			array('allow',
+				'actions'=>array('register'),
+				'users'=>array('?'),
 			),
+			array('allow',
+				'actions'=>array('index'),
+				'roles'=>array('userIndex'=>$params),
+			),
+			array('allow',
+				'actions'=>array('delete'),
+				'roles'=>array('userDelete'=>$params),
+			),
+			array('allow',
+				'actions'=>array('update'),
+				'roles'=>array('userUpdate'=>$params),
+			),
+			array('allow',
+				'actions'=>array('admin'),
+				'roles'=>array('userAdmin'=>$params),
+			),
+
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
 		);
 	}
 
-	
-
-	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionProfile($id)
+	public function actionProfile($name)
 	{
-		if (Yii::app()->user->id===$id) {
+		if ($this->id_user->store->unique_identifier != $_GET['tag']) {
+			throw new CHttpException(404, 'Invalid page');
+		}
+		if (Yii::app()->user->id===$this->id_user->id) {
 			$this->render('profile',array(
-				'model'=>$this->loadModel($id),
+				'model'=>$this->id_user,
 			));
 		}
 		else{
 			$this->render('view',array(
-				'model'=>$this->loadModel($id),
+				'model'=>$this->id_user,
 			));
 		}
+		Yii::model()->app->end();
 	}
 
 	public function actionValidate($id, $code)
 	{
 		Yii::app()->user->logout();
-		$user = User::model()->findByPk($id);
+		$user = $this->id_user;
 
 		if ( ($user->validation_code === $code) ) {
 			$user->status = 1;
@@ -106,12 +104,8 @@ class UserController extends Controller
 	{
 		
 		$this->layout = "clearcolumn";
-		if (!Yii::app()->user->isGuest) {
-			$this->redirect(array('store/view', 'tag'=>$tag));
-		}
 
 		$model=new User;
-		$model->school_id = $this->_store->id;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -125,7 +119,7 @@ class UserController extends Controller
 			$model->is_admin = 0;
 			$model->is_active = 1;
 			$model->validation_code = md5('anthony' . $model->password . $model->email);
-			$model->school_id = $this->_store->id;
+			$model->school_id = $this->store->id;
 
 			if($model->save()){
 				$model->password = crypt($model->password, '$2a$10$anthony.cabshahdasswor$');
@@ -171,31 +165,40 @@ class UserController extends Controller
 
 	public function actionUpdate($id, $tag)
 	{
-		$model=$this->loadModel($id);
-
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['User']))
 		{
-			$model->attributes=$_POST['User'];
-			if($model->save()){
-				$this->redirect(array('profile','id'=>$model->id, 'tag'=>$tag));
+			$this->id_user->attributes=$_POST['User'];
+			$password = $this->id_user->password;
+			if($this->id_user->save()){
+				$this->id_user->password = crypt($this->id_user->password, '$2a$10$anthony.cabshahdasswor$');
+				if($this->id_user->update('password')){
+					if ($this->id_user->id==Yii::app()->user->id){
+						$useri = new UserIdentity($this->id_user->email, $password);
+						if ($useri->authenticate()) {
+							Yii::app()->user->login($useri,2592000);
+						}
+					}
+
+					$this->redirect(array('profile','name'=>$this->id_user->username, 'tag'=>$tag));
+				}
 			}
 		}
 
 		$this->render('update',array(
-			'model'=>$model,
+			'model'=>$this->id_user,
 		));
 	}
 
 	
-	public function actionDelete($tag)
+	public function actionDelete($id, $tag)
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			$this->id_user->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
@@ -205,26 +208,20 @@ class UserController extends Controller
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
-	/**
-	 * Lists all models.
-	 */
 	public function actionIndex($tag)
 	{	
 		$dataProvider=new CActiveDataProvider('User', array(
-			'criteria'=>array('condition' => 'school_id='. $this->_store->id),
+			'criteria'=>array('condition' => 'school_id='. $this->store->id),
 		));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
 	}
 
-	/**
-	 * Manages all models.
-	 */
 	public function actionAdmin($tag)
 	{
 		$model=new User('search');
-		$model->unsetAttributes();  // clear any default values
+		$model->unsetAttributes(); 
 		if(isset($_GET['User']))
 			$model->attributes=$_GET['User'];
 
@@ -232,24 +229,6 @@ class UserController extends Controller
 			'model'=>$model,
 		));
 	}
-
-	/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer the ID of the model to be loaded
-	 */
-	public function loadModel($id)
-	{
-		$model=User::model()->findByPk($id);
-		if($model===null or $model->school_id!==$this->_store->id )
-			throw new CHttpException(404,'The requested page does not exist.');
-		return $model;
-	}
-
-	/**
-	 * Performs the AJAX validation.
-	 * @param CModel the model to be validated
-	 */
 	protected function performAjaxValidation($model)
 	{
 		if(isset($_POST['ajax']) && $_POST['ajax']==='user-form')
@@ -259,18 +238,42 @@ class UserController extends Controller
 		}
 	}
 
+	public function loadModel($id, $withstore=false)
+	{
+		if ($withstore) {
+			$model=User::model()->with("store")->findByPk($id);
+		}
+		else{
+			$model=User::model()->findByPk($id);
+		}
+		
+		if($model===null )
+			throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
+	}
+
+
+	public function loadByName($name)
+	{
+		$model=User::model()->with("store")->findByAttributes(array('username'=>$name));
+
+		if( $model===null )
+			throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
+	}
+
 	protected function loadstore($tag)
 	{
-		if($this->_store===null)
+		if($this->store===null)
 		{
-			$this->_store = Store::model()->findByAttributes(array('unique_identifier'=>$tag));
+			$this->store = Store::model()->findByAttributes(array('unique_identifier'=>$tag));
 		}
 
-		if($this->_store===null)
+		if($this->store===null)
 		{
 			throw new CHttpException(404,'The requested STORE does not exist.');
 		}
-		return $this->_store;
+		return $this->store;
 
 	}
 
@@ -283,28 +286,34 @@ class UserController extends Controller
 
 		$filterChain->run();
 	}
-	public function filterAdmin($filterChain)
+	public function filterLoadUser($filterChain)
 	{
-		if (!Yii::app()->user->isGuest) {
-			$this->loadstore($_GET['tag']);
-			$user = User::model()->with('store')->findByPk(Yii::app()->user->id);
-			if ( $user->is_admin and $user->store->id === $this->_store->id) {
-				$filterChain->run();
-				Yii::app()->end();
-			}
-		}
-		throw new CHttpException(403,'Invalid Request');
+		if(!Yii::app()->user->isGuest)
+			$this->model = $this->loadModel(Yii::app()->user->id, true);
+		else
+			$this->redirect($this->createUrl('site/login'));
+
+		$filterChain->run();
 	}
-	public function filterMember($filterChain)
+	
+	public function filterLoadIdUser($filterChain)
 	{
-		if (!Yii::app()->user->isGuest) {
-			$this->loadstore($_GET['tag']);
-			$user = User::model()->with('store')->findByPk(Yii::app()->user->id);
-			if ( $user->store->id === $this->_store->id) {
-				$filterChain->run();
-				Yii::app()->end();
-			}
+		if(!Yii::app()->user->isGuest){
+			if (isset($_GET['id'])) 
+				$this->id_user = $this->loadModel($_GET['id'], true);
+			
+			elseif (isset($_GET['name'])) 
+				$this->id_user = $this->loadByName($_GET['name'], true);
+
+			else
+				throw new CHttpException(403,'Specify the user');
+			
+			$filterChain->run();
 		}
-		throw new CHttpException(403,'Invalid Request');
+		else
+			$this->redirect($this->createUrl('site/login'));
+
+		$filterChain->run();
 	}
+
 }

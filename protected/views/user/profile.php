@@ -8,15 +8,13 @@
 )); ?>
 
 
-<h1>View User #<?php echo $model->id; ?></h1>
+<h1>View <?php echo $model->username; ?>'s Profile</h1>
 
 <?php $this->widget('bootstrap.widgets.TbDetailView',array(
         'data'=>$model,
         'attributes'=>array(
                 'id',
                 'email',
-                'password',
-                'status',
                 'validation_code',
                 'create_time',
                 'update_time',

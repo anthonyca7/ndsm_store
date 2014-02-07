@@ -92,7 +92,7 @@ class m140204_040238_add_data_to_rbac extends CDbMigration
 
 
 		//StoreMember
-		$bizRule='return Yii::app()->user->id==$params["user"]->id and $params["store"]->id==$user->store->id;';
+		$bizRule='return Yii::app()->user->id===$params["id_user"]->id and $params["user"]->store->id===$params["store"]->id;';
         $ownAccountOperations=$authManager->createTask('ownAccountOperations','user account operations',$bizRule);
         $ownAccountOperations->addChild("userDelete");
 		$ownAccountOperations->addChild("userUpdate");
@@ -104,9 +104,8 @@ class m140204_040238_add_data_to_rbac extends CDbMigration
 		$storeMember->addChild("itemReserve");
 
 		//storeAdministrator
-		$bizRule='return $params["user"]->is_admin==1 and $params["store"]->id==$user->store->id;';
+		$bizRule='return $params["user"]->is_admin==1 and $params["store"]->id==$params["user"]->store->id;';
         $manageOwnStore=$authManager->createTask('manageOwnStore','manage store operations',$bizRule);
-        $manageOwnStore->addChild("userAdmin");
         $manageOwnStore->addChild("itemCreate");
         $manageOwnStore->addChild("itemUpdate");
 		$manageOwnStore->addChild("itemDelete");
@@ -116,9 +115,18 @@ class m140204_040238_add_data_to_rbac extends CDbMigration
 		$manageOwnStore->addChild("storeUpdate");
 		$manageOwnStore->addChild("storeMakeAdmin");
 		$manageOwnStore->addChild("userIndex");
+		$manageOwnStore->addChild("userAdmin");
+
+		$bizRule='return $params["user"]->is_admin==1 and $params["store"]->id==$params["id_user"]->store->id and $params["store"]->id==$params["user"]->store->id;';
+		$manageStoreUsers=$authManager->createTask('manageStoreUsers','manage store users',$bizRule);
+        $manageStoreUsers->addChild("userUpdate");
+        $manageStoreUsers->addChild("userDelete");
+        $manageStoreUsers->addChild("reservationDelete");
+		$manageStoreUsers->addChild("itemUpdateReservation");
 
 		$storeAdmin=$authManager->createRole("storeAdmin");
 		$storeAdmin->addChild("manageOwnStore");
+		$storeAdmin->addChild("manageStoreUsers");
 		$storeAdmin->addChild("storeMember");
 
 	}

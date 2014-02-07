@@ -58,7 +58,7 @@ return array(
 				'<tag:\w+>' => 'store/view',
 				'update/<tag:\w+>' => 'store/update',
 				'<tag:\w+>/register' => 'user/register',
-				'<tag:\w+>/profile/<id:\d+>' => 'user/profile',
+				'<tag:\w+>/profile/<name:\w+>' => 'user/profile',
 				'<tag:\w+>/reserve/<id:\d+>' => 'item/reserve',
 				'<tag:\w+>/<controller:user>/<id:\d+>/<code:\w+>'=>'<controller>/validate',
 				'<tag:\w+>/updatereservation/<id:\d+>' => 'item/updatereservation',

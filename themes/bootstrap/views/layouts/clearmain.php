@@ -41,8 +41,15 @@
     }
     else{
         $user = User::model()->with('store')->findByPk(Yii::app()->user->id);
-        $brand_tag = $user->store->name;
-        $brand_url = Yii::app()->createAbsoluteUrl('store/view', array('tag'=>$user->store->unique_identifier) );
+        if (isset($user)) {
+            $brand_tag = $user->store->name;
+            $brand_url = Yii::app()->createAbsoluteUrl('store/view', array('tag'=>$user->store->unique_identifier) );
+            
+        }
+        else{
+            $brand_tag = CHtml::encode(Yii::app()->name);
+            $brand_url = Yii::app()->createAbsoluteUrl('');
+        }
     }
 
     //Yii::app()->urlManager->parseUrl(Yii::app()->request) ;

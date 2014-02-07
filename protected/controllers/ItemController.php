@@ -5,6 +5,7 @@ class ItemController extends Controller
 	public $layout='//layouts/column2';
 	private $store = null;
 	private $model = null;
+	private $user = null;
 
 	public function filters()
 	{
@@ -193,7 +194,7 @@ class ItemController extends Controller
 				}
 
 				$model->image->saveAs(Yii::app()->basePath . "/../images/" . $model->id . $filename);
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('item/view','name'=>$model->name));
 			}
 		}
 
